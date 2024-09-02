@@ -194,7 +194,7 @@
 
 								<!-- Modal Body -->
 								<div class="modal-body">
-									<form:form action="submitformforvehicle" method="POST" modelAttribute="UserVehicleModel"  modelAttribute="VisitVehicleModel">
+									<form:form action="submitformforvehicle" method="POST" modelAttribute="modalform">
 										
 										<input name="UserIDCustomer" type="hidden" value="${Userid }"/>
 										
@@ -220,7 +220,7 @@
 										<div class="mb-3">
 											<label for="inputVehicleKM7" class="form-label">Vehicle
 												Running In KM</label> <input type="number" class="form-control"
-												id="inputVehicleKM7" name="vehiclerun"
+												id="inputVehicleKM7" name="visitVrun"
 												placeholder="Enter Running here"
 												value="${visitVrun}">
 										</div>
@@ -228,18 +228,18 @@
 										<div class="mb-3">
 											<label for="inputVehicleDate8" class="form-label">Vehicle
 												Entry Date</label> <input type="date" class="form-control"
-												id="inputVehicleDate8" name="vehicledate"
+												id="inputVehicleDate8" name="visitVentryDate"
 												value="${visitVentryDate}">
 										</div>
 
 										<div class="mb-3">
 											<label for="selectTechnician" class="form-label">Select
 												Technician</label> <select class="form-control"
-												id="selectTechnician9" name="technicianId">
+												id="selectTechnician" name="tid">
 												<option value="" disabled selected>Select a
 													technician</option>
 												<c:forEach var="technician" items="${techies}">
-													<option value="${technician.tid}">${technician.tname}</option>
+													<option  value="${technician.tid}">${technician.tname}</option>
 												</c:forEach>
 											</select>
 										</div>

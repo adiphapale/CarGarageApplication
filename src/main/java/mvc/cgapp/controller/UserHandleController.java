@@ -15,6 +15,7 @@ import mvc.cgapp.model.CommonVDetailsModel;
 import mvc.cgapp.model.TechniciansModel;
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.UserVehicleModel;
+import mvc.cgapp.model.VehicleFormModel;
 import mvc.cgapp.model.VisitVehicleModel;
 import mvc.cgapp.service.TechniciansService;
 import mvc.cgapp.service.UserService;
@@ -94,9 +95,8 @@ public class UserHandleController {
 	
 	
 	@RequestMapping("/addnewcustomer")
-	public String addNewCustomerPage(@ModelAttribute("CustDetails") UserDetailsModel userDetailsModel,
-			@ModelAttribute("UserVehicleModel") UserVehicleModel uservehicleModel,
-			@ModelAttribute("VisitVehicleModel") VisitVehicleModel visitVehicleModel,Model model) {
+	public String addNewCustomerPage(@ModelAttribute("CustDetails") UserDetailsModel userDetailsModel,@ModelAttribute("modalform") VehicleFormModel vehicleFormModel,Model model) {
+		
 		List<TechniciansModel> getAllTechie=techniciansService.getAllTechnicians();
 		model.addAttribute("techies",getAllTechie);
 

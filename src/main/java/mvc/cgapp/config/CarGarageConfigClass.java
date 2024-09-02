@@ -38,13 +38,13 @@ public class CarGarageConfigClass implements WebMvcConfigurer {
 
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setUsername("root");
-		dataSource.setPassword("Crwatkar4667");
+		dataSource.setPassword("Reddy9090@");
 		dataSource.setUrl("jdbc:mysql://localhost:3306/cg_app?useSSL=false&allowPublicKeyRetrieval=true");
 		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
 		return dataSource;
 	}
-	
+					
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/URLToReachResourceFolder/**").addResourceLocations("/resources/");

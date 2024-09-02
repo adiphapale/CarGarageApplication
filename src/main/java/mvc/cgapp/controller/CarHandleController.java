@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import mvc.cgapp.model.CommonVDetailsModel;
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.UserVehicleModel;
+import mvc.cgapp.model.VehicleFormModel;
 import mvc.cgapp.model.VisitVehicleModel;
 import mvc.cgapp.service.UserService;
 import mvc.cgapp.service.UserVehicleService;
@@ -32,15 +33,15 @@ public class CarHandleController {
 	}
 	
 	@PostMapping("/submitformforvehicle")
-	public String processFormForCar(UserVehicleModel uservehicleModel,VisitVehicleModel visitVehicleModel,@RequestParam("UserIDCustomer") String userid) {
+	public String processFormForCar(VehicleFormModel vehicleFormModel,@RequestParam("UserIDCustomer") String userid) {
 
 		int userID=0;
 		try{
 			userID=Integer.parseInt(userid);
 		}catch(Exception ex) {}
-		System.out.println("User id for car"+userID);
-		System.out.println(uservehicleModel);
-		System.out.println(visitVehicleModel);
+		
+		System.out.println(vehicleFormModel);
+
 		return "CarDetails";
 	}
 	
