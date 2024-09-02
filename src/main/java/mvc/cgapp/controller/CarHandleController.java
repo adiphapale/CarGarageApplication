@@ -39,7 +39,7 @@ public class CarHandleController {
 		try{
 			userID=Integer.parseInt(userid);
 		}catch(Exception ex) {}
-		
+		System.out.println("details got it");
 		System.out.println(vehicleFormModel);
 
 		return "CarDetails";
