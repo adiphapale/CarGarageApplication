@@ -5,7 +5,8 @@ public class UserVehicleModel {
 	private int vehicleid;
 	private String vehiclemodel;
 	private String vehiclenplate;
-	private int userid;
+	private Long userid;
+	
 	public int getVehicleid() {
 		return vehicleid;
 	}
@@ -24,10 +25,10 @@ public class UserVehicleModel {
 	public void setVehiclenplate(String vehiclenplate) {
 		this.vehiclenplate = vehiclenplate;
 	}
-	public int getUserid() {
+	public Long getUserid() {
 		return userid;
 	}
-	public void setUserid(int userid) {
+	public void setUserid(Long userid) {
 		this.userid = userid;
 	}
 	@Override

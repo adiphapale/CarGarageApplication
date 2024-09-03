@@ -93,17 +93,20 @@
 		<div class="menubar">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<a href="newcustvehicle"
+				<!-- <a href="newcustvehicle"
 					style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-messages-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-messages"
 						type="button" role="tab" aria-controls="v-pills-messages"
-						aria-selected="false">Add New Customer/Vehicle</button></a>
+						aria-selected="false">Add New Customer/Vehicle</button></a> -->
 
-				<button class="nav-link active m-2 " id="v-pills-home-tab"
+
+
+				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button class="nav-link active m-2 " id="v-pills-home-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
 					role="tab" aria-controls="v-pills-home" aria-selected="true">Customer
-					Section</button>
+					Section</button></a>
+					
 				<a href="cardetails" style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
@@ -119,6 +122,11 @@
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
 					aria-selected="false">Spare Parts Section</button>
+					
+				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button class="nav-link m-2" id="v-pills-settings-tab"
+					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+					type="button" role="tab" aria-controls="v-pills-settings"
+					aria-selected="false">Technician Section</button></a>
 			</div>
 
 			<div class="tab-content" id="v-pills-tabContent">
@@ -135,7 +143,7 @@
 							</a>
 						</div>
 						<form:form class="row g-3" action="processform" method="POST"
-							modelattribute="userDetails" modelAttribute="userinfo">
+							modelAttribute="userDetails">
 
 							<h4>Search Customer Details</h4>
 

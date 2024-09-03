@@ -17,7 +17,7 @@ public class UserVehicleRowMapper implements RowMapper<UserVehicleModel>{
 		getit.setVehicleid(rs.getInt("vid")); // Ensure column names match
 		getit.setVehiclemodel(rs.getString("vmodel"));
 		getit.setVehiclenplate(rs.getString("vnplate"));
-		getit.setUserid(rs.getInt("uid"));
+		getit.setUserid(rs.getLong("uid"));
 		return getit;
 	}
 

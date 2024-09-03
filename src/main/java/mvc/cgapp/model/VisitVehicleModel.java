@@ -5,6 +5,13 @@ public class VisitVehicleModel {
 	private int visitVid;
 	private long visitVrun;
 	private String visitVentryDate;
+	private int vid;
+	public int getVid() {
+		return vid;
+	}
+	public void setVid(int vid) {
+		this.vid = vid;
+	}
 	private int tid;
 	public int getVisitVid() {
 		return visitVid;
@@ -33,7 +40,8 @@ public class VisitVehicleModel {
 	@Override
 	public String toString() {
 		return "VisitVehicleModel [visitVid=" + visitVid + ", visitVrun=" + visitVrun + ", visitVentryDate="
-				+ visitVentryDate + ", tid=" + tid + "]";
+				+ visitVentryDate + ", vid=" + vid + ", tid=" + tid + "]";
 	}
+
 	
 }

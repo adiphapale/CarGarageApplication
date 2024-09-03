@@ -34,4 +34,21 @@ public class TechniciansRepoImpl implements TechniciansRepo{
 		});
 		return getAllTechie;
 	}
+
+	@Override
+	public List<TechniciansModel> getTechniciansByName(String tname) {
+		String sql="select *from TechnicianDetails_1 where tname like ?";
+		String pattern="%"+tname+"%";
+		List<TechniciansModel> getSelectedTechie=jdbcTemplate.query(sql, new RowMapper<TechniciansModel>() {
+
+			@Override
+			public TechniciansModel mapRow(ResultSet rs, int rowNum) throws SQLException {
+				TechniciansModel getit=new TechniciansModel();
+				getit.setTid(rs.getInt(1));
+				getit.setTname(rs.getString(2));
+				return getit;
+			}
+		},pattern);
+		return getSelectedTechie;
+	}
 }
