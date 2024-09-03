@@ -70,20 +70,20 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetailsModel getUpdatedUser(UserDetailsModel userDetailsModel) {
-		
+
 		return userRepo.getUpdatedUser(userDetailsModel);
 	}
 
 	@Override
 	public boolean addNewCustomer(UserDetailsModel userDetailsModel) {
-		
+
 		return userRepo.addNewCustomer(userDetailsModel);
 	}
 
 	@Override
 	public UserDetailsModel getSelectedUserByEmail(String email) {
-		
+
 		return userRepo.getSelectedUserByEmail(email);
 	}
-	
+
 }

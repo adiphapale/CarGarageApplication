@@ -20,4 +20,10 @@ public class TechniciansServiceImpl implements TechniciansService{
 		return techniciansRepo.getAllTechnicians();
 	}
 
+	@Override
+	public List<TechniciansModel> getSelectedTechies(String tname) {
+		
+		return techniciansRepo.getTechniciansByName(tname);
+	}
+
 }

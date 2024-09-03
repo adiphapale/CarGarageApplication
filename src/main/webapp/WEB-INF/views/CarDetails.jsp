@@ -88,30 +88,30 @@
 		<div class="menubar">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<a href="newcustvehicle" style="margin: 0 auto; text-decoration: none;"><button
+				<!-- <a href="newcustvehicle"
+					style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-messages-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-messages"
 						type="button" role="tab" aria-controls="v-pills-messages"
-						aria-selected="false">Add New Customer/Vehicle</button></a> 
-						
-						<a
-					href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
+						aria-selected="false">Add New Customer/Vehicle</button></a> -->
+
+				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
 						class="nav-link  m-2 " id="v-pills-home-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-home" type="button" role="tab"
 						aria-controls="v-pills-home" aria-selected="true">Customer
 						Section</button></a>
-				
+
 				<button class="nav-link active m-2" id="v-pills-profile-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 					type="button" role="tab" aria-controls="v-pills-profile"
 					aria-selected="false">Car Section</button>
 
-				
+
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
 					aria-selected="false">Servicing Section</button>
-					
+
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
@@ -127,52 +127,68 @@
 					role="tabpanel" aria-labelledby=v-pills-profile-tab>
 
 					<div class="searchform" style="width: 100%;">
-	    <form:form class="row g-3" action="processformforcar" method="POST" 
-	        modelattribute="carDetails" modelAttribute="carinfo">
-	        
-	        <!-- Add Car Details Button on a new line -->
-	        <div class="col-12" style="text-align: center; margin-bottom: 15px;">
-	            <a href="adduservehicle">
-	                <button type="button" class="btn btn-success"style="width: 50%">Add New Car Details</button>
-	            </a>
-	        </div>
-	
-	        <h4 style="margin-bottom: 15px;">Search Car Details</h4>
-	
-	        <div class="namecontact" style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-	            <div class="col-md-6" style="flex-basis: 30%; margin-bottom: 15px;">
-	                <label for="inputName4" class="form-label">Vehicle Model</label>
-	                <input type="text" class="form-control" id="inputName4" name="vehiclemodel" 
-	                    placeholder="Enter Model here" value="${carinfo.vehiclemodel}">
-	            </div>
-	
-	            <div class="col-md-6" style="flex-basis: 30%; margin-bottom: 15px;">
-	                <label for="inputContact4" class="form-label">Vehicle Number Plate</label>
-	                <input type="text" class="form-control" id="inputContact4" name="vehiclenplate" 
-	                    placeholder="Enter Number here" value="${carinfo.vehiclenplate}">
-	                <span id="validationMessage" style="color: blue; justify-content: center;"></span>
-	            </div>
-	
-	            <div class="col-md-6" style="flex-basis: 30%; margin-bottom: 15px;">
-	                <label for="inputEmail4" class="form-label">Vehicle Running In KM</label>
-	                <input type="number" class="form-control" id="inputEmail4" name="vehiclerun" 
-	                    placeholder="Enter Running here" value="${carinfo.vehiclerun}">
-	                <span id="emailValidationMessage" style="color: blue; justify-content: center;"></span>
-	            </div>
-	        </div>
-	
-	        <div class="col-12" style="margin-bottom: 15px;flex-basis: 31%;">
-	            <label for="inputAddress" class="form-label">Vehicle Entry Date</label>
-	            <input type="date" class="form-control" id="inputAddress" name="vehicledate" 
-	                placeholder="Enter vehicle Date here" value="${carinfo.vehicledate}">
-	        </div>
-	
-	        <!-- Search Button on a new line -->
-	        <div class="col-12" style="text-align: center; margin-top: 15px;">
-	            <button type="submit" class="btn btn-success"style="width:15%;">Search</button>
-	        </div>
-	    </form:form>
-	</div>
+						<form:form class="row g-3" action="processformforcar"
+							method="POST" modelattribute="carDetails"
+							modelAttribute="carinfo">
+
+							<!-- Add Car Details Button on a new line -->
+							<div class="col-12"
+								style="text-align: center; margin-bottom: 15px;">
+								<a href="adduservehicle">
+									<button type="button" class="btn btn-success"
+										style="width: 50%">Add New Car Details</button>
+								</a>
+							</div>
+
+							<h4 style="margin-bottom: 15px;">Search Car Details</h4>
+
+							<div class="namecontact"
+								style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+								<div class="col-md-6"
+									style="flex-basis: 30%; margin-bottom: 15px;">
+									<label for="inputName4" class="form-label">Vehicle
+										Model</label> <input type="text" class="form-control" id="inputName4"
+										name="vehiclemodel" placeholder="Enter Model here"
+										value="${carinfo.vehiclemodel}">
+								</div>
+
+								<div class="col-md-6"
+									style="flex-basis: 30%; margin-bottom: 15px;">
+									<label for="inputContact4" class="form-label">Vehicle
+										Number Plate</label> <input type="text" class="form-control"
+										id="inputContact4" name="vehiclenplate"
+										placeholder="Enter Number here"
+										value="${carinfo.vehiclenplate}"> <span
+										id="validationMessage"
+										style="color: blue; justify-content: center;"></span>
+								</div>
+
+								<div class="col-md-6"
+									style="flex-basis: 30%; margin-bottom: 15px;">
+									<label for="inputEmail4" class="form-label">Vehicle
+										Running In KM</label> <input type="number" class="form-control"
+										id="inputEmail4" name="vehiclerun"
+										placeholder="Enter Running here" value="${carinfo.vehiclerun}">
+									<span id="emailValidationMessage"
+										style="color: blue; justify-content: center;"></span>
+								</div>
+							</div>
+
+							<div class="col-12" style="margin-bottom: 15px; flex-basis: 31%;">
+								<label for="inputAddress" class="form-label">Vehicle
+									Entry Date</label> <input type="date" class="form-control"
+									id="inputAddress" name="vehicledate"
+									placeholder="Enter vehicle Date here"
+									value="${carinfo.vehicledate}">
+							</div>
+
+							<!-- Search Button on a new line -->
+							<div class="col-12" style="text-align: center; margin-top: 15px;">
+								<button type="submit" class="btn btn-success"
+									style="width: 15%;">Search</button>
+							</div>
+						</form:form>
+					</div>
 
 
 					<div class="disptable" style="margin-top: 30px;">

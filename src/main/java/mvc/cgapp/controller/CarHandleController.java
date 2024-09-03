@@ -15,12 +15,15 @@ import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.UserVehicleModel;
 import mvc.cgapp.model.VehicleFormModel;
 import mvc.cgapp.model.VisitVehicleModel;
+import mvc.cgapp.service.CarHandleService;
 import mvc.cgapp.service.UserService;
 import mvc.cgapp.service.UserVehicleService;
 
 @Controller
 public class CarHandleController {
 
+	@Autowired
+	CarHandleService carHandleService;
 	
 	@Autowired
 	UserVehicleService userVehicleService;
@@ -35,13 +38,17 @@ public class CarHandleController {
 	@PostMapping("/submitformforvehicle")
 	public String processFormForCar(VehicleFormModel vehicleFormModel,@RequestParam("UserIDCustomer") String userid) {
 
-		int userID=0;
+		Long userID=null;
 		try{
-			userID=Integer.parseInt(userid);
+			userID=Long.parseLong(userid);
+			if(userID==0) {
+				userID=null;
+			}
+			
 		}catch(Exception ex) {}
 		System.out.println("details got it");
 		System.out.println(vehicleFormModel);
-
+		carHandleService.addVehicleDataProcess(vehicleFormModel, userID);
 		return "CarDetails";
 	}
 	

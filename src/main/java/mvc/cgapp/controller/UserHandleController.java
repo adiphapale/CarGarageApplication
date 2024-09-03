@@ -2,6 +2,7 @@ package mvc.cgapp.controller;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -117,6 +118,8 @@ public class UserHandleController {
 		else {
 			model.addAttribute("msg","data not added");
 		}
+		List<TechniciansModel> getAllTechie=techniciansService.getAllTechnicians();
+		model.addAttribute("techies",getAllTechie);
 	
 		return "addcustomerpage";
 	}
