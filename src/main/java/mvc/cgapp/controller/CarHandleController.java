@@ -127,7 +127,7 @@ public class CarHandleController {
 		
 		VehicleFormModel vehicleFormModel=userVehicleService.getSelectedCarByID(vvid);
 		UserDetailsModel selectedUser=userService.getSelectedUsersByVisitID(vvid);
-		
+		System.out.println("hiii");
 		model.addAttribute("customer",selectedUser);
 		model.addAttribute("carinfo",vehicleFormModel);
 		
