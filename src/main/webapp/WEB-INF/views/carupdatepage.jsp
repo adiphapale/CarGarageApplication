@@ -96,7 +96,7 @@
 						aria-selected="false">Add New Customer/Vehicle</button></a> -->
 
 				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
-						class="nav-link  m-2 " id="v-pills-home-tab" data-bs-toggle="pill"
+						class="nav-link m-2 " id="v-pills-home-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-home" type="button" role="tab"
 						aria-controls="v-pills-home" aria-selected="true">Customer
 						Section</button></a> <a href="cardetails"
@@ -123,114 +123,199 @@
 						aria-selected="false">Technician Section</button></a>
 			</div>
 
-
-
-
-
 			<div class="tab-content" id="v-pills-tabContent">
-				<div class="tab-pane fade show active" id="v-pills-profile"
-					role="tabpanel" aria-labelledby=v-pills-profile-tab>
+				<div class="tab-pane fade show active" id="v-pills-home"
+					role="tabpanel" aria-labelledby="v-pills-home-tab">
+					<div class="searchform">
+						<form:form class="row g-3" action="goingtoupdatecar" method="POST">
 
-					<div class="col-12"
-						style="text-align: center; margin-bottom: 15px;">
-						<a href="addnewvehicle">
-							<button type="button" class="btn btn-success" style="width: 50%">Add
-								New Car Details</button>
-						</a>
-					</div>
-
-					<div class="searchform" style="width: 100%;">
-						<form:form class="row g-3" action="searchcar"
-							method="POST" modelAttribute="carDetails">
-
-							<!-- Add Car Details Button on a new line -->
-
-
-							<h4 style="margin-bottom: 15px;">Search Car Details</h4>
+							<div class="btns" style="display: flex;">
+								<div class="col-12" style="flex-basis: 20%; margin-top: 10px;">
+									<button type="submit" class="btn btn-success">Save</button>
+								</div>
+								<div>
+									<span style="color: green;">${msg}</span>
+								</div>
+							</div>
 
 							<div class="namecontact"
-								style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-								<div class="col-md-6"
-									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputName4" class="form-label">Vehicle
-										Model</label> <input type="text" class="form-control" id="inputName4"
-										name="vehiclemodel" placeholder="Enter Model here"
-										value="${carinfo.vehiclemodel}">
+								style="display: flex; justify-content: space-between;">
+								<!-- Hidden Input for User ID -->
+								<%-- <input type="hidden" name="userid" value="${VehicleDetails.vid}"> --%>
+
+								<!-- Vehicle Model -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehicleModel" class="form-label">Vehicle
+										Model</label> <input type="text" class="form-control"
+										id="inputVehicleModel" name="vehiclemodel"
+										placeholder="Enter Vehicle Model here"
+										value="${carinfo.vehiclemodel }">
 								</div>
 
-								<div class="col-md-6"
-									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputContact4" class="form-label">Vehicle
+								<!-- Vehicle Number Plate -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehiclePlate" class="form-label">Vehicle
 										Number Plate</label> <input type="text" class="form-control"
-										id="inputContact4" name="vehiclenplate"
-										placeholder="Enter Number here"
-										value="${carinfo.vehiclenplate}"> <span
-										id="validationMessage"
+										id="inputVehiclePlate" name="vehiclenplate"
+										placeholder="Enter Vehicle Number Plate"
+										value="${carinfo.vehiclenplate }" required="required">
+									<span id="validationMessage"
 										style="color: blue; justify-content: center;"></span>
 								</div>
 
-								<div class="col-md-6"
-									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputAddress" class="form-label">Vehicle
-										Entry Date</label> <input type="date" class="form-control"
-										id="inputAddress" name="visitVentryDate"
-										placeholder="Enter vehicle Date here"
-										value="${carinfo.visitVentryDate}">
+								<!-- Vehicle Runs in KM -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehicleRun" class="form-label">Vehicle
+										Runs In KM</label> <input type="text" class="form-control"
+										id="inputVehicleRun" name="visitVrun"
+										placeholder="Enter Vehicle Running"
+										value="${carinfo.visitVrun }"> <span
+										id="validationMessage"
+										style="color: blue; justify-content: center;"></span>
 								</div>
 							</div>
 
-							<div class="col-12" style="margin-bottom: 15px; flex-basis: 31%;">
-								<label for="selectTechnician" class="form-label">Select
-									Technician</label> <select class="form-control" id="selectTechnician"
-									name="tname">
-									<option value="" disabled selected>Select a technician</option>
-									<c:forEach var="technician" items="${techies}">
-										<option value="${technician.tname}">${technician.tname}</option>
-									</c:forEach>
-								</select>
+							<div class="twoDiv" style="display: flex; gap: 50px;">
+								<!-- Vehicle Entry Date -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehicleEntryDate" class="form-label">Vehicle
+										Entry Date</label> <input type="date" class="form-control"
+										id="inputVehicleEntryDate" name="visitVentryDate"
+										placeholder="Enter Vehicle Entry Date"
+										value="${carinfo.visitVentryDate }" required="required">
+									<span id="validationMessage"
+										style="color: blue; justify-content: center;"></span>
+								</div>
 
+								<!-- Select Technician -->
+								<%-- <div class="mb-3" style="flex-basis: 30%;">
+									<label for="selectTechnician" class="form-label">Select
+										Technician</label> <select class="form-control" id="selectTechnician"
+										name="tid" required="required">
+										<option value="" disabled selected>Select a
+											technician</option>
+										<c:forEach var="technician" items="${techies}">
+											<option value="${technician.tid}">${technician.tname}</option>
+										</c:forEach>
+									</select>
+								</div> --%>
 							</div>
 
-							<!-- Search Button on a new line -->
-							<div class="col-12" style="text-align: center; margin-top: 15px;">
-								<button type="submit" class="btn btn-success"
-									style="width: 15%;">Search</button>
-							</div>
 						</form:form>
 					</div>
 
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-success"
+						data-bs-toggle="modal" data-bs-target="#userModal"
+						style="margin-top: 20px;">Add User Details</button>
+
+					<!-- The Modal -->
+					<div class="modal fade" id="userModal" tabindex="-1"
+						aria-labelledby="userModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<!-- Modal Header -->
+								<div class="modal-header">
+									<h5 class="modal-title" id="userModalLabel">User Details</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+
+								<!-- Modal Body -->
+								<div class="modal-body">
+									<!-- Form -->
+									<form:form class="row g-3" action="goingtoupdate" method="POST">
+										<!-- User ID (Hidden) -->
+										<input type="hidden" name="userid" value="${userinfo.userid }">
+
+										<!-- Name Field -->
+										<div class="col-12">
+											<label for="inputName4" class="form-label">Name</label> <input
+												type="text" class="form-control" id="inputName4"
+												name="username" placeholder="Enter Name here"
+												value="${userinfo.username}">
+										</div>
+
+										<!-- Contact Field -->
+										<div class="col-12">
+											<label for="inputContact" class="form-label">Contact</label>
+											<input type="text" class="form-control" id="inputContact4"
+												name="usercontact" placeholder="Enter Contact here"
+												value="${userinfo.usercontact}"> <span
+												id="validationMessage" style="color: blue;"></span>
+										</div>
+
+										<!-- Email Field -->
+										<div class="col-12">
+											<label for="inputEmail4" class="form-label">Email</label> <input
+												type="email" class="form-control" id="inputEmail4"
+												name="useremail" placeholder="Enter Email here"
+												value="${userinfo.useremail}"> <span
+												id="emailValidationMessage" style="color: blue;"></span>
+										</div>
+
+										<!-- Address Field -->
+										<div class="col-12">
+											<label for="inputAddress" class="form-label">Address</label>
+											<input type="text" class="form-control" id="inputAddress"
+												name="useraddress" placeholder="Enter Address here"
+												value="${userinfo.useraddress}">
+										</div>
+
+										<!-- Success Message and Buttons -->
+										<div class="modal-footer"
+											style="display: flex; justify-content: space-between; align-items: center;">
+											<!-- Success Message -->
+											<span style="color: green;">${msg}</span>
+
+											<!-- Buttons -->
+											<div>
+												<button type="button" class="btn btn-secondary"
+													data-bs-dismiss="modal">Close</button>
+												<button type="submit" class="btn btn-success">Save</button>
+											</div>
+										</div>
+									</form:form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<h4 style="margin: 20px 0;">Vehicle Details</h4>
 
 					<div class="disptable" style="margin-top: 30px;">
 						<table class="table" style="border: 1px solid black;">
 							<thead>
 								<tr class=" table-success">
 									<th scope="col">Sr no.</th>
-									<th scope="col">Vehicle Model</th>
-									<th scope="col">Registered Vehicle Number</th>
-									<th scope="col">Vehicle Running in KMs</th>
-									<th scope="col">Entry Date</th>
-									<th scope="col">Technician</th>
+									<th scope="col">Name</th>
+									<th scope="col">Contact</th>
+									<th scope="col">Email</th>
+									<th scope="col">Address</th>
 								</tr>
 							</thead>
 							<tbody>
-								<%
-								int count = 0;
-								%>
-								<c:forEach var="vehicle" items="${vehicles }">
+								<c:if test="${not empty customer }">
 									<tr>
-										<td><a href="updateforcar?VisitID=${vehicle.vehicleid}"
-											type="button" class="btn btn-info btn-sm">
+										<%-- <td><button type="button" data-bs-toggle="modal"
+												data-bs-target="#modal${vehicle.vehicleid}">
 
-												<%=++count%></a></td>
-										<td>${vehicle.vehiclemodel }</td>
-										<td>${vehicle.vehiclenplate }</td>
-										<td>${vehicle.visitVrun }</td>
-										<td>${vehicle.visitVentryDate }</td>
-										<td>${vehicle.tname}</td>
+												<%=++count%></button></td> --%>
+
+										<td><a href="updateSave?userID=${customer.userid }"
+											type="button" class="btn btn-info btn-sm">${customer.userid }</a></td>
+
+										<td>${customer.username }</td>
+										<td>${customer.usercontact }</td>
+										<td>${customer.useremail }</td>
+										<td>${customer.useraddress }</td>
+										
 									</tr>
 
 									<!-- Modal -->
-									<%-- <div class="modal fade" id="modal${vehicle.vehicleid}"
+									<div class="modal fade" id="modal${vehicle.vehicleid}"
 										tabindex="-1" aria-labelled by="exampleModalLabel"
 										aria-hidden="true">
 										<div class="modal-dialog">
@@ -252,9 +337,9 @@
 												</div>
 											</div>
 										</div>
-									</div> --%>
+									</div>
 
-									<!--Delete Modal -->
+									<%-- <!--Delete Modal -->
 									<div class="modal fade" id="modaldelete${vehicle.vehicleid}"
 										tabindex="-1" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -275,11 +360,12 @@
 												</div>
 											</div>
 										</div>
-									</div>
-								</c:forEach>
+									</div> --%>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
+
 				</div>
 
 			</div>
@@ -290,8 +376,8 @@
 	</div>
 
 	<!-- Optional JavaScript; choose one of the two! -->
-	<!-- <script type="text/javascript"
-		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" /> -->
+	<script type="text/javascript"
+		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js"></script>
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

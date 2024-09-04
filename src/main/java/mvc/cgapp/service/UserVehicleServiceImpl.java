@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mvc.cgapp.model.UserVehicleModel;
+import mvc.cgapp.model.VehicleFormModel;
 import mvc.cgapp.repository.UserVehicleRepo;
 
 @Service
@@ -13,52 +14,78 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 
 	@Autowired
 	UserVehicleRepo userVehicleRepo;
-	
+
 	@Override
-	public List<UserVehicleModel> getVehiclesByUserID(int userid) {
-		
+	public List<VehicleFormModel> getVehiclesByUserID(int userid) {
+
 		return userVehicleRepo.getVehiclesByUserID(userid);
 	}
 
 	@Override
-	public List<UserVehicleModel> getAllCars() {
-		
+	public List<VehicleFormModel> getAllCars() {
+
 		return userVehicleRepo.getAllCars();
 	}
 
 	@Override
-	public List<UserVehicleModel> getSelectedCars(UserVehicleModel userVehicleModel) {
-		/*
-		 * if (!userVehicleModel.getVehiclemodel().isEmpty()) { if
-		 * (!userVehicleModel.getVehiclenplate().isEmpty()) { return
-		 * userVehicleRepo.getSelectedCarsByModelNumberPlate(userVehicleModel.
-		 * getVehiclemodel(), userVehicleModel.getVehiclenplate()); } if
-		 * (!(userVehicleModel.getVehiclerun()==null)) { return
-		 * userVehicleRepo.getSelectedCarsByModelKm(userVehicleModel.getVehiclemodel(),
-		 * userVehicleModel.getVehiclerun()); } if
-		 * (!userVehicleModel.getVehicledate().isEmpty()) { return
-		 * userVehicleRepo.getSelectedCarsByModelEntryDate(userVehicleModel.
-		 * getVehiclemodel(), userVehicleModel.getVehicledate()); } return
-		 * userVehicleRepo.getSelectedCarsByModel(userVehicleModel.getVehiclemodel());
-		 * 
-		 * } if (!userVehicleModel.getVehiclenplate().isEmpty()) { if
-		 * (!(userVehicleModel.getVehiclerun()==null)) { return
-		 * userVehicleRepo.getSelectedCarsByNumberPlateKm(userVehicleModel.
-		 * getVehiclenplate(), userVehicleModel.getVehiclerun()); } return
-		 * userVehicleRepo.getSelectedCarsByNumberPlate(userVehicleModel.
-		 * getVehiclenplate()); } if (!(userVehicleModel.getVehiclerun()==null)) {
-		 * return userVehicleRepo.getSelectedCarsByKm(userVehicleModel.getVehiclerun());
-		 * } if (!userVehicleModel.getVehicledate().isEmpty()) { return
-		 * userVehicleRepo.getSelectedCarsByEntryDate(userVehicleModel.getVehicledate())
-		 * ; }
-		 */
+	public List<VehicleFormModel> getSelectedCars(VehicleFormModel vehicleFormModel) {
+
+		if (!vehicleFormModel.getVehiclemodel().isEmpty()) {
+			
+			System.out.println("i am in midelll");
+			if (!vehicleFormModel.getVehiclenplate().isEmpty()) {
+				return userVehicleRepo.getSelectedCarsByModelNumberPlate(vehicleFormModel.getVehiclemodel(),
+						vehicleFormModel.getVehiclenplate());
+			}
+			if (!vehicleFormModel.getVisitVentryDate().isEmpty()) {
+				return userVehicleRepo.getSelectedCarsByModelEntryDate(vehicleFormModel.getVehiclemodel(),
+						vehicleFormModel.getVisitVentryDate());
+			}
+			if(!(vehicleFormModel.getTname()==null))
+			{
+				return userVehicleRepo.getSelectedCarsByModelTname(vehicleFormModel.getVehiclemodel(), vehicleFormModel.getTname());
+			}
+			return userVehicleRepo.getSelectedCarsByModel(vehicleFormModel.getVehiclemodel());
+
+		}
+		
+		
+		if (!vehicleFormModel.getVehiclenplate().isEmpty()) {
+			
+			if(!vehicleFormModel.getVisitVentryDate().isEmpty()) {
+				return userVehicleRepo.getSelectedCarsByNumberPlateEntryDate(vehicleFormModel.getVehiclenplate(), vehicleFormModel.getVisitVentryDate());
+			}
+			if(!(vehicleFormModel.getTname()==null)) {
+				return userVehicleRepo.getSelectedCarsByNumberPlateTname(vehicleFormModel.getVehiclenplate(), vehicleFormModel.getTname());
+			}
+			return userVehicleRepo.getSelectedCarsByNumberPlate(vehicleFormModel.getVehiclenplate());
+		}
+		
+		if (!vehicleFormModel.getVisitVentryDate().isEmpty()) {
+			
+			if(!(vehicleFormModel.getTname()==null)) {
+				return userVehicleRepo.getSelectedCarsByEntryDateTname(vehicleFormModel.getVisitVentryDate(), vehicleFormModel.getTname());
+			}
+			return userVehicleRepo.getSelectedCarsByEntryDate(vehicleFormModel.getVisitVentryDate());
+		}
+		
+		if(!(vehicleFormModel.getTname()==null)) {
+			return userVehicleRepo.getSelectedCarsByTname(vehicleFormModel.getTname());
+		}
+
 		return userVehicleRepo.getAllCars();
 	}
 
 	@Override
-	public UserVehicleModel getSelectedCarssByID(int vid) {
+	public VehicleFormModel getSelectedCarByID(int vvid) {
+
+		return userVehicleRepo.getSelectedCarByID(vvid);
+	}
+
+	@Override
+	public VehicleFormModel getSelectedCarByEntryDate(String vnDate) {
 		
-		return userVehicleRepo.getSelectedCarsByID(vid);
+		return userVehicleRepo.getSelectedCarByEntryDate(vnDate);
 	}
 
 }

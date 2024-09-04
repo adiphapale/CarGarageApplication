@@ -4,30 +4,33 @@ import java.util.List;
 
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.UserVehicleModel;
+import mvc.cgapp.model.VehicleFormModel;
 
 public interface UserVehicleRepo {
 
-	List<UserVehicleModel> getVehiclesByUserID(int userid);
+	List<VehicleFormModel> getVehiclesByUserID(int userid);
 	
-	List<UserVehicleModel> getAllCars();
+	List<VehicleFormModel> getAllCars();
 	
-	List<UserVehicleModel> getSelectedCarsByModel(String vmodel);
-	List<UserVehicleModel> getSelectedCarsByModelNumberPlate(String vmodel,String vnplate);
-	List<UserVehicleModel> getSelectedCarsByModelKm(String vmodel,Long vrun);
-	List<UserVehicleModel> getSelectedCarsByModelEntryDate(String vmodel,String vdate);
+	List<VehicleFormModel> getSelectedCarsByModel(String vmodel);
+	List<VehicleFormModel> getSelectedCarsByModelNumberPlate(String vmodel,String vnplate);
+	List<VehicleFormModel> getSelectedCarsByModelEntryDate(String vmodel,String vdate);
+	List<VehicleFormModel> getSelectedCarsByModelTname(String vmodel,String tname);
 	/*---------------------------------------------------------------------------------*/
-	List<UserVehicleModel> getSelectedCarsByNumberPlate(String vnplate);
-	List<UserVehicleModel> getSelectedCarsByNumberPlateKm(String vnplate,Long vrun);
-	List<UserVehicleModel> getSelectedCarsByNumberPlateEntryDate(String vnplate,String vdate);
+	List<VehicleFormModel> getSelectedCarsByNumberPlate(String vnplate);
+	List<VehicleFormModel> getSelectedCarsByNumberPlateEntryDate(String vnplate,String vdate);
+	List<VehicleFormModel> getSelectedCarsByNumberPlateTname(String vnplate,String tname);
 	/*---------------------------------------------------------------------------------*/
+	List<VehicleFormModel> getSelectedCarsByEntryDate(String vdate);
+	List<VehicleFormModel> getSelectedCarsByEntryDateTname(String vdate,String tname);
 	
-	List<UserVehicleModel> getSelectedCarsByKm(Long vrun);
-	List<UserVehicleModel> getSelectedCarsByKmEntryDate(Long vrun,String vdate);
+	List<VehicleFormModel> getSelectedCarsByTname(String tname);
 	/*---------------------------------------------------------------------------------*/
-	
-	List<UserVehicleModel> getSelectedCarsByEntryDate(String vdate);
 
-	UserVehicleModel getSelectedCarsByID(int vid);
+
+	VehicleFormModel getSelectedCarByID(int vvid);
+	
+	VehicleFormModel getSelectedCarByEntryDate(String vnDate);
 	
 //	void deleteUsersByID(int userid);
 }

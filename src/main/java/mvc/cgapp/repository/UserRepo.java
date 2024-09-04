@@ -33,4 +33,7 @@ public interface UserRepo {
 	public boolean addNewCustomer(UserDetailsModel userDetailsModel);
 	
 	public UserDetailsModel getSelectedUserByEmail(String email);
+	
+	
+	UserDetailsModel getSelectedUsersByVisitID(int vvid);
 }

@@ -19,4 +19,6 @@ public interface UserService {
 	public boolean addNewCustomer(UserDetailsModel userDetailsModel);
 	
 	UserDetailsModel getSelectedUserByEmail(String email);
+	
+	UserDetailsModel getSelectedUsersByVisitID(int vvid);
 }
