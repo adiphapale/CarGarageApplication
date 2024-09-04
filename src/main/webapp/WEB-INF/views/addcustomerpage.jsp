@@ -89,19 +89,12 @@
 		<div class="menubar">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<a href="newcustvehicle"
+				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
+						class="nav-link active m-2 " id="v-pills-home-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+						role="tab" aria-controls="v-pills-home" aria-selected="true">Customer
+						Section</button></a> <a href="cardetails"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-messages-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-						type="button" role="tab" aria-controls="v-pills-messages"
-						aria-selected="false">Add New Customer/Vehicle</button></a>
-
-				<button class="nav-link active m-2 " id="v-pills-home-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
-					role="tab" aria-controls="v-pills-home" aria-selected="true">Customer
-					Section</button>
-				<a href="cardetails"
-					style="margin-left: 63px; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
@@ -110,7 +103,18 @@
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Settings</button>
+					aria-selected="false">Servicing Section</button>
+
+				<button class="nav-link m-2" id="v-pills-settings-tab"
+					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+					type="button" role="tab" aria-controls="v-pills-settings"
+					aria-selected="false">Spare Parts Section</button>
+
+				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Technician Section</button></a>
 			</div>
 
 			<div class="tab-content" id="v-pills-tabContent">
@@ -121,41 +125,28 @@
 							method="POST" modelAttribute="CustDetails">
 
 							<h4>Add New Customer</h4>
-							<div class="btns" style="display: flex;">
-								<div class="col-12" style="flex-basis: 20%; margin-top: 10px;">
-									<button type="submit" class="btn btn-success">Save</button>
-								</div>
-								<div>
-									<span style="color: green;">${msg}</span>
-								</div>
-							</div>
+
 							<div class="namecontact"
 								style="display: flex; justify-content: space-between;">
-
-								<input type="hidden" name="userid"
-									value="${CustDetails.userid }">
 
 								<div class="col-md-6" style="flex-basis: 30%;">
 									<label for="inputName4" class="form-label">Name</label> <input
 										type="text" class="form-control" id="inputName4"
-										name="username" placeholder="Enter Name here"
-										value="${CustDetails.username}">
+										name="username" placeholder="Enter Name here" value="">
 								</div>
 								<div class="col-md-6" style="flex-basis: 30%;">
 									<label for="inputContact" class="form-label">Contact</label> <input
 										type="text" class="form-control" id="inputContact4"
-										name="usercontact" placeholder="Enter Contact here"
-										value="${CustDetails.usercontact}"> <span
-										id="validationMessage"
+										name="usercontact" placeholder="Enter Contact here" value="">
+									<span id="validationMessage"
 										style="color: blue; justify-content: center;"></span>
 								</div>
 
 								<div class="col-md-6" style="flex-basis: 30%;">
 									<label for="inputEmail4" class="form-label">Email</label> <input
 										type="email" class="form-control" id="inputEmail4"
-										name="useremail" placeholder="Enter Email here"
-										value="${CustDetails.useremail}"> <span
-										id="emailValidationMessage"
+										name="useremail" placeholder="Enter Email here" value="">
+									<span id="emailValidationMessage"
 										style="color: blue; justify-content: center;"></span>
 								</div>
 
@@ -164,18 +155,28 @@
 							<div class="col-12" style="flex-basis: 31%;">
 								<label for="inputAddress" class="form-label">Address</label> <input
 									type="text" class="form-control" id="inputAddress"
-									name="useraddress" placeholder="Enter Address here"
-									value="${CustDetails.useraddress}">
+									name="useraddress" placeholder="Enter Address here" value="">
 							</div>
 
+							<div class="btns" style="display: flex;">
+								<div class="col-12" style="flex-basis: 20%; margin-top: 20px;">
+									<button type="submit" class="btn btn-success btn-sm">Save</button>
+								</div>
+								<div>
+									<span style="color: green;">${msg}</span>
+								</div>
+							</div>
 
 						</form:form>
 					</div>
 
-					<h4 style="margin: 20px 0;">Vehicle Details</h4>
+
+
+
+					<h4 style="margin: 20px 0;">Customer Details</h4>
 
 					<!-- Button to Open the Modal -->
-					<button type="button" class="btn btn-success"
+					<%-- 	<button type="button" class="btn btn-success"
 						data-bs-toggle="modal" data-bs-target="#vehicleModal">
 						Add Vehicle Details</button>
 
@@ -255,43 +256,36 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 
 					<div class="disptable" style="margin-top: 30px;">
 						<table class="table" style="border: 1px solid black;">
 							<thead>
-								<tr class=" table-success">
-									<th scope="col">Sr no.</th>
-									<th scope="col">Vehicle Model</th>
-									<th scope="col">Registered Vehicle Number</th>
-									<th scope="col">Vehicle Running in KMs</th>
-									<th scope="col">Entry Date</th>
+								<tr class="table-success">
+									<th scope="col">Customer ID</th>
+									<th scope="col">Customer Name</th>
+									<th scope="col">Customer Contact</th>
+									<th scope="col">Customer Email</th>
+									<th scope="col">Customer Address</th>
 								</tr>
 							</thead>
 							<tbody>
-								<%
-								int count = 0;
-								%>
-								<c:forEach var="vehicle" items="${vehicles }">
+								<!-- Check if a single user object exists -->
+								<c:if test="${not empty users}">
 									<tr>
-										<%-- <td><button type="button" data-bs-toggle="modal"
-												data-bs-target="#modal${vehicle.vehicleid}">
-
-												<%=++count%></button></td> --%>
-
-										<td><a href="updateSave?userID=${vehicle.vehicleid}"
-											type="button" class="btn btn-info btn-sm"><%=++count%></a></td>
-
-										<td>${vehicle.vehiclemodel }</td>
-										<td>${vehicle.vehiclenplate }</td>
-										<td>${vehicle.vehiclerun }</td>
-										<td>${vehicle.vehicledate }</td>
+										<td><a href="updateSave?userID=${users.userid}"
+											type="button" class="btn btn-info btn-sm">
+												${users.userid} </a></td>
+										<td>${users.username}</td>
+										<td>${users.usercontact}</td>
+										<td>${users.useremail}</td>
+										<td>${users.useraddress}</td>
 									</tr>
 
-									<!-- Modal -->
-									<div class="modal fade" id="modal${vehicle.vehicleid}"
-										tabindex="-1" aria-labelled by="exampleModalLabel"
-										aria-hidden="true">
+									<!-- Modals for Update/Delete -->
+									<!-- Update Modal -->
+									<div class="modal fade" id="modal${users.userid}" tabindex="-1"
+										aria-labelledby="exampleModalLabel" aria-hidden="true">
 										<div class="modal-dialog">
 											<div class="modal-content">
 												<div class="modal-header">
@@ -300,21 +294,21 @@
 													<button type="button" class="btn-close"
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
-
 												<div class="modal-footer">
-													<a href="updateSave?userID=${vehicle.vehicleid}"><button
-															type="button" class="btn btn-primary"
-															data-bs-dismiss="modal">Update</button></a>
+													<a href="updateSave?userID=${users.userid}">
+														<button type="button" class="btn btn-primary"
+															data-bs-dismiss="modal">Update</button>
+													</a>
 													<button type="button" class="btn btn-danger"
 														data-bs-toggle="modal"
-														data-bs-target="#modaldelete${vehicle.vehicleid}">Delete</button>
+														data-bs-target="#modaldelete${users.userid}">Delete</button>
 												</div>
 											</div>
 										</div>
 									</div>
 
-									<!--Delete Modal -->
-									<div class="modal fade" id="modaldelete${vehicle.vehicleid}"
+									<!-- Delete Modal -->
+									<div class="modal fade" id="modaldelete${users.userid}"
 										tabindex="-1" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
 										<div class="modal-dialog">
@@ -325,17 +319,17 @@
 													<button type="button" class="btn-close"
 														data-bs-dismiss="modal" aria-label="Close"></button>
 												</div>
-
 												<div class="modal-footer">
 													<button type="button" class="btn btn-secondary"
 														data-bs-dismiss="modal">Close</button>
-													<a href="deleteUser?userID=${vehicle.vehicleid}"><button
-															type="button" class="btn btn-danger">Delete</button></a>
+													<a href="deleteUser?userID=${users.userid}">
+														<button type="button" class="btn btn-danger">Delete</button>
+													</a>
 												</div>
 											</div>
 										</div>
 									</div>
-								</c:forEach>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
@@ -347,7 +341,7 @@
 	</div>
 
 
-	</div>
+
 
 
 	<!-- <script type="text/javascript">

@@ -86,4 +86,10 @@ public class UserServiceImpl implements UserService {
 		return userRepo.getSelectedUserByEmail(email);
 	}
 
+	@Override
+	public UserDetailsModel getSelectedUsersByVisitID(int vvid) {
+		
+		return userRepo.getSelectedUsersByVisitID(vvid);
+	}
+
 }

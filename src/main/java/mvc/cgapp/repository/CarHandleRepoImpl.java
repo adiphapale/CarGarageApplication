@@ -44,7 +44,7 @@ public class CarHandleRepoImpl implements CarHandleRepo {
 	@Override
 	public boolean addVehicleData(VehicleFormModel vehicleFormModel) {
 
-		return false;
+		return true;
 	}
 
 	@Override

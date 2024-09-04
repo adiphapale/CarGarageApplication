@@ -88,19 +88,19 @@
 		<div class="menubar">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<a href="newcustvehicle"
+				<!-- <a href="newcustvehicle"
 					style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-messages-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-messages"
 						type="button" role="tab" aria-controls="v-pills-messages"
-						aria-selected="false">Add New Customer/Vehicle</button></a>
+						aria-selected="false">Add New Customer/Vehicle</button></a> -->
 
-				<button class="nav-link active m-2 " id="v-pills-home-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
-					role="tab" aria-controls="v-pills-home" aria-selected="true">Customer
-					Section</button>
-				<a href="cardetails"
-					style="margin-left: 63px; text-decoration: none;"><button
+				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
+						class="nav-link active m-2 " id="v-pills-home-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
+						role="tab" aria-controls="v-pills-home" aria-selected="true">Customer
+						Section</button></a> <a href="cardetails"
+					style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
@@ -109,7 +109,18 @@
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Settings</button>
+					aria-selected="false">Servicing Section</button>
+
+				<button class="nav-link m-2" id="v-pills-settings-tab"
+					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+					type="button" role="tab" aria-controls="v-pills-settings"
+					aria-selected="false">Spare Parts Section</button>
+
+				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Technician Section</button></a>
 			</div>
 
 			<div class="tab-content" id="v-pills-tabContent">
@@ -118,11 +129,18 @@
 					<div class="searchform">
 						<form:form class="row g-3" action="goingtoupdate" method="POST">
 
+							<div class="btns" style="display: flex;">
+								<div class="col-12" style="flex-basis: 20%; margin-top: 10px;">
+									<button type="submit" class="btn btn-success">Save</button>
+								</div>
+								<span style="color: green; margin-top: 2px;">${msg}</span>
+							</div>
+
 							<div class="namecontact"
 								style="display: flex; justify-content: space-between;">
 
 								<input type="hidden" name="userid" value="${userinfo.userid }">
-								
+
 								<div class="col-md-6" style="flex-basis: 30%;">
 									<label for="inputName4" class="form-label">Name</label> <input
 										type="text" class="form-control" id="inputName4"
@@ -156,14 +174,93 @@
 									value="${userinfo.useraddress}">
 							</div>
 
-							<div class="btns" style="display: flex;">
-								<div class="col-12" style="flex-basis: 20%; margin-top: 10px;">
-									<button type="submit" class="btn btn-success">Save</button>
-								</div>
-								<span style="color: green; margin-top:2px;">${msg}</span>
-							</div>
+
 						</form:form>
 					</div>
+
+					<!-- Button to Open the Modal -->
+					<button type="button" class="btn btn-success"
+						data-bs-toggle="modal" data-bs-target="#vehicleModal"
+						style="margin-top: 20px;">Add Vehicle Details</button>
+
+					<!-- The Modal -->
+					<div class="modal fade" id="vehicleModal" tabindex="-1"
+						aria-labelledby="vehicleModalLabel" aria-hidden="true">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<!-- Modal Header -->
+								<div class="modal-header">
+									<h5 class="modal-title" id="vehicleModalLabel">Vehicle
+										Details</h5>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+
+								<!-- Modal Body -->
+								<div class="modal-body">
+									<form:form action="submitformforvehicle" method="POST"
+										modelAttribute="modalform">
+
+										<input name="UserIDCustomer" type="hidden" value="${userinfo.userid }" />
+
+										<div class="mb-3">
+											<label for="inputVehicleModel5" class="form-label">Vehicle
+												Model</label> <input type="text" class="form-control"
+												id="inputVehicleModel5" name="vehiclemodel"
+												placeholder="Enter Model here" value="${vehiclemodel}">
+										</div>
+
+										<div class="mb-3">
+											<label for="inputVehicleNPlate6" class="form-label">Vehicle
+												Number Plate</label> <input type="text" class="form-control"
+												id="inputVehicleNPlate" name="vehiclenplate"
+												placeholder="Enter Number here" value="${vehiclenplate}"
+												required="required">
+											<div id="vehicleNPlateError"
+												style="color: red; display: none;">Invalid Vehicle
+												Number Plate</div>
+										</div>
+
+										<div class="mb-3">
+											<label for="inputVehicleKM7" class="form-label">Vehicle
+												Running In KM</label> <input type="number" class="form-control"
+												id="inputVehicleKM7" name="visitVrun"
+												placeholder="Enter Running here" value="${visitVrun}">
+										</div>
+
+										<div class="mb-3">
+											<label for="inputVehicleDate8" class="form-label">Vehicle
+												Entry Date</label> <input type="date" class="form-control"
+												id="inputVehicleDate8" name="visitVentryDate"
+												value="${visitVentryDate}">
+										</div>
+
+										<div class="mb-3">
+											<label for="selectTechnician" class="form-label">Select
+												Technician</label> <select class="form-control"
+												id="selectTechnician" name="tid">
+												<option value="" disabled selected>Select a
+													technician</option>
+												<c:forEach var="technician" items="${techies}">
+													<option value="${technician.tid}">${technician.tname}</option>
+												</c:forEach>
+											</select>
+										</div>
+
+										<!-- Modal Footer -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save
+												changes</button>
+										</div>
+									</form:form>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<h4 style="margin: 20px 0;">Vehicle Details</h4>
 
 					<div class="disptable" style="margin-top: 30px;">
 						<table class="table" style="border: 1px solid black;">
@@ -171,9 +268,11 @@
 								<tr class=" table-success">
 									<th scope="col">Sr no.</th>
 									<th scope="col">Vehicle Model</th>
-									<th scope="col">Registered Vehicle Number</th>
+									<th scope="col">Registered Number</th>
 									<th scope="col">Vehicle Running in KMs</th>
 									<th scope="col">Entry Date</th>
+									<th scope="col">Technician</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -186,13 +285,16 @@
 												data-bs-target="#modal${vehicle.vehicleid}">
 
 												<%=++count%></button></td> --%>
-												
-												<td><a href="updateSave?userID=${vehicle.vehicleid}" type="button" class="btn btn-info btn-sm"><%=++count %></a></td>
-										
+
+										<td><a href="updateforcar?VisitID=${vehicle.vehicleid}"
+											type="button" class="btn btn-info btn-sm"><%=++count %></a></td>
+
 										<td>${vehicle.vehiclemodel }</td>
 										<td>${vehicle.vehiclenplate }</td>
-										<td>${vehicle.vehiclerun }</td>
-										<td>${vehicle.vehicledate }</td>
+										<td>${vehicle.visitVrun }</td>
+										<td>${vehicle.visitVentryDate }</td>
+										<td>${ vehicle.tname}
+										<td>
 									</tr>
 
 									<!-- Modal -->
@@ -258,7 +360,7 @@
 
 	<!-- Optional JavaScript; choose one of the two! -->
 	<script type="text/javascript"
-		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" />
+		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" ></script>
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

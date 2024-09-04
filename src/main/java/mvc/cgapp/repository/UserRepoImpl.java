@@ -1,9 +1,12 @@
 package mvc.cgapp.repository;
 
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.rowmapper.UserRowMapper;
@@ -185,6 +188,15 @@ public class UserRepoImpl implements UserRepo {
 		String sql = "select *from userDetails_1 where umail=?";
 		UserDetailsModel user = jdbcTemplate.queryForObject(sql,new UserRowMapper(),email);
 		return user;
+	}
+
+	@Override
+	public UserDetailsModel getSelectedUsersByVisitID(int vvid) {
+		
+		String sql="select u.uid,u.uname,u.ucontact,u.umail,u.uaddress from userdetails_1 u inner join vehicleDetails_1 v on v.uid=u.uid inner join visitvehicleDetails_1 vs on vs.vid=v.vid where vs.vvid=?";
+		UserDetailsModel getSelectedUser=jdbcTemplate.queryForObject(sql, new UserRowMapper(),vvid);
+		
+		return getSelectedUser;
 	}
 
 }

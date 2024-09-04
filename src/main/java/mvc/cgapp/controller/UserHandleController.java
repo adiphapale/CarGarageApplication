@@ -61,11 +61,15 @@ public class UserHandleController {
 		System.out.println(id);
 		UserDetailsModel selectedUser=userService.getSelectedUsersByID(id);
 //		System.out.println(selectedUser);
+		List<VehicleFormModel> getAllSelectedVehicles=userVehicleService.getVehiclesByUserID(id);
+		List<TechniciansModel> getalltechies=techniciansService.getAllTechnicians();
 		model.addAttribute("userinfo",selectedUser);
 		
-		List<UserVehicleModel> getAllSelectedVehicles=userVehicleService.getVehiclesByUserID(id);
+		
 	
 		model.addAttribute("vehicles",getAllSelectedVehicles);
+		model.addAttribute("techies",getalltechies);
+		
 		return "userAddUpdate";
 	}
 	
@@ -86,9 +90,14 @@ public class UserHandleController {
 			model.addAttribute("msg","Updated !");
 			model.addAttribute("userinfo",gettingUpdatedUser);
 		}
-		
-		List<UserVehicleModel> getAllSelectedVehicles=userVehicleService.getVehiclesByUserID(userDetailsModel.getUserid());
-		
+		/*
+		 * List<UserVehicleModel>
+		 * getAllSelectedVehicles=userVehicleService.getVehiclesByUserID(
+		 * userDetailsModel.getUserid());
+		 */
+
+		List<VehicleFormModel> getAllSelectedVehicles=userVehicleService.getVehiclesByUserID(userDetailsModel.getUserid());
+	
 		model.addAttribute("vehicles",getAllSelectedVehicles);
 		return "userAddUpdate";
 
@@ -96,10 +105,8 @@ public class UserHandleController {
 	
 	
 	@RequestMapping("/addnewcustomer")
-	public String addNewCustomerPage(@ModelAttribute("CustDetails") UserDetailsModel userDetailsModel,@ModelAttribute("modalform") VehicleFormModel vehicleFormModel,Model model) {
-		
-		List<TechniciansModel> getAllTechie=techniciansService.getAllTechnicians();
-		model.addAttribute("techies",getAllTechie);
+	public String addNewCustomerPage(@ModelAttribute("CustDetails") UserDetailsModel userDetailsModel) {
+
 
 		return "addcustomerpage";
 	}
@@ -110,16 +117,24 @@ public class UserHandleController {
 		System.out.println(userDetailsModel.getUseremail()+userDetailsModel.getUsercontact());
 		boolean res=userService.addNewCustomer(userDetailsModel);
 		UserDetailsModel userid=userService.getSelectedUserByEmail(userDetailsModel.getUseremail());
+		
+		/*
+		 * UserDetailsModel userid=new UserDetailsModel();
+		 * 
+		 * userid.setUsername("abbbc"); userid.setUsercontact("1122233");
+		 * userid.setUseraddress("aadddd");
+		 */
+		
+		
 		System.out.println("got it while saving "+userid.getUserid());
 		if(res==true) {
 			model.addAttribute("Userid",userid.getUserid());
 			model.addAttribute("msg","data added");
+			model.addAttribute("users",userid);
 		}
 		else {
 			model.addAttribute("msg","data not added");
 		}
-		List<TechniciansModel> getAllTechie=techniciansService.getAllTechnicians();
-		model.addAttribute("techies",getAllTechie);
 	
 		return "addcustomerpage";
 	}

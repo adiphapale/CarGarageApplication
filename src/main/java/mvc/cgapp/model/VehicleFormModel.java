@@ -8,6 +8,14 @@ public class VehicleFormModel {
 	private long visitVrun;
 	private String visitVentryDate;
 	private int tid;
+	private String tname;
+	
+	public String getTname() {
+		return tname;
+	}
+	public void setTname(String tname) {
+		this.tname = tname;
+	}
 	public int getVehicleid() {
 		return vehicleid;
 	}
@@ -48,8 +56,6 @@ public class VehicleFormModel {
 	public String toString() {
 		return "VehicleFormModel [vehicleid=" + vehicleid + ", vehiclemodel=" + vehiclemodel + ", vehiclenplate="
 				+ vehiclenplate + ", visitVrun=" + visitVrun + ", visitVentryDate=" + visitVentryDate + ", tid=" + tid
-				+ "]";
+				+ ", tname=" + tname + "]";
 	}
-
-	
 }

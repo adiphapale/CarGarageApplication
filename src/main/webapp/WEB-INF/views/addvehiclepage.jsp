@@ -89,38 +89,103 @@
 		<div class="menubar">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<a href="newcustvehicle"
+				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
+						class="nav-link  m-2 " id="v-pills-home-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-home" type="button" role="tab"
+						aria-controls="v-pills-home" aria-selected="true">Customer
+						Section</button></a> <a href="cardetails"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-messages-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-						type="button" role="tab" aria-controls="v-pills-messages"
-						aria-selected="false">Add New Customer/Vehicle</button></a>
-
-				<button class="nav-link active m-2 " id="v-pills-home-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
-					role="tab" aria-controls="v-pills-home" aria-selected="true">Customer
-					Section</button>
-				<a href="cardetails"
-					style="margin-left: 63px; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-profile-tab"
+						class="nav-link active m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
 						aria-selected="false">Car Section</button></a>
 
+				<button class="nav-link  m-2" id="v-pills-settings-tab"
+					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+					type="button" role="tab" aria-controls="v-pills-settings"
+					aria-selected="false">Servicing Section</button>
+
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Settings</button>
+					aria-selected="false">Spare Parts Section</button>
+
+				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Technician Section</button></a>
 			</div>
 
 			<div class="tab-content" id="v-pills-tabContent">
 				<div class="tab-pane fade show active" id="v-pills-home"
 					role="tabpanel" aria-labelledby="v-pills-home-tab">
 					<div class="searchform">
-						<form:form class="row g-3" action="addingnewcustomerdetails"
+						<form:form class="row g-3" action="addingnewcardetails"
 							method="POST" modelAttribute="VehicleDetails">
 
 							<h4>Add New Vehicle</h4>
+
+							<div class="namecontact"
+								style="display: flex; justify-content: space-between;">
+								<!-- Hidden Input for User ID -->
+								<%-- <input type="hidden" name="userid" value="${VehicleDetails.vid}"> --%>
+
+								<!-- Vehicle Model -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehicleModel" class="form-label">Vehicle
+										Model</label> <input type="text" class="form-control"
+										id="inputVehicleModel" name="vehiclemodel"
+										placeholder="Enter Vehicle Model here" value="">
+								</div>
+
+								<!-- Vehicle Number Plate -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehiclePlate" class="form-label">Vehicle
+										Number Plate</label> <input type="text" class="form-control"
+										id="inputVehiclePlate" name="vehiclenplate"
+										placeholder="Enter Vehicle Number Plate" value=""
+										required="required"> <span id="validationMessage"
+										style="color: blue; justify-content: center;"></span>
+								</div>
+
+								<!-- Vehicle Runs in KM -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehicleRun" class="form-label">Vehicle
+										Runs In KM</label> <input type="text" class="form-control"
+										id="inputVehicleRun" name="visitVrun"
+										placeholder="Enter Vehicle Running" value=""> <span
+										id="validationMessage"
+										style="color: blue; justify-content: center;"></span>
+								</div>
+							</div>
+
+							<div class="twoDiv" style="display: flex; gap: 50px;">
+								<!-- Vehicle Entry Date -->
+								<div class="col-md-6" style="flex-basis: 30%;">
+									<label for="inputVehicleEntryDate" class="form-label">Vehicle
+										Entry Date</label> <input type="date" class="form-control"
+										id="inputVehicleEntryDate" name="visitVentryDate"
+										placeholder="Enter Vehicle Entry Date" value=""
+										required="required"> <span id="validationMessage"
+										style="color: blue; justify-content: center;"></span>
+								</div>
+
+								<!-- Select Technician -->
+								<div class="mb-3" style="flex-basis: 30%;">
+									<label for="selectTechnician" class="form-label">Select
+										Technician</label> <select class="form-control" id="selectTechnician"
+										name="tid" required="required">
+										<option value="" disabled selected>Select a
+											technician</option>
+										<c:forEach var="technician" items="${techies}">
+											<option value="${technician.tid}">${technician.tname}</option>
+										</c:forEach>
+									</select>
+								</div>
+							</div>
+
+
 							<div class="btns" style="display: flex;">
 								<div class="col-12" style="flex-basis: 20%; margin-top: 10px;">
 									<button type="submit" class="btn btn-success">Save</button>
@@ -129,37 +194,11 @@
 									<span style="color: green;">${msg}</span>
 								</div>
 							</div>
-							<div class="namecontact"
-								style="display: flex; justify-content: space-between;">
-
-								<input type="hidden" name="userid"
-									value="${VehicleDetails.vid }">
-
-								<div class="col-md-6" style="flex-basis: 30%;">
-									<label for="inputName4" class="form-label">Vehicle Model</label> <input
-										type="text" class="form-control" id="inputName4"
-										name="username" placeholder="Enter Vehicle Model here"
-										value="${VehicleDetails.vehiclemodel}">
-								</div>
-								<div class="col-md-6" style="flex-basis: 30%;">
-									<label for="inputContact" class="form-label">Vehicle Number Plate</label> <input
-										type="text" class="form-control" id="inputContact4"
-										name="usercontact" placeholder="Enter Vehicle Number"
-										value="${VehicleDetails.vehicleplate}"> <span
-										id="validationMessage"
-										style="color: blue; justify-content: center;"></span>
-								</div>
-
-
-							</div>
-
-							
-
 
 						</form:form>
 					</div>
 
-					<h4 style="margin: 20px 0;">Customer Details</h4>
+					<%-- <h4 style="margin: 20px 0;">Customer Details</h4>
 
 					<!-- Button to Open the Modal -->
 					<button type="button" class="btn btn-success"
@@ -242,7 +281,7 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> --%>
 
 					<div class="disptable" style="margin-top: 30px;">
 						<table class="table" style="border: 1px solid black;">
@@ -251,28 +290,29 @@
 									<th scope="col">Sr no.</th>
 									<th scope="col">Vehicle Model</th>
 									<th scope="col">Registered Vehicle Number</th>
-									<th scope="col">Vehicle Running in KMs</th>
-									<th scope="col">Entry Date</th>
+									<th scope="col">Vehicle Running KM</th>
+									<th scope="col">Vehicle Entry Date</th>
+									<th scope="col">Technician Name</th>
+
 								</tr>
 							</thead>
 							<tbody>
-								<%
-								int count = 0;
-								%>
-								<c:forEach var="vehicle" items="${vehicles }">
+							
+								<c:if test="${not empty vehicle}">
 									<tr>
 										<%-- <td><button type="button" data-bs-toggle="modal"
 												data-bs-target="#modal${vehicle.vehicleid}">
 
 												<%=++count%></button></td> --%>
 
-										<td><a href="updateSave?userID=${vehicle.vehicleid}"
-											type="button" class="btn btn-info btn-sm"><%=++count%></a></td>
+										<td><a href="updateforcar?vvID=${vehicle.vehicleid}"
+											type="button" class="btn btn-info btn-sm">${vehicle.vehicleid}</a></td>
 
 										<td>${vehicle.vehiclemodel }</td>
 										<td>${vehicle.vehiclenplate }</td>
-										<td>${vehicle.vehiclerun }</td>
-										<td>${vehicle.vehicledate }</td>
+										<td>${vehicle.visitVrun }</td>
+										<td>${vehicle.visitVentryDate }</td>
+										<td>${vehicle.tname }</td>
 									</tr>
 
 									<!-- Modal -->
@@ -300,7 +340,7 @@
 										</div>
 									</div>
 
-									<!--Delete Modal -->
+									<%-- <!--Delete Modal -->
 									<div class="modal fade" id="modaldelete${vehicle.vehicleid}"
 										tabindex="-1" aria-labelledby="exampleModalLabel"
 										aria-hidden="true">
@@ -321,8 +361,8 @@
 												</div>
 											</div>
 										</div>
-									</div>
-								</c:forEach>
+									</div> --%>
+								</c:if>
 							</tbody>
 						</table>
 					</div>

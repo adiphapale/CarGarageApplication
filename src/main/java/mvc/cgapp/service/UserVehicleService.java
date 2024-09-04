@@ -4,15 +4,18 @@ import java.util.List;
 
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.UserVehicleModel;
+import mvc.cgapp.model.VehicleFormModel;
 
 public interface UserVehicleService {
 
-	List<UserVehicleModel> getVehiclesByUserID(int vid);
+	List<VehicleFormModel> getVehiclesByUserID(int vid);
 	
-	List<UserVehicleModel> getAllCars();
+	List<VehicleFormModel> getAllCars();
 	
-	List<UserVehicleModel> getSelectedCars(UserVehicleModel userVehicleModel);
+	List<VehicleFormModel> getSelectedCars(VehicleFormModel vehicleFormModel);
 	
-	UserVehicleModel getSelectedCarssByID(int vid);
+	VehicleFormModel getSelectedCarByID(int vvid);
+	
+	VehicleFormModel getSelectedCarByEntryDate(String vnDate);
 	
 }
