@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean addNewCustomer(UserDetailsModel userDetailsModel) {
-
+		
 		return userRepo.addNewCustomer(userDetailsModel);
 	}
 

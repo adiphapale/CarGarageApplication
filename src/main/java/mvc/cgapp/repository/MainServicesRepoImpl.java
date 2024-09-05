@@ -2,7 +2,9 @@ package mvc.cgapp.repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -18,27 +20,11 @@ public class MainServicesRepoImpl implements MainServicesRepo{
 	@Autowired
 	JdbcTemplate jdbcTemplate;
 	
-	@Override
-	public List<MainServicesModel> getAllMainServices() {
-		String sql="select *from MainservicesDetails_1";
-		List<MainServicesModel> gettingAllMainServices=jdbcTemplate.query(sql, new RowMapper<MainServicesModel>() {
-
-			@Override
-			public MainServicesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
-				MainServicesModel getit=new MainServicesModel();
-				getit.setMsid(rs.getInt(1));
-				getit.setMsname(rs.getString(2));
-				return getit;
-			}
-			
-		});
-		
-		return gettingAllMainServices;
-	}
+	
 
 	@Override
 	public List<SubServicesModel> getSubServicesByMsId(int msid) {
-		String sql="select *from subservicesdetails_1 where msid  != ?";
+		String sql="select *from subservicedetails_1 where msid=?";
 		List<SubServicesModel> gettingAllMainServices=jdbcTemplate.query(sql, new RowMapper<SubServicesModel>() {
 
 			@Override
@@ -54,6 +40,45 @@ public class MainServicesRepoImpl implements MainServicesRepo{
 		},msid);
 		
 		return gettingAllMainServices;
+	}
+
+
+
+	@Override
+	public Map<MainServicesModel, List<SubServicesModel>> getAllServices() {
+		
+		String sql="select msid,msname from mainservicedetails_1";
+		List<MainServicesModel> mainServices=jdbcTemplate.query(sql, new RowMapper<MainServicesModel>() {
+
+			@Override
+			public MainServicesModel mapRow(ResultSet rs, int arg1) throws SQLException {
+				MainServicesModel collect=new MainServicesModel();
+				collect.setMsid(rs.getInt(1));
+				collect.setMsname(rs.getString(2));
+				return collect;
+			}
+			
+		});
+		
+		Map<MainServicesModel, List<SubServicesModel>> servicesMap = new LinkedHashMap<>();
+		for(MainServicesModel gotit:mainServices) {
+			List<SubServicesModel> subServices=getSubServicesByMsId(gotit.getMsid());
+			servicesMap.put(gotit, subServices);
+		}	
+		return servicesMap;
+	}
+
+
+
+	@Override
+	public boolean linkVVIDtoSSID(int vvid, List<Integer> subServiceIDs) {
+		
+		int res=0;
+		String sql="insert into servicesjoin_1(vvid,ssid) values(?,?)";
+		for(Integer ssid:subServiceIDs) {
+			res=jdbcTemplate.update(sql,vvid,ssid);	
+		}
+		return res>0?true:false;
 	}
 
 }

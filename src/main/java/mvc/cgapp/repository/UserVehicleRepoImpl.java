@@ -162,9 +162,35 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 	@Override
 	public VehicleFormModel getSelectedCarByEntryDate(String vnDate) {
 		String sql="SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid WHERE vs.vventrydate=? order by vs.vventrydate desc limit 1";
-		VehicleFormModel getSelectedCar=jdbcTemplate.queryForObject(sql,new UserVehicleRowMapper() ,vnDate);
-		System.out.println(getSelectedCar);
+		VehicleFormModel getSelectedCar=new VehicleFormModel();
+		try{
+			getSelectedCar=jdbcTemplate.queryForObject(sql,new UserVehicleRowMapper() ,vnDate);
+		}catch(Exception ex) {}
+		
+		System.out.println("user vehicle repo get selected car:- "+getSelectedCar);
 		return getSelectedCar;
+	}
+
+	@Override
+	public int gettingVID(int vvid) {
+		String sql="select v.vid from vehicledetails_1 v inner join visitvehicledetails_1 vs on v.vid=vs.vid where vs.vvid=?";
+		int vid=jdbcTemplate.queryForObject(sql, new RowMapper<Integer>() {
+
+			@Override
+			public Integer mapRow(ResultSet rs, int arg1) throws SQLException {
+				return rs.getInt(1);
+			}
+		},vvid);
+		
+		return vid;
+	}
+
+	@Override
+	public boolean getLinkedUIDinVehicle(int vid, int uid) {
+	
+		String sql="update vehicledetails_1 set uid=? where vid=?";
+		int res=jdbcTemplate.update(sql,uid,vid);
+		return res>0?true:false;
 	}
 
 }

@@ -101,17 +101,16 @@
 						aria-controls="v-pills-home" aria-selected="true">Customer
 						Section</button></a> <a href="cardetails"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link active m-2" id="v-pills-profile-tab"
+						class="nav-link  m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Car Section</button></a>
-
-				<a
+						aria-selected="false">Car Section</button></a> <a
 					href="servicedetailspage"
-					style="text-decoration: none; margin: 0 auto"><button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Servicing Section</button></a>
+					style="text-decoration: none; margin: 0 auto"><button
+						class="nav-link active m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Servicing Section</button></a>
 
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
@@ -133,32 +132,23 @@
 				<div class="tab-pane fade show active" id="v-pills-profile"
 					role="tabpanel" aria-labelledby=v-pills-profile-tab>
 
-					<div class="col-12"
+				<!-- 	<div class="col-12"
 						style="text-align: center; margin-bottom: 15px;">
 						<a href="addnewvehicle">
-							<button type="button" class="btn btn-success" style="width: 50%">Add
-								New Car Details</button>
+							<button type="button" class="btn btn-success" style="width: 50%">Add Main Service</button>
 						</a>
-					</div>
+					</div> -->
 
 					<div class="searchform" style="width: 100%;">
-						<form:form class="row g-3" action="searchcar"
-							method="POST" modelAttribute="carDetails">
+						<form:form class="row g-3" action="searchcarbynplate" method="POST"
+							modelAttribute="carDetails">
 
 							<!-- Add Car Details Button on a new line -->
 
-
-							<h4 style="margin-bottom: 15px;">Search Car Details</h4>
+							<h4 style="margin-bottom: 15px;">Search Car for Service Allocation</h4>
 
 							<div class="namecontact"
 								style="display: flex; flex-wrap: wrap; justify-content: space-between;">
-								<div class="col-md-6"
-									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputName4" class="form-label">Vehicle
-										Model</label> <input type="text" class="form-control" id="inputName4"
-										name="vehiclemodel" placeholder="Enter Model here"
-										value="${carinfo.vehiclemodel}">
-								</div>
 
 								<div class="col-md-6"
 									style="flex-basis: 30%; margin-bottom: 15px;">
@@ -171,28 +161,7 @@
 										style="color: blue; justify-content: center;"></span>
 								</div>
 
-								<div class="col-md-6"
-									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputAddress" class="form-label">Vehicle
-										Entry Date</label> <input type="date" class="form-control"
-										id="inputAddress" name="visitVentryDate"
-										placeholder="Enter vehicle Date here"
-										value="${carinfo.visitVentryDate}">
-								</div>
 							</div>
-
-							<div class="col-12" style="margin-bottom: 15px; flex-basis: 31%;">
-								<label for="selectTechnician" class="form-label">Select
-									Technician</label> <select class="form-control" id="selectTechnician"
-									name="tname">
-									<option value="" disabled selected>Select a technician</option>
-									<c:forEach var="technician" items="${techies}">
-										<option value="${technician.tname}">${technician.tname}</option>
-									</c:forEach>
-								</select>
-
-							</div>
-
 							<!-- Search Button on a new line -->
 							<div class="col-12" style="text-align: center; margin-top: 15px;">
 								<button type="submit" class="btn btn-success"
@@ -220,64 +189,14 @@
 								%>
 								<c:forEach var="vehicle" items="${vehicles }">
 									<tr>
-										<td><a href="updateforcar?VisitID=${vehicle.vehicleid}"
-											type="button" class="btn btn-info btn-sm">
-
-												<%=++count%></a></td>
+										<td><a href="allocateservice?VisitID=${vehicle.vehicleid}"
+											type="button" class="btn btn-info btn-sm"> <%=++count%></a></td>
 										<td>${vehicle.vehiclemodel }</td>
 										<td>${vehicle.vehiclenplate }</td>
 										<td>${vehicle.visitVrun }</td>
 										<td>${vehicle.visitVentryDate }</td>
 										<td>${vehicle.tname}</td>
 									</tr>
-
-									<!-- Modal -->
-									<%-- <div class="modal fade" id="modal${vehicle.vehicleid}"
-										tabindex="-1" aria-labelled by="exampleModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">Do You
-														Want to Update or Delete</h5>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-
-												<div class="modal-footer">
-													<a href="updateSave?userID=${vehicle.vehicleid}"><button
-															type="button" class="btn btn-primary"
-															data-bs-dismiss="modal">Update</button></a>
-													<button type="button" class="btn btn-danger"
-														data-bs-toggle="modal"
-														data-bs-target="#modaldelete${vehicle.vehicleid}">Delete</button>
-												</div>
-											</div>
-										</div>
-									</div> --%>
-
-									<!--Delete Modal -->
-									<div class="modal fade" id="modaldelete${vehicle.vehicleid}"
-										tabindex="-1" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">Sure!
-														Do you want to Delete?</h5>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-bs-dismiss="modal">Close</button>
-													<a href="deleteUser?userID=${vehicle.vehicleid}"><button
-															type="button" class="btn btn-danger">Delete</button></a>
-												</div>
-											</div>
-										</div>
-									</div>
 								</c:forEach>
 							</tbody>
 						</table>

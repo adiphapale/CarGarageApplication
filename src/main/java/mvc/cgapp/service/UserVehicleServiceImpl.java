@@ -5,13 +5,18 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.UserVehicleModel;
 import mvc.cgapp.model.VehicleFormModel;
+import mvc.cgapp.repository.UserRepo;
 import mvc.cgapp.repository.UserVehicleRepo;
 
 @Service
 public class UserVehicleServiceImpl implements UserVehicleService {
 
+	@Autowired
+	UserRepo userRepo;
+	
 	@Autowired
 	UserVehicleRepo userVehicleRepo;
 
@@ -86,6 +91,23 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 	public VehicleFormModel getSelectedCarByEntryDate(String vnDate) {
 		
 		return userVehicleRepo.getSelectedCarByEntryDate(vnDate);
+	}
+
+	
+	@Override
+	public void linkVIDCustomer(UserDetailsModel userDetailsModel) {
+		int vid=userVehicleRepo.gettingVID(userDetailsModel.getUserid());
+		int uid=userRepo.getUIDByEmail(userDetailsModel.getUseremail());
+		boolean res=userVehicleRepo.getLinkedUIDinVehicle(vid,uid);
+		if(res!=false) {
+			System.out.println("vid and uid data linked.....");
+		}
+	}
+
+	@Override
+	public List<VehicleFormModel> getSelectedCarsByVNPlate(String vnplate) {
+		
+		return userVehicleRepo.getSelectedCarsByNumberPlate(vnplate);
 	}
 
 }

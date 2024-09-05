@@ -106,10 +106,12 @@
 						type="button" role="tab" aria-controls="v-pills-profile"
 						aria-selected="false">Car Section</button></a>
 
-				<button class="nav-link m-2" id="v-pills-settings-tab"
+				<a
+					href="servicedetailspage"
+					style="text-decoration: none; margin: 0 auto"><button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Servicing Section</button>
+					aria-selected="false">Servicing Section</button></a>
 
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
@@ -141,7 +143,7 @@
 							<div class="namecontact"
 								style="display: flex; justify-content: space-between;">
 								<!-- Hidden Input for User ID -->
-								<%-- <input type="hidden" name="userid" value="${VehicleDetails.vid}"> --%>
+								<input type="hidden" name="vehicleid" value="${carinfo.vehicleid}">
 
 								<!-- Vehicle Model -->
 								<div class="col-md-6" style="flex-basis: 30%;">
@@ -224,10 +226,9 @@
 								<!-- Modal Body -->
 								<div class="modal-body">
 									<!-- Form -->
-									<form:form class="row g-3" action="goingtoupdate" method="POST">
-										<!-- User ID (Hidden) -->
-										<input type="hidden" name="userid" value="${userinfo.userid }">
-
+									<form:form class="row g-3" action="addcustomermodal" method="POST">
+										
+										<input type="hidden" name="userid" value="${carinfo.vehicleid }">
 										<!-- Name Field -->
 										<div class="col-12">
 											<label for="inputName4" class="form-label">Name</label> <input
