@@ -36,4 +36,6 @@ public interface UserRepo {
 	
 	
 	UserDetailsModel getSelectedUsersByVisitID(int vvid);
+	
+	int getUIDByEmail(String email);
 }

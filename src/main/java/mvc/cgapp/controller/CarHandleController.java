@@ -56,8 +56,7 @@ public class CarHandleController {
 			model.addAttribute("vehicles", gettingAllCars);
 		} else {
 			List<VehicleFormModel> gettingSelectedCars = userVehicleService.getSelectedCars(vehicleFormModel);
-			System.out.println(vehicleFormModel);
-			System.out.println(gettingSelectedCars);
+			
 			model.addAttribute("carinfo", vehicleFormModel);
 			model.addAttribute("vehicles", gettingSelectedCars);
 		}
@@ -76,10 +75,8 @@ public class CarHandleController {
 				userID = null;
 			}
 
-		} catch (Exception ex) {
-		}
-		System.out.println("details got it");
-		System.out.println(vehicleFormModel);
+		} catch (Exception ex) {}
+		
 		carHandleService.addVehicleDataProcess(vehicleFormModel, userID);
 		int uid = userID.intValue();
 		UserDetailsModel selectedUser = userService.getSelectedUsersByID(uid);
@@ -121,17 +118,63 @@ public class CarHandleController {
 	}
 	
 	@RequestMapping("/updateforcar")
-	public String updateForCar(@RequestParam("VisitID") int vvid,Model model) {
-		
-		System.out.println("visit id for car :- "+vvid);
+	public String updateForCar(@RequestParam("VisitID") int vvid,Model model,@ModelAttribute("userinfo") UserDetailsModel userDetailsModel) {
 		
 		VehicleFormModel vehicleFormModel=userVehicleService.getSelectedCarByID(vvid);
-		UserDetailsModel selectedUser=userService.getSelectedUsersByVisitID(vvid);
-		System.out.println("hiii");
+		vehicleFormModel.setVehicleid(vvid);
+		UserDetailsModel selectedUser=new UserDetailsModel();
+		
+		try{
+			selectedUser=userService.getSelectedUsersByVisitID(vvid);
+		}
+		catch(Exception ex) {}
+
 		model.addAttribute("customer",selectedUser);
 		model.addAttribute("carinfo",vehicleFormModel);
 		
 		return "carupdatepage";
 	}
 
+	@PostMapping("/goingtoupdatecar")
+	public String goingtoUpdateCar(VehicleFormModel vehicleFormModel,UserDetailsModel userDetailsModel,Model model) {
+		
+		System.out.println("entery date for visit vehicle  "+vehicleFormModel.getVisitVentryDate());
+		VehicleFormModel oldVehicleDetail=userVehicleService.getSelectedCarByID(vehicleFormModel.getVehicleid());
+
+		VehicleFormModel gettingUpdatedVehicle=carHandleService.getUpdatedVehicle(vehicleFormModel);
+		if(oldVehicleDetail.getVehiclemodel().equals(gettingUpdatedVehicle.getVehiclemodel())&&
+				oldVehicleDetail.getVehiclenplate().equals(gettingUpdatedVehicle.getVehiclenplate())&&
+						oldVehicleDetail.getVehiclenplate().equals(gettingUpdatedVehicle.getVehiclenplate())&&
+						oldVehicleDetail.getVisitVentryDate().equals(gettingUpdatedVehicle.getVisitVentryDate())) {
+			
+			model.addAttribute("carinfo",oldVehicleDetail);
+		}else {
+			model.addAttribute("msg","updated");
+			model.addAttribute("carinfo",gettingUpdatedVehicle);
+		}
+		
+		UserDetailsModel selectedUser=new UserDetailsModel();
+		
+		try{
+			selectedUser=userService.getSelectedUsersByVisitID(vehicleFormModel.getVehicleid());
+		}catch(Exception ex) {}
+		model.addAttribute("customer",selectedUser);
+		
+		return "carupdatepage";
+	}
+	
+	@PostMapping("/addcustomermodal")
+	public String goingtoUpdateCustomer(UserDetailsModel userDetailsModel,Model model) {
+
+		boolean res=userService.addNewCustomer(userDetailsModel);
+		
+		if(res==true) {
+			userVehicleService.linkVIDCustomer(userDetailsModel);
+			VehicleFormModel vehicleFormModel=userVehicleService.getSelectedCarByID(userDetailsModel.getUserid());
+			UserDetailsModel selectedUser=userService.getSelectedUserByEmail(userDetailsModel.getUseremail());
+			model.addAttribute("carinfo",vehicleFormModel);
+			model.addAttribute("customer",selectedUser);
+		}		
+		return "carupdatepage";
+	}
 }

@@ -113,10 +113,12 @@
 						type="button" role="tab" aria-controls="v-pills-profile"
 						aria-selected="false">Car Section</button></a>
 
-				<button class="nav-link m-2" id="v-pills-settings-tab"
+				<a
+					href="servicedetailspage"
+					style="text-decoration: none; margin: 0 auto"><button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Servicing Section</button>
+					aria-selected="false">Servicing Section</button></a>
 
 				<button class="nav-link m-2" id="v-pills-settings-tab"
 					data-bs-toggle="pill" data-bs-target="#v-pills-settings"

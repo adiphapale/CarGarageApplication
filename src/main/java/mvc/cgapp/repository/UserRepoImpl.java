@@ -173,6 +173,8 @@ public class UserRepoImpl implements UserRepo {
 	@Override
 	public boolean addNewCustomer(UserDetailsModel userDetailsModel) {
 		
+		
+		
 		String sql="insert into userDetails_1(uname,ucontact,umail,uaddress) values(?,?,?,?)";
 	
 		String name=userDetailsModel.getUsername();
@@ -197,6 +199,19 @@ public class UserRepoImpl implements UserRepo {
 		UserDetailsModel getSelectedUser=jdbcTemplate.queryForObject(sql, new UserRowMapper(),vvid);
 		
 		return getSelectedUser;
+	}
+
+	@Override
+	public int getUIDByEmail(String email) {
+		String sql="select uid from userdetails_1 where umail=?";
+		int uid=jdbcTemplate.queryForObject(sql,new RowMapper<Integer>() {
+
+			@Override
+			public Integer mapRow(ResultSet rs, int arg1) throws SQLException {
+				return rs.getInt(1);
+			}
+		},email);
+		return uid;
 	}
 
 }

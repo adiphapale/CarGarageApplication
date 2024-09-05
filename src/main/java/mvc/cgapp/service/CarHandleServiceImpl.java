@@ -52,6 +52,12 @@ public class CarHandleServiceImpl implements CarHandleService{
 		return carHandleRepo.saveVisitVehicleData(visitVehicleModel);
 	}
 
+	@Override
+	public VehicleFormModel getUpdatedVehicle(VehicleFormModel vehicleFormModel) {
+		
+		return carHandleRepo.getUpdatedVehicle(vehicleFormModel);
+	}
+
 	
 	
 

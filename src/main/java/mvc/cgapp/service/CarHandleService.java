@@ -8,4 +8,6 @@ public interface CarHandleService {
 	public boolean addVehicleDataProcess(VehicleFormModel vehicleFormModel,Long userid);
 	public int saveVehicleData(UserVehicleModel userVehicleModel);
 	public int saveVisitVehicleData(VisitVehicleModel visitVehicleModel);
+	
+	VehicleFormModel getUpdatedVehicle(VehicleFormModel vehicleFormModel);
 }

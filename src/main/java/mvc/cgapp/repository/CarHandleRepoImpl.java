@@ -105,4 +105,28 @@ public class CarHandleRepoImpl implements CarHandleRepo {
 		return vvid;
 	}
 
+	@Override
+	public VehicleFormModel getUpdatedVehicle(VehicleFormModel vehicleFormModel) {
+		
+		String vmodel=vehicleFormModel.getVehiclemodel();
+		String vnplate=vehicleFormModel.getVehiclenplate();
+		long vvrun=vehicleFormModel.getVisitVrun();
+		String vventryDate=vehicleFormModel.getVisitVentryDate();
+		int vvid=vehicleFormModel.getVehicleid();
+		
+		
+		VehicleFormModel bindData=new VehicleFormModel();
+		bindData.setVehicleid(vvid);
+		bindData.setVehiclemodel(vmodel);
+		bindData.setVehiclenplate(vnplate);
+		bindData.setVisitVrun(vvrun);
+		bindData.setVisitVentryDate(vventryDate);
+		
+		String sql="update visitvehicledetails_1 vs inner join vehicledetails_1 v on vs.vid=v.vid set v.vmodel=?,v.vnplate=?,vs.vvrun=?,vs.vventrydate=? where vs.vvid=?";
+		
+		int res=jdbcTemplate.update(sql,vmodel,vnplate,vvrun,vventryDate,vvid);
+		
+		return res>0?bindData:null;
+	}
+
 }

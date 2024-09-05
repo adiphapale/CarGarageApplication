@@ -32,5 +32,9 @@ public interface UserVehicleRepo {
 	
 	VehicleFormModel getSelectedCarByEntryDate(String vnDate);
 	
+	int gettingVID(int vvid);
+	
+	boolean getLinkedUIDinVehicle(int vid,int uid);
+	
 //	void deleteUsersByID(int userid);
 }

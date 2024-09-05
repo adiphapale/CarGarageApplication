@@ -18,4 +18,8 @@ public interface UserVehicleService {
 	
 	VehicleFormModel getSelectedCarByEntryDate(String vnDate);
 	
+	void linkVIDCustomer(UserDetailsModel userDetailsModel);
+	
+	List<VehicleFormModel> getSelectedCarsByVNPlate(String vnplate);
+	
 }

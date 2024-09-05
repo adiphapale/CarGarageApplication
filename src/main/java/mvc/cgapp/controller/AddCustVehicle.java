@@ -41,9 +41,9 @@ public class AddCustVehicle {
 	    model.addAttribute("userDetailsModel", new UserDetailsModel());
 	    model.addAttribute("userVehicleModel", new UserVehicleModel());
 	    List<TechniciansModel> getAllTechie=techniciansService.getAllTechnicians();
-	    List<MainServicesModel> gettingAllMainServices=mainServicesService.getAllMainServices();
+//	    List<MainServicesModel> gettingAllMainServices=mainServicesService.getAllMainServices();
 	    model.addAttribute("techies",getAllTechie);
-		model.addAttribute("mainServices",gettingAllMainServices);
+//		model.addAttribute("mainServices",gettingAllMainServices);
 		
 	    return "custVehicleForm";
 	}

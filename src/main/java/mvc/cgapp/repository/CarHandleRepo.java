@@ -15,4 +15,6 @@ public interface CarHandleRepo {
 	public int saveVisitVehicleData(VisitVehicleModel visitVehicleModel);
 
 	public int getVisitVehicleId(String vvEntryDate);
+	
+	VehicleFormModel getUpdatedVehicle(VehicleFormModel vehicleFormModel);
 }
