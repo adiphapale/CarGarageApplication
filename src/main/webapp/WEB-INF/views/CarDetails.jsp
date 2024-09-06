@@ -77,7 +77,7 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-end"
 						id="navbarNav">
-						<form class="d-flex ms-auto">
+						<form class="d-flex ms-auto" action="logoutbtn">
 							<button class="btn btn-outline-light" type="submit">Logout</button>
 						</form>
 					</div>
@@ -104,25 +104,29 @@
 						class="nav-link active m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Car Section</button></a>
-
-				<a
+						aria-selected="false">Car Section</button></a> <a
 					href="servicedetailspage"
-					style="text-decoration: none; margin: 0 auto"><button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Servicing Section</button></a>
-
-				<button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Spare Parts Section</button>
-
-				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+					style="text-decoration: none; margin: 0 auto"><button
 						class="nav-link m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Technician Section</button></a>
+						aria-selected="false">Servicing Section</button></a> <a
+					href="sparePartspage"
+					style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Spare Parts Section</button></a> <a
+					href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Technician Section</button></a> <a
+					href="billingPage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Billing Section</button></a>
 			</div>
 
 
@@ -142,8 +146,8 @@
 					</div>
 
 					<div class="searchform" style="width: 100%;">
-						<form:form class="row g-3" action="searchcar"
-							method="POST" modelAttribute="carDetails">
+						<form:form class="row g-3" action="searchcar" method="POST"
+							modelAttribute="carDetails">
 
 							<!-- Add Car Details Button on a new line -->
 
@@ -221,9 +225,7 @@
 								<c:forEach var="vehicle" items="${vehicles }">
 									<tr>
 										<td><a href="updateforcar?VisitID=${vehicle.vehicleid}"
-											type="button" class="btn btn-info btn-sm">
-
-												<%=++count%></a></td>
+											type="button" class="btn btn-info btn-sm"> <%=++count%></a></td>
 										<td>${vehicle.vehiclemodel }</td>
 										<td>${vehicle.vehiclenplate }</td>
 										<td>${vehicle.visitVrun }</td>

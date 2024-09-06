@@ -26,11 +26,6 @@
 
 <title>adminPannel</title>
 
-
-<link rel="icon" type="image/x-icon"
-	href="/CarGarageApplicationMVC/URLToReachResourceFolder/Images/repair-shop.png" />
-
-
 <style type="text/css">
 .container {
 	background-color: #e0fbfc;
@@ -95,12 +90,12 @@
 				role="tablist" aria-orientation="vertical">
 
 				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
-						class="nav-link active m-2 " id="v-pills-home-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button"
-						role="tab" aria-controls="v-pills-home" aria-selected="true">Customer
+						class="nav-link  m-2 " id="v-pills-home-tab" data-bs-toggle="pill"
+						data-bs-target="#v-pills-home" type="button" role="tab"
+						aria-controls="v-pills-home" aria-selected="true">Customer
 						Section</button></a> <a href="cardetails"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-profile-tab"
+						class="nav-link  m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
 						aria-selected="false">Car Section</button></a> <a
@@ -112,7 +107,7 @@
 						aria-selected="false">Servicing Section</button></a> <a
 					href="sparePartspage"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-settings-tab"
+						class="nav-link active m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
 						aria-selected="false">Spare Parts Section</button></a> <a
@@ -120,9 +115,7 @@
 						class="nav-link m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Technician Section</button></a>
-						
-						<a
+						aria-selected="false">Technician Section</button></a> <a
 					href="billingPage" style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
@@ -130,156 +123,85 @@
 						aria-selected="false">Billing Section</button></a>
 			</div>
 
+
+
+
+
 			<div class="tab-content" id="v-pills-tabContent">
-				<div class="tab-pane fade show active" id="v-pills-home"
-					role="tabpanel" aria-labelledby="v-pills-home-tab">
+				<div class="tab-pane fade show active" id="v-pills-profile"
+					role="tabpanel" aria-labelledby=v-pills-profile-tab>
+
+					<!-- 	<div class="col-12"
+						style="text-align: center; margin-bottom: 15px;">
+						<a href="addnewvehicle">
+							<button type="button" class="btn btn-success" style="width: 50%">Add Main Service</button>
+						</a>
+					</div> -->
 
 					<div class="searchform" style="width: 100%;">
+						<form:form class="row g-3" action="searchcarbynplate_sparepartpage"
+							method="POST" modelAttribute="vehiclesDetails">
 
-						<div class="col-12"
-							style="text-align: center; margin-bottom: 15px;">
-							<a href="addnewcustomer">
-								<button type="button" class="btn btn-success"
-									style="width: 50%;">Add New Customer</button>
-							</a>
-						</div>
-						<form:form class="row g-3" action="processform" method="POST"
-							modelAttribute="userDetails">
+							<!-- Add Car Details Button on a new line -->
 
-							<h4>Search Customer Details</h4>
+							<h4 style="margin-bottom: 15px;">Search Car for Spare Parts
+								Allocation</h4>
 
 							<div class="namecontact"
 								style="display: flex; flex-wrap: wrap; justify-content: space-between;">
 
 								<div class="col-md-6"
 									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputName4" class="form-label">Name</label> <input
-										type="text" class="form-control" id="inputName4"
-										name="username" placeholder="Enter Name here"
-										value="${userinfo.username}">
-								</div>
-
-								<div class="col-md-6"
-									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputContact" class="form-label">Contact</label> <input
-										type="text" class="form-control" id="inputContact4"
-										name="usercontact" placeholder="Enter Contact here"
-										value="${userinfo.usercontact}"> <span
+									<label for="inputContact4" class="form-label">Vehicle
+										Number Plate</label> <input type="text" class="form-control"
+										id="inputContact4" name="vehiclenplate"
+										placeholder="Enter Number here"
+										value="${carinfo.vehiclenplate}"> <span
 										id="validationMessage"
 										style="color: blue; justify-content: center;"></span>
 								</div>
 
-								<div class="col-md-6"
-									style="flex-basis: 30%; margin-bottom: 15px;">
-									<label for="inputEmail4" class="form-label">Email</label> <input
-										type="email" class="form-control" id="inputEmail4"
-										name="useremail" placeholder="Enter Email here"
-										value="${userinfo.useremail}"> <span
-										id="emailValidationMessage"
-										style="color: blue; justify-content: center;"></span>
-								</div>
-
 							</div>
-
-							<div class="col-12" style="flex-basis: 31%; margin-bottom: 15px;">
-								<label for="inputAddress" class="form-label">Address</label> <input
-									type="text" class="form-control" id="inputAddress"
-									name="useraddress" placeholder="Enter Address here"
-									value="${userinfo.useraddress}">
-							</div>
-
+							<!-- Search Button on a new line -->
 							<div class="col-12" style="text-align: center; margin-top: 15px;">
 								<button type="submit" class="btn btn-success"
 									style="width: 15%;">Search</button>
 							</div>
-
 						</form:form>
 					</div>
 
-					<div class="disptable" style="margin-top: 30px; width: 100%;">
+
+					<div class="disptable" style="margin-top: 30px;">
 						<table class="table" style="border: 1px solid black;">
 							<thead>
 								<tr class=" table-success">
 									<th scope="col">Sr no.</th>
-									<th scope="col">Name</th>
-									<th scope="col">Contact</th>
-									<th scope="col">Email</th>
-									<th scope="col">Address</th>
-									<th></th>
+									<th scope="col">Vehicle Model</th>
+									<th scope="col">Registered Vehicle Number</th>
+									<th scope="col">Vehicle Running in KMs</th>
+									<th scope="col">Entry Date</th>
+									<th scope="col">Technician</th>
 								</tr>
 							</thead>
 							<tbody>
 								<%
 								int count = 0;
 								%>
-								<c:forEach var="user" items="${users }">
+								<c:forEach var="vehicle" items="${vehicles }">
 									<tr>
-										<%-- <td><button type="button" data-bs-toggle="modal"
-												data-bs-target="#modal${user.userid}">
-
-												<%=++count%></button></td> --%>
-										<td><a href="updateSave?userID=${user.userid}"
-											type="button" class="btn btn-info btn-sm"><%=++count%></a></td>
-										<td>${user.username }</td>
-										<td>${user.usercontact }</td>
-										<td>${user.useremail }</td>
-										<td>${user.useraddress }</td>
-										<td><button type="button" class="btn btn-danger btn-sm"
-												data-bs-toggle="modal"
-												data-bs-target="#modaldelete${user.userid}">Delete</button></td>
+										<td><a
+											href="allocatespareparts?VisitID=${vehicle.vehicleid}"
+											type="button" class="btn btn-info btn-sm"> <%=++count%></a></td>
+										<td>${vehicle.vehiclemodel }</td>
+										<td>${vehicle.vehiclenplate }</td>
+										<td>${vehicle.visitVrun }</td>
+										<td>${vehicle.visitVentryDate }</td>
+										<td>${vehicle.tname}</td>
 									</tr>
-
-									<%-- <!-- Modal -->
-									<div class="modal fade" id="modal${user.userid}" tabindex="-1"
-										aria-labelled by="exampleModalLabel" aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">Do You
-														Want to Update or Delete</h5>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-
-												<div class="modal-footer">
-													<a href="updateSave?userID=${user.userid}"><button
-															type="button" class="btn btn-primary"
-															data-bs-dismiss="modal">Update</button></a>
-													<button type="button" class="btn btn-danger"
-														data-bs-toggle="modal"
-														data-bs-target="#modaldelete${user.userid}">Delete</button>
-												</div>
-											</div>
-										</div>
-									</div> --%>
-
-									<!--Delete Modal -->
-									<div class="modal fade" id="modaldelete${user.userid}"
-										tabindex="-1" aria-labelledby="exampleModalLabel"
-										aria-hidden="true">
-										<div class="modal-dialog">
-											<div class="modal-content">
-												<div class="modal-header">
-													<h5 class="modal-title" id="exampleModalLabel">Do you
-														want to Delete?</h5>
-													<button type="button" class="btn-close"
-														data-bs-dismiss="modal" aria-label="Close"></button>
-												</div>
-
-												<div class="modal-footer">
-													<button type="button" class="btn btn-secondary"
-														data-bs-dismiss="modal">Close</button>
-													<a href="deleteUser?userID=${user.userid}"><button
-															type="button" class="btn btn-danger">Delete</button></a>
-												</div>
-											</div>
-										</div>
-									</div>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
-
 				</div>
 
 			</div>
@@ -287,11 +209,11 @@
 	</div>
 
 
-	</div>
+
 
 	<!-- Optional JavaScript; choose one of the two! -->
-	<script type="text/javascript"
-		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" />
+	<!-- <script type="text/javascript"
+		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" /> -->
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

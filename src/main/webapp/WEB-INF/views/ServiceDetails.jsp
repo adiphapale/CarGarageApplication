@@ -77,7 +77,7 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-end"
 						id="navbarNav">
-						<form class="d-flex ms-auto">
+						<form class="d-flex ms-auto" action="logoutbtn">
 							<button class="btn btn-outline-light" type="submit">Logout</button>
 						</form>
 					</div>
@@ -110,18 +110,23 @@
 						class="nav-link active m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Servicing Section</button></a>
-
-				<button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Spare Parts Section</button>
-
-				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						aria-selected="false">Servicing Section</button></a> <a
+					href="sparePartspage"
+					style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Technician Section</button></a>
+						aria-selected="false">Spare Parts Section</button></a> <a
+					href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Technician Section</button></a> <a
+					href="billingPage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Billing Section</button></a>
 			</div>
 
 
@@ -132,7 +137,7 @@
 				<div class="tab-pane fade show active" id="v-pills-profile"
 					role="tabpanel" aria-labelledby=v-pills-profile-tab>
 
-				<!-- 	<div class="col-12"
+					<!-- 	<div class="col-12"
 						style="text-align: center; margin-bottom: 15px;">
 						<a href="addnewvehicle">
 							<button type="button" class="btn btn-success" style="width: 50%">Add Main Service</button>
@@ -140,12 +145,13 @@
 					</div> -->
 
 					<div class="searchform" style="width: 100%;">
-						<form:form class="row g-3" action="searchcarbynplate" method="POST"
-							modelAttribute="carDetails">
+						<form:form class="row g-3" action="searchcarbynplate_servicepage"
+							method="POST" modelAttribute="carDetails">
 
 							<!-- Add Car Details Button on a new line -->
 
-							<h4 style="margin-bottom: 15px;">Search Car for Service Allocation</h4>
+							<h4 style="margin-bottom: 15px;">Search Car for Service
+								Allocation</h4>
 
 							<div class="namecontact"
 								style="display: flex; flex-wrap: wrap; justify-content: space-between;">
@@ -189,7 +195,8 @@
 								%>
 								<c:forEach var="vehicle" items="${vehicles }">
 									<tr>
-										<td><a href="allocateservice?VisitID=${vehicle.vehicleid}"
+										<td><a
+											href="allocateservice?VisitID=${vehicle.vehicleid}"
 											type="button" class="btn btn-info btn-sm"> <%=++count%></a></td>
 										<td>${vehicle.vehiclemodel }</td>
 										<td>${vehicle.vehiclenplate }</td>

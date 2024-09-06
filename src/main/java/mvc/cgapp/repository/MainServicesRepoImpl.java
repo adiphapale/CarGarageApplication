@@ -25,7 +25,7 @@ public class MainServicesRepoImpl implements MainServicesRepo{
 	@Override
 	public List<SubServicesModel> getSubServicesByMsId(int msid) {
 		String sql="select *from subservicedetails_1 where msid=?";
-		List<SubServicesModel> gettingAllMainServices=jdbcTemplate.query(sql, new RowMapper<SubServicesModel>() {
+		List<SubServicesModel> gettingSelectedSubServices=jdbcTemplate.query(sql, new RowMapper<SubServicesModel>() {
 
 			@Override
 			public SubServicesModel mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -39,7 +39,7 @@ public class MainServicesRepoImpl implements MainServicesRepo{
 			
 		},msid);
 		
-		return gettingAllMainServices;
+		return gettingSelectedSubServices;
 	}
 
 

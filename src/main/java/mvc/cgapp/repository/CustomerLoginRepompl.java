@@ -18,15 +18,14 @@ public class CustomerLoginRepompl implements CustomerLoginRepo{
 	@Override
 	public boolean isCustomerLogoin(CustomerLoginModel customerLoginModel) {
 		
-		String query="select *from userinfo_1 where uname=? and ucontact=?";
-		
-		UserDetailsModel rs=jdbcTemplate.queryForObject(query, new UserRowMapper(),customerLoginModel.getCustName(),customerLoginModel.getCustPass());
-		if(rs==null){
-			return false;
+		String query="select *From userdetails_1 where uname=? and ucontact=?";
+		UserDetailsModel rs=new UserDetailsModel();
+		try {
+			rs=jdbcTemplate.queryForObject(query, new UserRowMapper(),customerLoginModel.getCustName(),customerLoginModel.getCustPass());
+		}catch(Exception ex) {
+			rs=null;
 		}
-		else {
-			return true;
-		}
+		return rs==null?false:true;
 	}
 
 }

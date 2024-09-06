@@ -102,9 +102,9 @@
 									</a>
 										<div class="dropdown-menu" aria-labelledby="loginDropdown">
 											<a class="dropdown-item"
-												href="/CarGarageApplicationMVC/adminLogin">Admin Login</a> <a
+												href="adminloginpage">Admin Login</a> <a
 												class="dropdown-item"
-												href="/CarGarageApplicationMVC/customerLogin">Customer
+												href="custlogin">Customer
 												Login</a>
 										</div></li>
 
