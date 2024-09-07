@@ -1,7 +1,8 @@
 package mvc.cgapp.controller;
 
-import java.util.LinkedHashMap;
+
 import java.util.List;
+
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import mvc.cgapp.model.MainServicesModel;
 import mvc.cgapp.model.SubServicesModel;
 import mvc.cgapp.model.VehicleFormModel;
-import mvc.cgapp.repository.MainServicesRepo;
+
 import mvc.cgapp.service.MainServicesService;
 import mvc.cgapp.service.UserVehicleService;
 
@@ -34,7 +35,7 @@ public class MainServiceController {
 		return "ServiceDetails";
 	}
 	
-	@PostMapping("/searchcarbynplate")
+	@PostMapping("/searchcarbynplate_servicepage")
 	public String searchCarByNPlate(VehicleFormModel vehicleFormModel,Model model) {
 		if(vehicleFormModel.getVehiclenplate().isEmpty()) {
 			List<VehicleFormModel> getAllCars=userVehicleService.getAllCars();
@@ -60,8 +61,10 @@ public class MainServiceController {
 	public String submitServices(@RequestParam("vvid") int vvid,@RequestParam("selectedSubServices") List<Integer> subServiceIDs,Model model) {
 		
 		boolean res=mainServicesService.linkVVIDtoSSID(vvid,subServiceIDs);
-		if(res==true)
-		System.out.println("vvid and ssid linked");
+		if(res==true) {
+			System.out.println("vvid and ssid linked");
+			return "redirect:/allocatespareparts?VisitID="+vvid;
+		}
 		return "allocateservicepage";
 	}
 }

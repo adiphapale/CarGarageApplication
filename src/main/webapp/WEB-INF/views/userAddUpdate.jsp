@@ -77,7 +77,7 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-end"
 						id="navbarNav">
-						<form class="d-flex ms-auto">
+						<form class="d-flex ms-auto" action="logoutbtn">
 							<button class="btn btn-outline-light" type="submit">Logout</button>
 						</form>
 					</div>
@@ -88,12 +88,6 @@
 		<div class="menubar">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<!-- <a href="newcustvehicle"
-					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-messages-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-messages"
-						type="button" role="tab" aria-controls="v-pills-messages"
-						aria-selected="false">Add New Customer/Vehicle</button></a> -->
 
 				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
 						class="nav-link active m-2 " id="v-pills-home-tab"
@@ -104,23 +98,29 @@
 						class="nav-link m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Car Section</button></a>
-
-				<button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Servicing Section</button>
-
-				<button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Spare Parts Section</button>
-
-				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						aria-selected="false">Car Section</button></a> <a
+					href="servicedetailspage"
+					style="text-decoration: none; margin: 0 auto"><button
 						class="nav-link m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Technician Section</button></a>
+						aria-selected="false">Servicing Section</button></a> <a
+					href="sparePartspage"
+					style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Spare Parts Section</button></a> <a
+					href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Technician Section</button></a> <a
+					href="billingPage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Billing Section</button></a>
 			</div>
 
 			<div class="tab-content" id="v-pills-tabContent">
@@ -201,7 +201,8 @@
 									<form:form action="submitformforvehicle" method="POST"
 										modelAttribute="modalform">
 
-										<input name="UserIDCustomer" type="hidden" value="${userinfo.userid }" />
+										<input name="UserIDCustomer" type="hidden"
+											value="${userinfo.userid }" />
 
 										<div class="mb-3">
 											<label for="inputVehicleModel5" class="form-label">Vehicle
@@ -360,7 +361,7 @@
 
 	<!-- Optional JavaScript; choose one of the two! -->
 	<script type="text/javascript"
-		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" ></script>
+		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js"></script>
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

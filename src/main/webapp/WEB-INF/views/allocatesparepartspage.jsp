@@ -6,7 +6,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Required meta tags -->
+
+<title>Spare Parts Form</title>
+
+<script>
+        function toggleSubCategories(mainCategoryCheckbox, subCategoryClass) {
+            let subCategories = document.getElementsByClassName(subCategoryClass);
+            for (let checkbox of subCategories) {
+                checkbox.checked = mainCategoryCheckbox.checked;
+                checkbox.dispatchEvent(new Event('change'));
+            }
+        }
+
+        function setDefaultQuantity(subCategoryCheckbox, quantityId) {
+            let quantityInput = document.getElementById(quantityId);
+            if (subCategoryCheckbox.checked && !quantityInput.value) {
+                quantityInput.value = 1; // Set default quantity to 1
+            } else if (!subCategoryCheckbox.checked) {
+                quantityInput.value = ''; // Clear quantity if unchecked
+            }
+        }
+    </script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- Bootstrap CSS -->
@@ -23,8 +44,6 @@
 
 <link type="text/css" rel="stylesheet"
 	href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/mycss.css" />
-
-<title>adminPannel</title>
 
 <style type="text/css">
 .container {
@@ -62,13 +81,13 @@
 }
 </style>
 <script>
-    // Function to select or deselect all subservices based on main service checkbox
-    function toggleSubServices(mainServiceCheckbox, subServiceClass) {
-        var checkboxes = document.getElementsByClassName(subServiceClass);
-        for (var i = 0; i < checkboxes.length; i++) {
-            checkboxes[i].checked = mainServiceCheckbox.checked;
-        }
-    }
+	// Function to select or deselect all subservices based on main service checkbox
+	function toggleSubServices(mainServiceCheckbox, subServiceClass) {
+		var checkboxes = document.getElementsByClassName(subServiceClass);
+		for (var i = 0; i < checkboxes.length; i++) {
+			checkboxes[i].checked = mainServiceCheckbox.checked;
+		}
+	}
 </script>
 </head>
 <body>
@@ -109,13 +128,13 @@
 						aria-selected="false">Car Section</button></a> <a
 					href="servicedetailspage"
 					style="text-decoration: none; margin: 0 auto"><button
-						class="nav-link active m-2" id="v-pills-settings-tab"
+						class="nav-link m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
 						aria-selected="false">Servicing Section</button></a> <a
 					href="sparePartspage"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-settings-tab"
+						class="nav-link active m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
 						aria-selected="false">Spare Parts Section</button></a> <a
@@ -135,34 +154,41 @@
 				<div class="tab-pane fade show active" id="v-pills-profile"
 					role="tabpanel" aria-labelledby=v-pills-profile-tab>
 
-					<h2 class="text-center mb-4">Select Service</h2>
-					<form action="submitServices?vvid=${visitID}" method="post">
+					<h2 class="text-center mb-4">Select Spare Parts</h2>
+					<form:form action="submitSpareParts?vvid=${visitID}" method="POST">
 						<div class="row">
 							<div class="col-md-12">
-								<c:forEach var="ServiceEntry" items="${servicesMap}">
+								<c:forEach var="sparePartEntry" items="${mapSpareParts}">
 									<div class="card shadow-sm p-3 mb-3 bg-body rounded">
-										<!-- Main Service Checkbox -->
+										<!-- Main Category Checkbox -->
 										<div class="card-header bg-info text-white">
 											<input type="checkbox" class="form-check-input me-2"
-												id="mainService-${ServiceEntry.key.msid}"
-												onclick="toggleSubServices(this, 'subService-${ServiceEntry.key.msid}')" />
+												id="mainCategory${sparePartEntry.key.mspid}"
+												onclick="toggleSubCategories(this, 'subCategory${sparePartEntry.key.mspid}')" />
 											<label class="form-check-label fw-bold"
-												for="mainService-${ServiceEntry.key.msid}">
-												<h5>${ServiceEntry.key.msname}</h5>
-											</label>
+												for="mainCategory${sparePartEntry.key.mspid}">
+												${sparePartEntry.key.mspname} </label>
 										</div>
-										<!-- Subservices -->
+										<!-- Subcategories -->
 										<div class="card-body">
 											<div class="subcategory">
-												<c:forEach var="subService" items="${ServiceEntry.value}">
+												<c:forEach var="subCategory" items="${sparePartEntry.value}">
 													<div class="d-flex align-items-center mb-2">
-														<!-- Subservice Checkbox -->
+														<!-- Subcategory Checkbox -->
 														<input type="checkbox"
-															class="form-check-input subService-${ServiceEntry.key.msid} me-2"
-															name="selectedSubServices" value="${subService.ssid}" />
+															class="form-check-input subCategory${sparePartEntry.key.mspid} me-2"
+															id="subCategory_${subCategory.spid}"
+															name="subCategory_${subCategory.spid}"
+															onchange="setDefaultQuantity(this, 'quantity_${subCategory.spid}')" />
 														<label class="form-check-label me-3"
-															for="subService-${subService.ssid}">
-															${subService.ssname} - ${subService.ssprice} </label>
+															for="subCategory_${subCategory.spid}">
+															${subCategory.spname} </label>
+														<!-- Quantity Input -->
+														<input type="number"
+															class="form-control form-control-sm quantity ms-auto"
+															style="width: 70px;" id="quantity_${subCategory.spid}"
+															name="quantity_${subCategory.spid}" min="1"
+															placeholder="Qty" />
 													</div>
 												</c:forEach>
 											</div>
@@ -174,7 +200,7 @@
 						<div class="text-center mt-4">
 							<button type="submit" class="btn btn-success btn-lg">Submit</button>
 						</div>
-					</form>
+					</form:form>
 
 				</div>
 			</div>

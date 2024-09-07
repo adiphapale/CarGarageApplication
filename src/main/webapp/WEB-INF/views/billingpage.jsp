@@ -24,12 +24,7 @@
 <link type="text/css" rel="stylesheet"
 	href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/mycss.css" />
 
-<title>adminPannel</title>
-
-
-<link rel="icon" type="image/x-icon"
-	href="/CarGarageApplicationMVC/URLToReachResourceFolder/Images/repair-shop.png" />
-
+<title>adminpannel_billing||section</title>
 
 <style type="text/css">
 .container {
@@ -65,17 +60,6 @@
 	flex-basis: 80%;
 	padding-top: 15px;
 }
-
-.twobtn {
-	padding-top: 25%;
-	display: flex;
-	justify-content: center;
-}
-
-.button-wrapper {
-	display: flex;
-	gap: 40px; /* Adjust the gap size as needed */
-}
 </style>
 </head>
 <body>
@@ -93,7 +77,7 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-end"
 						id="navbarNav">
-						<form class="d-flex ms-auto">
+						<form class="d-flex ms-auto" action="logoutbtn">
 							<button class="btn btn-outline-light" type="submit">Logout</button>
 						</form>
 					</div>
@@ -104,96 +88,137 @@
 		<div class="menubar">
 			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
 				role="tablist" aria-orientation="vertical">
-				<a href="newcustvehicle"
+				<!-- <a href="newcustvehicle"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link active m-2" id="v-pills-messages-tab"
+						class="nav-link m-2" id="v-pills-messages-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-messages"
 						type="button" role="tab" aria-controls="v-pills-messages"
-						aria-selected="false">Add New Customer/Vehicle</button></a> 
-						
-						<a
-					href="clientpannel" style="margin: 0 auto; text-decoration: none;"><button
+						aria-selected="false">Add New Customer/Vehicle</button></a> -->
+
+				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
 						class="nav-link  m-2 " id="v-pills-home-tab" data-bs-toggle="pill"
 						data-bs-target="#v-pills-home" type="button" role="tab"
 						aria-controls="v-pills-home" aria-selected="true">Customer
 						Section</button></a> <a href="cardetails"
 					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-profile-tab"
+						class="nav-link  m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Car Section</button></a>
-
-				<button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Settings</button>
+						aria-selected="false">Car Section</button></a> <a
+					href="servicedetailspage"
+					style="text-decoration: none; margin: 0 auto"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Servicing Section</button></a> <a
+					href="sparePartspage"
+					style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Spare Parts Section</button></a> <a
+					href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Technician Section</button></a> <a
+					href="billingPage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link active m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Billing Section</button></a>
 			</div>
 
+
+
+
+
 			<div class="tab-content" id="v-pills-tabContent">
-				<div class="tab-pane fade show active" id="v-pills-messages"
-					role="tabpanel" aria-labelledby="v-pills-messages-tab">
+				<div class="tab-pane fade show active" id="v-pills-profile"
+					role="tabpanel" aria-labelledby=v-pills-profile-tab>
 
-					<div class="searchform">
-						<form:form class="row g-3" action="acceptvehicleform"
-							method="POST" modelAttribute="UserVehicleModel">
+					<!-- 	<div class="col-12"
+						style="text-align: center; margin-bottom: 15px;">
+						<a href="addnewvehicle">
+							<button type="button" class="btn btn-success" style="width: 50%">Add Main Service</button>
+						</a>
+					</div> -->
 
+					<div class="searchform" style="width: 100%;">
+						<form:form class="row g-3" action="searchcarbynplate_billpage"
+							method="POST" modelAttribute="carDetails">
 
-							<h4>Enter Vehicle Details</h4>
+							<!-- Add Car Details Button on a new line -->
+
+							<h4 style="margin-bottom: 15px;">Search Car for Print Bills</h4>
 
 							<div class="namecontact"
-								style="display: flex; justify-content: space-between;">
-								<div class="col-md-6" style="flex-basis: 30%;">
-									<label for="inputVehicleModel5" class="form-label">Vehicle
-										Model</label> <input type="text" class="form-control"
-										id="inputVehicleModel5" name="vehiclemodel"
-										placeholder="Enter Model here"
-										value="${userVehicleModel.vehiclemodel}">
-								</div>
-								<div class="col-md-6" style="flex-basis: 30%;">
-									<label for="inputVehicleNPlate6" class="form-label">Vehicle
+								style="display: flex; flex-wrap: wrap; justify-content: space-between;">
+
+								<div class="col-md-6"
+									style="flex-basis: 30%; margin-bottom: 15px;">
+									<label for="inputContact4" class="form-label">Vehicle
 										Number Plate</label> <input type="text" class="form-control"
-										id="inputVehicleNPlate6" name="vehiclenplate"
+										id="inputContact4" name="vehiclenplate"
 										placeholder="Enter Number here"
-										value="${userVehicleModel.vehiclenplate}"> <span
+										value="${carinfo.vehiclenplate}"> <span
 										id="validationMessage"
 										style="color: blue; justify-content: center;"></span>
 								</div>
-								<div class="col-md-6" style="flex-basis: 30%;">
-									<label for="inputVehicleKM7" class="form-label">Vehicle
-										Running In KM</label> <input type="number" class="form-control"
-										id="inputVehicleKM7" name="vehiclerun"
-										placeholder="Enter Running here"
-										value="${userVehicleModel.vehiclerun}"> <span
-										id="emailValidationMessage"
-										style="color: blue; justify-content: center;"></span>
-								</div>
-							</div>
 
-							<div class="col-12" style="flex-basis: 31%;">
-								<label for="inputVehicleDate8" class="form-label">Vehicle
-									Entry Date</label> <input type="date" class="form-control"
-									id="inputVehicleDate8" name="vehicledate"
-									placeholder="Enter vehicle Date here"
-									value="${userVehicleModel.vehicledate}">
 							</div>
-
-							<div class="btns" style="display: flex;">
-								<div class="col-12" style="flex-basis: 20%; margin-top: 10px;">
-									<button type="submit" class="btn btn-success">Save &
-										Next</button>
-								</div>
+							<!-- Search Button on a new line -->
+							<div class="col-12" style="text-align: center; margin-top: 15px;">
+								<button type="submit" class="btn btn-success"
+									style="width: 15%;">Search</button>
 							</div>
 						</form:form>
 					</div>
 
+
+					<div class="disptable" style="margin-top: 30px;">
+						<table class="table" style="border: 1px solid black;">
+							<thead>
+								<tr class=" table-success">
+									<th scope="col">Sr no.</th>
+									<th scope="col">Vehicle Model</th>
+									<th scope="col">Registered Vehicle Number</th>
+									<th scope="col">Vehicle Running in KMs</th>
+									<th scope="col">Entry Date</th>
+									<th scope="col">Technician</th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+								int count = 0;
+								%>
+								<c:forEach var="vehicle" items="${vehicles }">
+									<tr>
+										<td><a
+											href="allocatebilling?VisitID=${vehicle.vehicleid}"
+											type="button" class="btn btn-info btn-sm"> <%=++count%></a></td>
+										<td>${vehicle.vehiclemodel }</td>
+										<td>${vehicle.vehiclenplate }</td>
+										<td>${vehicle.visitVrun }</td>
+										<td>${vehicle.visitVentryDate }</td>
+										<td>${vehicle.tname}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
 				</div>
+
 			</div>
 		</div>
 	</div>
 
+
+	</div>
+
 	<!-- Optional JavaScript; choose one of the two! -->
-	<script type="text/javascript"
-		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" />
+	<!-- <script type="text/javascript"
+		src="/CarGarageApplicationMVC/URLToReachResourceFolder/js/myjs.js" /> -->
 	<!-- Option 1: Bootstrap Bundle with Popper -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
@@ -213,4 +238,3 @@
 
 </body>
 </html>
-

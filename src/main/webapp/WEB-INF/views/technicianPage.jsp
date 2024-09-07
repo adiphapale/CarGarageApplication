@@ -69,7 +69,7 @@
 					</button>
 					<div class="collapse navbar-collapse justify-content-end"
 						id="navbarNav">
-						<form class="d-flex ms-auto">
+						<form class="d-flex ms-auto" action="logoutbtn">
 							<button class="btn btn-outline-light" type="submit">Logout</button>
 						</form>
 					</div>
@@ -89,20 +89,29 @@
 						class="nav-link m-2" id="v-pills-profile-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
 						type="button" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Car Section</button></a>
-				<button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Servicing Section</button>
-				<button class="nav-link m-2" id="v-pills-settings-tab"
-					data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-					type="button" role="tab" aria-controls="v-pills-settings"
-					aria-selected="false">Spare Parts Section</button>
-				<a href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
+						aria-selected="false">Car Section</button></a> <a
+					href="servicedetailspage"
+					style="text-decoration: none; margin: 0 auto"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Servicing Section</button></a> <a
+					href="sparePartspage"
+					style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Spare Parts Section</button></a> <a
+					href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
 						class="nav-link active m-2" id="v-pills-settings-tab"
 						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
 						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Technician Section</button></a>
+						aria-selected="false">Technician Section</button></a> <a
+					href="billingPage" style="margin: 0 auto; text-decoration: none;"><button
+						class="nav-link m-2" id="v-pills-settings-tab"
+						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
+						type="button" role="tab" aria-controls="v-pills-settings"
+						aria-selected="false">Billing Section</button></a>
 			</div>
 
 			<div class="tab-content" id="v-pills-tabContent">
@@ -118,8 +127,8 @@
 
 							<!-- Button to Open the Modal -->
 							<button type="button" class="btn btn-success"
-								data-bs-toggle="modal" data-bs-target="#techModal">
-								Add Technician Details</button>
+								data-bs-toggle="modal" data-bs-target="#techModal">Add
+								Technician Details</button>
 
 							<!-- The Modal -->
 							<div class="modal fade" id="techModal" tabindex="-1"
