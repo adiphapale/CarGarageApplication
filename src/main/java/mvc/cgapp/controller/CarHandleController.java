@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import mvc.cgapp.model.TechniciansModel;
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.VehicleFormModel;
@@ -74,7 +76,13 @@ public class CarHandleController {
 
 		} catch (Exception ex) {}
 		
-		carHandleService.addVehicleDataProcess(vehicleFormModel, userID);
+		/* carHandleService.addVehicleDataProcess(vehicleFormModel, userID); */
+		
+		boolean res=carHandleService.addVehicleAndVisitVehicleDetails(vehicleFormModel, userID);
+		
+		if(res==true) {
+			System.out.println("procedure call true");
+		}else {System.out.println("not call procedure false");}
 		int uid = userID.intValue();
 		UserDetailsModel selectedUser = userService.getSelectedUsersByID(uid);
 		List<VehicleFormModel> getAllSelectedVehicles = userVehicleService.getVehiclesByUserID(uid);
@@ -83,7 +91,7 @@ public class CarHandleController {
 		model.addAttribute("userinfo", selectedUser);
 		model.addAttribute("vehicles", getAllSelectedVehicles);
 		model.addAttribute("techies", getalltechies);
-		return "userAddUpdate";
+		return "admin2";
 	}
 	
 	@RequestMapping("/addnewvehicle")
@@ -100,8 +108,7 @@ public class CarHandleController {
 	@PostMapping("/addingnewcardetails")
 	public String addingNewCardetails(VehicleFormModel vehicleFormModel,Model model) {
 		
-		boolean res=carHandleService.addVehicleDataProcess(vehicleFormModel, null);
-		
+		boolean res=carHandleService.addVehicleAndVisitVehicleDetails(vehicleFormModel, null);
 		
 		if(res==true) {
 			VehicleFormModel vehicle=userVehicleService.getSelectedCarByEntryDate(vehicleFormModel.getVisitVentryDate());
@@ -173,5 +180,24 @@ public class CarHandleController {
 			model.addAttribute("customer",selectedUser);
 		}		
 		return "carupdatepage";
+	}
+	
+	
+	
+	@RequestMapping("/deleteVehicle")
+	@ResponseBody
+	public String confirmDeleteForVehicle(@RequestParam("vvID") int vvid) {
+		
+		try {
+			boolean res=carHandleService.deleteVehicleByVVID(vvid);
+				if(res)
+					return "success";
+				else
+					return "failed";
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return "failed";
+		}
 	}
 }

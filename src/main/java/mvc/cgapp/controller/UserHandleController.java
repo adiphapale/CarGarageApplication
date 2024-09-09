@@ -9,8 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import mvc.cgapp.model.TechniciansModel;
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.VehicleFormModel;
@@ -31,6 +34,8 @@ public class UserHandleController {
 	TechniciansService techniciansService;
 	
 
+	private List<TechniciansModel> getalltechies;
+	
 	@RequestMapping("/customerProfilePage")
 	public String customerProfilePage() {
 		
@@ -43,6 +48,47 @@ public class UserHandleController {
 		return "clientPannel";
 	}
 
+	
+//    @ResponseBody
+//    public String handleFormSubmission(@RequestBody UserDetailsModel userDetailsModel) {
+//        // Log the received data (for debugging)
+//        System.out.println("Received data: " + userDetailsModel);
+//		return "handle";
+//
+// 
+//	}
+	
+	
+	
+	@RequestMapping("/adminside")
+	public String admin(@ModelAttribute("userDetails") UserDetailsModel userDetailsModel) {
+		
+		return "admin";
+	}
+	
+	
+
+//
+//	    @PostMapping("/processform")
+//	    @ResponseBody
+//	    public List<UserDetailsModel> searchUsers(@RequestParam(required = false) String name,
+//	                                  @RequestParam(required = false) String contact,
+//	                                  @RequestParam(required = false) String email,
+//	                                  @RequestParam(required = false) String address) {
+//	    	
+//	    	UserDetailsModel get=new UserDetailsModel();
+//	    	get.setUsername(name);
+//	    	get.setUsercontact(contact);
+//	    	get.setUseremail(email);
+//	    	get.setUseraddress(address);
+//	        // Call service to search users based on provided criteria
+//	        List<UserDetailsModel> users = userService.getSelectedUsers(get);
+//	        return users;
+//	    }
+	
+
+	
+	
 	@PostMapping("/processform")
 	public String processForm(UserDetailsModel userDetailsModel, Model model) {
 		if(userDetailsModel.getUsername().isEmpty()&&userDetailsModel.getUsercontact().isEmpty()&&userDetailsModel.getUseremail().isEmpty()&&userDetailsModel.getUseraddress().isEmpty()) {
@@ -56,7 +102,7 @@ public class UserHandleController {
 			List<UserDetailsModel> gettingSelectedUsers=userService.getSelectedUsers(userDetailsModel);
 			model.addAttribute("users",gettingSelectedUsers);
 		}
-		return "clientPannel";
+		return "admin";
 	}
 	
 	@RequestMapping("/updateSave")
@@ -66,7 +112,7 @@ public class UserHandleController {
 		UserDetailsModel selectedUser=userService.getSelectedUsersByID(id);
 //		System.out.println(selectedUser);
 		List<VehicleFormModel> getAllSelectedVehicles=userVehicleService.getVehiclesByUserID(id);
-		List<TechniciansModel> getalltechies=techniciansService.getAllTechnicians();
+		getalltechies=techniciansService.getAllTechnicians();
 		model.addAttribute("userinfo",selectedUser);
 		
 		
@@ -74,7 +120,8 @@ public class UserHandleController {
 		model.addAttribute("vehicles",getAllSelectedVehicles);
 		model.addAttribute("techies",getalltechies);
 		
-		return "userAddUpdate";
+		/* return "userAddUpdate"; */
+		return "admin2";
 	}
 	
 	@RequestMapping("/goingtoupdate")
@@ -103,7 +150,8 @@ public class UserHandleController {
 		List<VehicleFormModel> getAllSelectedVehicles=userVehicleService.getVehiclesByUserID(userDetailsModel.getUserid());
 	
 		model.addAttribute("vehicles",getAllSelectedVehicles);
-		return "userAddUpdate";
+		/* return "userAddUpdate"; */
+		return "admin2";
 
 	}
 	
@@ -111,8 +159,8 @@ public class UserHandleController {
 	@RequestMapping("/addnewcustomer")
 	public String addNewCustomerPage(@ModelAttribute("CustDetails") UserDetailsModel userDetailsModel) {
 
-
-		return "addcustomerpage";
+			return "admin3";
+		/* return "addcustomerpage"; */
 	}
 	
 	
@@ -134,27 +182,38 @@ public class UserHandleController {
 		if(res==true) {
 			model.addAttribute("Userid",userid.getUserid());
 			model.addAttribute("msg","data added");
-			model.addAttribute("users",userid);
+			model.addAttribute("user",userid);
 		}
 		else {
 			model.addAttribute("msg","data not added");
 		}
 	
-		return "addcustomerpage";
+		return "admin3";
+		/* return "addcustomerpage"; */
 	}
 	
 	
-	
 	@RequestMapping("/deleteUser")
+	@ResponseBody
 	public String deleteUser(@RequestParam("userID") int id,Model model) {
-		
-//		System.out.p   rintln(id);
-		userService.deleteUsersByID(id);
-		List<UserDetailsModel> gettingAllUsers=userService.getAllUser();
-		model.addAttribute("users",gettingAllUsers);
-		
-		
-		return "clientPannel";
+			
+			try{
+				boolean res=userService.deleteUsersByID(id);
+				if(res) {
+					System.out.println(res);
+					return "success";
+				}
+					
+				else {
+					System.out.println(res);
+					return "failed";
+				}
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+				return "failed";
+				
+			}	
 	}
 	
 }

@@ -5,9 +5,14 @@ import mvc.cgapp.model.VehicleFormModel;
 import mvc.cgapp.model.VisitVehicleModel;
 
 public interface CarHandleService {
-	public boolean addVehicleDataProcess(VehicleFormModel vehicleFormModel,Long userid);
-	public int saveVehicleData(UserVehicleModel userVehicleModel);
-	public int saveVisitVehicleData(VisitVehicleModel visitVehicleModel);
 	
+	boolean addVehicleAndVisitVehicleDetails(VehicleFormModel vehicleFormModel,Long userID);
+	
+	
+	boolean deleteVehicleByVVID(int vvid);
+//	public boolean addVehicleDataProcess(VehicleFormModel vehicleFormModel,Long userid);
+//	public int saveVehicleData(UserVehicleModel userVehicleModel);
+//	public int saveVisitVehicleData(VisitVehicleModel visitVehicleModel);
+//	
 	VehicleFormModel getUpdatedVehicle(VehicleFormModel vehicleFormModel);
 }

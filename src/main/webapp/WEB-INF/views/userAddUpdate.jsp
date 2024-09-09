@@ -294,8 +294,7 @@
 										<td>${vehicle.vehiclenplate }</td>
 										<td>${vehicle.visitVrun }</td>
 										<td>${vehicle.visitVentryDate }</td>
-										<td>${ vehicle.tname}
-										<td>
+										<td>${vehicle.tname}</td>
 									</tr>
 
 									<!-- Modal -->

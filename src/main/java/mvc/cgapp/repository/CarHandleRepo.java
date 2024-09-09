@@ -5,6 +5,13 @@ import mvc.cgapp.model.VehicleFormModel;
 import mvc.cgapp.model.VisitVehicleModel;
 
 public interface CarHandleRepo {
+	
+	
+	boolean addVehicleAndVisitVehicleDetails(VehicleFormModel vehicleFormModel,Long userID);
+	
+	
+	boolean deleteVehicleByVVID(int vvid);
+	
 
 	public int saveVehicleData(UserVehicleModel userVehicleModel);
 	

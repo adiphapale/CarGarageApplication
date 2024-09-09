@@ -129,4 +129,49 @@ public class CarHandleRepoImpl implements CarHandleRepo {
 		return res>0?bindData:null;
 	}
 
+	@Override
+	public boolean addVehicleAndVisitVehicleDetails(VehicleFormModel vehicleFormModel, Long userID) {
+		String vmodel=vehicleFormModel.getVehiclemodel();
+		String vnplate=vehicleFormModel.getVehiclenplate();
+		long vvrun=vehicleFormModel.getVisitVrun();
+		String vventryDate=vehicleFormModel.getVisitVentryDate();
+		int tid=vehicleFormModel.getTid();
+		System.out.println(vehicleFormModel);
+		String sql="call insertVehicleAndVisitVehicleDetails(?,?,?,?,?,?)";
+		
+		int vvid=0;
+		try{
+			vvid=jdbcTemplate.queryForObject(sql,new RowMapper<Integer>() {
+
+				@Override
+				public Integer mapRow(ResultSet rs, int rowNum) throws SQLException {
+					
+					return rs.getInt(1);
+				}
+				
+			},vmodel,vnplate,vvrun,vventryDate,userID,tid);
+		}catch(Exception ex) {}
+		
+		System.out.println("procedure call vvid is:- "+vvid);
+		return vvid>0?true:false;
+	}
+
+	@Override
+	public boolean deleteVehicleByVVID(int vvid) {
+		
+		String sql ="CALL delete_vehicle_by_visit(?)";
+		int res=0;
+		try {
+			res=jdbcTemplate.update(sql,vvid);
+			System.out.println("deletion of vehicle withres "+res);
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return res>0?true:false;
+	}
+	
+	
+	
+
 }

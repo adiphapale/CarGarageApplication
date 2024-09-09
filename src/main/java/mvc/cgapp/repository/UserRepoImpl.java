@@ -141,11 +141,20 @@ public class UserRepoImpl implements UserRepo {
 	}
 
 	@Override
-	public void deleteUsersByID(int userid) {
+	public boolean deleteUsersByID(int userid) {
 		
-		String sql="delete from userDetails_1 where uid=?";
-		jdbcTemplate.update(sql,userid);
-		System.out.println("1 User record deleted");
+		String sql="CALL delete_user_and_related(?)";
+		int res=0;
+		try{
+			res=jdbcTemplate.update(sql,userid);
+			System.out.println("deletion res is:- "+res);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return res>0?true:false;
+		
 	}
 
 	@Override
