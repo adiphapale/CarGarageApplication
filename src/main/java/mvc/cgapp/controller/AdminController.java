@@ -17,6 +17,8 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
+	
+	
 	@RequestMapping("/adminloginpage")
 	public String adminLogin(@ModelAttribute("admindetails") AdminModel adminModel) {
 		return "AdminLoginPage";

@@ -12,7 +12,7 @@ public interface UserService {
 	
 	UserDetailsModel getSelectedUsersByID(int userid);
 	
-	void deleteUsersByID(int userid);
+	boolean deleteUsersByID(int userid);
 	
 	UserDetailsModel getUpdatedUser(UserDetailsModel userDetailsModel);
 

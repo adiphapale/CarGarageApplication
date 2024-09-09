@@ -26,7 +26,7 @@ public interface UserRepo {
 
 	UserDetailsModel getSelectedUsersByID(int userid);
 	
-	void deleteUsersByID(int userid);
+	boolean deleteUsersByID(int userid);
 	
 	UserDetailsModel getUpdatedUser(UserDetailsModel userDetailsModel);
 	
