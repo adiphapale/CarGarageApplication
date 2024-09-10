@@ -216,6 +216,7 @@
 									<th scope="col">Vehicle Running in KMs</th>
 									<th scope="col">Entry Date</th>
 									<th scope="col">Technician</th>
+									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -231,6 +232,8 @@
 										<td>${vehicle.visitVrun }</td>
 										<td>${vehicle.visitVentryDate }</td>
 										<td>${vehicle.tname}</td>
+										<td><button type="button" class="btn btn-danger btn-sm"
+												onclick="confirmDeleteforvehicle(${vehicle.vehicleid})">Delete</button></td>
 									</tr>
 
 									<!-- Modal -->

@@ -40,8 +40,17 @@
 	display: block;
 }
 
-.form-group input[type="text"], .form-group input[type="email"],
-	.form-group input[type="number"], .form-group textarea {
+.form-group input[type="text"], .form-group input[type="date"],
+	.form-group input[type="date"], .form-group textarea {
+	width: 100%;
+	padding: 10px 15px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 16px;
+	transition: border-color 0.3s ease;
+}
+
+.form-group select {
 	width: 100%;
 	padding: 10px 15px;
 	border: 1px solid #ccc;
@@ -235,13 +244,13 @@
 					class="links_name">Dashboard</span>
 			</a></li>
 
-			<li><a href="adminside" class="active"> <i
-					class='bx bxs-group'></i> <span class="links_name">Customers
-						Section</span>
+			<li><a href="adminside"> <i class='bx bxs-group'></i> <span
+					class="links_name">Customers Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i>
-					<span class="links_name">Cars Section</span>
+			<li><a href="carpage" class="active"> <i
+					class='bx bxs-car-mechanic'></i> <span class="links_name">Cars
+						Section</span>
 			</a></li>
 
 
@@ -277,7 +286,8 @@
 	<section class="home-section">
 		<nav>
 			<div class="sidebar-button">
-				<i class="bx bx-menu sidebarBtn"></i> <span class="dashboard">Dashboard</span>
+				<i class="bx bx-menu sidebarBtn"></i> <span class="dashboard">Car
+					Dashboard</span>
 			</div>
 			<!-- <div class="search-box">
           <input type="text" placeholder="Search..." />
@@ -292,64 +302,68 @@
 			<div class="overview-boxes">
 				<div class="box">
 					<div class="right-side">
-						<div class="box-topic">Customer Registration Panel</div>
+						<div class="box-topic">Search Panel</div>
 
 					</div>
 				</div>
 			</div>
 
+			<div class="button1">
+				<a href="addnewcustomer">Add Vehicle</a>
+			</div>
 
 			<div class="sales-boxes">
 				<div class="recent-sales box">
 
 
-					<form:form action="addingnewcustomerdetails" method="POST"
-						modelAttribute="CustDetails" id="userForm">
+					<form:form action="searchcar" method="POST"
+						modelAttribute="carDetails" id="vehicleForm">
 
-						<!-- Name Field -->
+						<!-- Model number -->
 						<div class="form-group">
-							<label for="nameField">Full Name</label> <input type="text"
-								id="nameField" name="username" placeholder="Enter full name"
-								value=""
-								onkeyup="validateName(); clearValidationMessage('nameField', 'nameValidationMessage')" />
-							<span id="nameValidationMessage"></span>
+							<label for="nameField">Vehicle Model</label><input type="text"
+								class="form-control" id="inputName4" name="vehiclemodel"
+								placeholder="Enter Vehicle Model"
+								value="${carinfo.vehiclemodel}">
 						</div>
 
-						<!-- Contact Field -->
+						<!-- Number plate Field -->
 						<div class="form-group">
-							<label for="contactField">Phone Number</label> <input type="text"
-								id="contactField" name="usercontact"
-								placeholder="Enter phone number" value=""
-								onkeyup="validateContact(); clearValidationMessage('contactField', 'contactValidationMessage')" />
-							<span id="contactValidationMessage"></span>
+							<label for="contactField">Vehicle Registered Number</label> <input
+								type="text" id="inputVehicleNPlate" name="vehiclenplate"
+								placeholder="Enter Vehicle Registered number"
+								value="${carinfo.vehiclenplate}"
+								onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')" />
+							<span id="vehicleNPlateError" style="color: red; display: none;">Invalid
+								vehicle number plate</span>
 						</div>
 
-						<!-- Email Field -->
+						<!-- Vehicle Entry Date -->
 						<div class="form-group">
-							<label for="emailField">Email Address</label> <input type="email"
-								id="emailField" name="useremail" placeholder="Enter email"
-								value=""
-								onkeyup="validateEmail(); clearValidationMessage('emailField', 'emailValidationMessage')" />
-							<span id="emailValidationMessage1"></span>
+							<label for="emailField">Vehicle Entry Date</label> <input
+								type="date" id="inputVehicleDate8" name="visitVentryDate"
+								placeholder="Enter Vehicle Entry Date"
+								value="${carinfo.visitVentryDate}" />
+
 						</div>
 
 
 
-						<!-- Address Field -->
+						<!-- Technician Field -->
 						<div class="form-group">
-							<label for="addressField">Home Address</label> <input type="text"
-								id="addressField" name="useraddress"
-								placeholder="Enter home address" value="">
+							<label for="addressField">Select Technician</label> <select
+								class="form-control" id="selectTechnician" name="tname">
+								<option value="" disabled selected>Select a technician</option>
+								<c:forEach var="technician" items="${techies}">
+									<option value="${technician.tname}">${technician.tname}</option>
+								</c:forEach>
+							</select>
 						</div>
 
 						<!-- Submit Button (Disabled by default) -->
 						<div class="button-container">
-							<button type="submit">Submit</button>
+							<button type="submit">Search</button>
 						</div>
-						<div style="text-align: center;">
-							<label style="color: blue;">${msg}</label>
-						</div>
-
 					</form:form>
 				</div>
 			</div>
@@ -361,28 +375,33 @@
 							<thead>
 								<tr class=" table-success">
 									<th scope="col">Sr no.</th>
-									<th scope="col">Name</th>
-									<th scope="col">Contact</th>
-									<th scope="col">Email</th>
-									<th scope="col">Address</th>
+									<th scope="col">Vehicle Model</th>
+									<th scope="col">Registered Number</th>
+									<th scope="col">Vehicle Running in KMs</th>
+									<th scope="col">Entry Date</th>
+									<th scope="col">Technician</th>
 									<th></th>
 								</tr>
 							</thead>
 							<tbody>
-
-								<c:if test="${not empty user}">
+								<%
+								int count = 0;
+								%>
+								<c:forEach var="vehicle" items="${vehicles}">
 									<tr>
-										<td><a href="updateSave?userID=${user.userid}"
+										<td><a href="updateforcar?VisitID=${vehicle.vehicleid}"
 											type="button" class="btn btn-info btn-sm"
-											style="color: white; text-decoration: none">${user.userid}</a></td>
-										<td>${user.username}</td>
-										<td>${user.usercontact}</td>
-										<td>${user.useremail}</td>
-										<td>${user.useraddress}</td>
+											style="color: white; text-decoration: none"><%=++count%></a></td>
+
+										<td>${vehicle.vehiclemodel }</td>
+										<td>${vehicle.vehiclenplate }</td>
+										<td>${vehicle.visitVrun }</td>
+										<td>${vehicle.visitVentryDate }</td>
+										<td>${vehicle.tname}</td>
 										<td><button type="button" class="btn btn-danger btn-sm"
-												onclick="confirmDelete(${user.userid})">Delete</button></td>
+												onclick="confirmDeleteforvehicle(${vehicle.vehicleid})">Delete</button></td>
 									</tr>
-								</c:if>
+								</c:forEach>
 							</tbody>
 						</table>
 					</div>
@@ -466,39 +485,60 @@
 		}
 		
 		
-	
-	    function confirmDelete(userId) {
-	        // Show confirmation dialog
-	        
-	        if (confirm("Do you really want to delete this user?")) {
-	            // If the user confirms, proceed with AJAX call
-	            let xhr = new XMLHttpRequest();
-	             // Adjust the URL based on your controller's mapping
-	            // Define what happens on successful data submission
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState == 4 && xhr.status == 200) {
-	                    // Response from the server (success)
-	                    let response=xhr.responseText;
-	                    console.log(response)
-	                    if(response==='success'){
-	                    	alert("User deleted successfully.");
-		                    // Optionally, you can remove the row from the table
-		                    window.location.reload(); // Refresh the page to see the changes
-		                
-	                    }else{
-	                    	alert("something went wrong")
-	                    }
-	                 }
-	            };
+		
+		
+		//delete by using ajax vehicle
+		
+		function confirmDeleteforvehicle(vehicleId) {
+			// Show confirmation dialog
 
-	            xhr.open("GET", "deleteUser?userID="+userId, true);
-	            // Send the userId as the data
-	            xhr.send();
-	        } 
-	    }
+			if (confirm("Do you really want to delete this vehicle?")) {
+				// If the user confirms, proceed with AJAX call
+				let xhr = new XMLHttpRequest();
+				// Adjust the URL based on your controller's mapping
+				// Define what happens on successful data submission
+				xhr.onreadystatechange = function() {
+					if (xhr.readyState == 4 && xhr.status == 200) {
+						// Response from the server (success)
+						let response = xhr.responseText;
+						console.log(response)
+						if (response === 'success') {
+							alert("Vehicle deleted successfully.");
+							// Optionally, you can remove the row from the table
+							window.location.reload(); // Refresh the page to see the changes
+
+						} else {
+							alert("something went wrong")
+						}
+					}
+				};
+
+				xhr.open("GET", "deleteVehicle?vvID=" + vehicleId, true);
+				// Send the userId as the data
+				xhr.send();
+			}
+		}
+		
+	   
+	  //that is for number plate
+		function validateVehicleNumber() {
+			const input = document.getElementById('inputVehicleNPlate').value;
+			const errorMsg = document.getElementById('vehicleNPlateError');
+			const initialCheck = /^[A-Za-z][A-Za-z0-9 ]*$/; // First check for valid starting character
+			const vehicleNumberPattern = /^[A-Z]{2}\d{2}[A-Z]{2}\d{1,4}$/; // Format for registered vehicle plate
+
+			if (!initialCheck.test(input)) {
+				errorMsg.innerHTML = "Number plate cannot start with spaces, digits, or special characters.";
+				errorMsg.style.display = 'inline';
+			} else if (!vehicleNumberPattern.test(input)) {
+				errorMsg.innerHTML = "Invalid vehicle number plate format. Expected format: MH12AB1234.";
+				errorMsg.style.display = 'inline';
+			} else {
+				errorMsg.style.display = 'none';
+			}
+		}
 	    
 	</script>
 
 </body>
 </html>
-html>
