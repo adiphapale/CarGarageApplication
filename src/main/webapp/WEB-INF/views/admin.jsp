@@ -240,7 +240,7 @@
 						Section</span>
 			</a></li>
 
-			<li><a href="index3.html"> <i class='bx bxs-car-mechanic'></i>
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i>
 					<span class="links_name">Cars Section</span>
 			</a></li>
 

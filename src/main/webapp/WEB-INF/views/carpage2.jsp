@@ -41,7 +41,7 @@
 }
 
 .form-group input[type="text"], .form-group input[type="email"],
-	.form-group input[type="number"], .form-group textarea {
+	.form-group input[type="number"], .form-group textarea, .form-group select {
 	width: 100%;
 	padding: 10px 15px;
 	border: 1px solid #ccc;
@@ -222,6 +222,75 @@
 		padding: 4px 8px;
 	}
 }
+
+/* The Modal (background) */
+.modal {
+	display: none;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Modal Content */
+.modal-content {
+	background-color: white;
+	margin: 10% auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 50%;
+	/* Width of modal */
+	border-radius: 10px;
+}
+
+/* Close Button */
+.close {
+	color: #aaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+/* Styling form fields */
+.form-group {
+	margin-bottom: 15px;
+}
+
+.form-group label {
+	display: block;
+	margin-bottom: 5px;
+}
+
+.form-group input {
+	width: 100%;
+	padding: 8px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+/* Submit Button */
+button[type="submit"] {
+	padding: 10px 20px;
+	background-color: #28a745;
+	color: white;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+button[type="submit"]:hover {
+	background-color: #218838;
+}
 </style>
 </head>
 <body>
@@ -235,13 +304,13 @@
 					class="links_name">Dashboard</span>
 			</a></li>
 
-			<li><a href="adminside" class="active"> <i
+			<li><a href="adminside"> <i
 					class='bx bxs-group'></i> <span class="links_name">Customers
 						Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i>
-					<span class="links_name">Cars Section</span>
+			<li><a href="carpage"  class="active"> <i class='bx bxs-car-mechanic'></i> <span
+					class="links_name">Cars Section</span>
 			</a></li>
 
 
@@ -266,7 +335,7 @@
 			<li><a href="#"> <i class="bx bx-heart"></i> <span
 					class="links_name">Favrorites</span>
 			</a></li>
-			<li><a href="#"> <i class='bx bxs-spreadsheet'></i> <span
+			<li><a href="#"> <i class="bx bx-cog"></i> <span
 					class="links_name">Reports</span>
 			</a></li>
 			<li class="log_out"><a href="logoutbtn"> <i
@@ -277,14 +346,15 @@
 	<section class="home-section">
 		<nav>
 			<div class="sidebar-button">
-				<i class="bx bx-menu sidebarBtn"></i> <span class="dashboard">Dashboard</span>
+				<i class="bx bx-menu sidebarBtn"></i> <span class="dashboard">Car
+					Dashboard</span>
 			</div>
 			<!-- <div class="search-box">
           <input type="text" placeholder="Search..." />
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<img src="" alt="" /> <span class="admin_name">Prem Shahi</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -292,67 +362,123 @@
 			<div class="overview-boxes">
 				<div class="box">
 					<div class="right-side">
-						<div class="box-topic">Customer Registration Panel</div>
+						<div class="box-topic">Update Panel</div>
 
 					</div>
 				</div>
 			</div>
 
 
+
 			<div class="sales-boxes">
 				<div class="recent-sales box">
 
 
-					<form:form action="addingnewcustomerdetails" method="POST"
-						modelAttribute="CustDetails" id="userForm">
-
-						<!-- Name Field -->
-						<div class="form-group">
-							<label for="nameField">Full Name</label> <input type="text"
-								id="nameField" name="username" placeholder="Enter full name"
-								value=""
-								onkeyup="validateName(); clearValidationMessage('nameField', 'nameValidationMessage')" />
-							<span id="nameValidationMessage"></span>
-						</div>
-
-						<!-- Contact Field -->
-						<div class="form-group">
-							<label for="contactField">Phone Number</label> <input type="text"
-								id="contactField" name="usercontact"
-								placeholder="Enter phone number" value=""
-								onkeyup="validateContact(); clearValidationMessage('contactField', 'contactValidationMessage')" />
-							<span id="contactValidationMessage"></span>
-						</div>
-
-						<!-- Email Field -->
-						<div class="form-group">
-							<label for="emailField">Email Address</label> <input type="email"
-								id="emailField" name="useremail" placeholder="Enter email"
-								value=""
-								onkeyup="validateEmail(); clearValidationMessage('emailField', 'emailValidationMessage')" />
-							<span id="emailValidationMessage1"></span>
-						</div>
-
-
-
-						<!-- Address Field -->
-						<div class="form-group">
-							<label for="addressField">Home Address</label> <input type="text"
-								id="addressField" name="useraddress"
-								placeholder="Enter home address" value="">
-						</div>
+					<form:form action="goingtoupdatecar" method="POST" id="userForm">
 
 						<!-- Submit Button (Disabled by default) -->
 						<div class="button-container">
-							<button type="submit">Submit</button>
+							<button type="submit" style="background-color: #0A2558">Submit</button>
 						</div>
 						<div style="text-align: center;">
 							<label style="color: blue;">${msg}</label>
 						</div>
+						<input type="hidden" name="vehicleid" value="${carinfo.vehicleid}">
+						<!-- Vehicle Model name -->
+						<div class="form-group">
+							<label for="nameField">Vehicle Model</label><input type="text"
+								class="form-control" id="inputName4" name="vehiclemodel"
+								placeholder="Enter Vehicle Model"
+								value="${carinfo.vehiclemodel}">
+						</div>
 
+						<!-- Number plate Field -->
+						<div class="form-group">
+							<label for="contactField">Vehicle Registered Number</label> <input
+								type="text" id="inputVehicleNPlate" name="vehiclenplate"
+								placeholder="Enter Vehicle Registered number"
+								value="${carinfo.vehiclenplate}"
+								onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')" />
+							<span id="vehicleNPlateError" style="color: red; display: none;">Invalid
+								vehicle number plate</span>
+						</div>
+
+
+						<!-- Vehicle KM Running -->
+						<div class="form-group">
+							<label for="emailField">Vehicle Running in Km</label> <input
+								type="number" id="inputVehicleDate8" name="visitVrun"
+								placeholder="Enter Vehicle Running in Km"
+								value="${carinfo.visitVrun }" />
+
+						</div>
+						
+						<!-- Vehicle Entry Date -->
+						<div class="form-group">
+							<label for="emailField">Vehicle Entry Date</label> <input
+								type="date" id="inputVehicleDate8" name="visitVentryDate"
+								placeholder="Enter Vehicle Entry Date"
+								value="${carinfo.visitVentryDate}" />
+
+						</div>
 					</form:form>
 				</div>
 			</div>
+
+			<!-- modal button -->
+			<div class="button1" style="margin-top: 20px;">
+				<a id="openModalBtn">Add Customer</a>
+			</div>
+			<!-- Modal Structure -->
+			<div id="myModal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+
+					<h2>Fillup Customer Details</h2>
+					<form:form action="submitformforvehicle" method="POST"
+						modelAttribute="modalform">
+
+						<input type="hidden" name="userid" value="${carinfo.vehicleid }">
+						<!-- name field -->
+						<div class="form-group">
+							<label for="inputVehicleModel5" class="form-label">Name</label> <input
+								type="text" id="nameField" name="username"
+								placeholder="Enter full name" value="${userinfo.username}"
+								onkeyup="validateName(); clearValidationMessage('nameField', 'nameValidationMessage')" />
+							<span id="nameValidationMessage"></span>
+						</div>
+
+						<!-- contact -->
+						<div class="form-group">
+							<label for="inputVehicleNPlate6" class="form-label">Contact</label> <input type="text" id="contactField"
+								name="usercontact" placeholder="Enter phone number"
+								value="${userinfo.usercontact}"
+								onkeyup="validateContact(); clearValidationMessage('contactField', 'contactValidationMessage')" />
+							<span id="contactValidationMessage"></span>
+						</div>
+
+						<!-- email -->
+						<div class="form-group">
+							<label for="inputVehicleKM7" class="form-label">Email</label> <input type="email" id="emailField"
+								name="useremail" placeholder="Enter email"
+								value="${userinfo.useremail}"
+								onkeyup="validateEmail(); clearValidationMessage('emailField', 'emailValidationMessage')" />
+							<span id="emailValidationMessage1"></span>
+						</div>
+
+						<!-- address -->
+						<div class="form-group">
+							<label for="inputVehicleDate8" class="form-label">Address</label> <input type="text" id="addressField"
+								name="useraddress" placeholder="Enter home address"
+								value="${userinfo.useraddress}">
+
+						</div>
+						<!-- Submit Button -->
+						<button type="submit">Submit</button>
+					</form:form>
+				</div>
+			</div>
+
 			<div class="sales-boxes" style="margin-top: 20px;">
 				<div class="recent-sales box">
 					<!-- Table responsive wrapper -->
@@ -369,18 +495,18 @@
 								</tr>
 							</thead>
 							<tbody>
-
-								<c:if test="${not empty user}">
+								<c:if test="${not empty customer }">
 									<tr>
-										<td><a href="updateSave?userID=${user.userid}"
-											type="button" class="btn btn-info btn-sm"
-											style="color: white; text-decoration: none">${user.userid}</a></td>
-										<td>${user.username}</td>
-										<td>${user.usercontact}</td>
-										<td>${user.useremail}</td>
-										<td>${user.useraddress}</td>
+										<td><a href="updateSave?userID=${customer.userid }"
+											type="button" style="color: white; text-decoration: none" class="btn btn-info btn-sm">${customer.userid }</a></td>
+
+										<td>${customer.username }</td>
+										<td>${customer.usercontact }</td>
+										<td>${customer.useremail }</td>
+										<td>${customer.useraddress }</td>
 										<td><button type="button" class="btn btn-danger btn-sm"
-												onclick="confirmDelete(${user.userid})">Delete</button></td>
+												onclick="confirmDelete(${customer.userid})">Delete</button></td>
+
 									</tr>
 								</c:if>
 							</tbody>
@@ -402,7 +528,6 @@
 			} else
 				sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
 		};
-
 
 		// Validate the name field
 		function validateName() {
@@ -464,10 +589,8 @@
 				message.textContent = ""; // Hide message if input is empty
 			}
 		}
-		
-		
-	
-	    function confirmDelete(userId) {
+
+		function confirmDelete(userId) {
 	        // Show confirmation dialog
 	        
 	        if (confirm("Do you really want to delete this user?")) {
@@ -496,9 +619,49 @@
 	            xhr.send();
 	        } 
 	    }
-	    
+
+		//for modal form
+
+		// Get modal element and button
+		const modal = document.getElementById("myModal");
+		const openModalBtn = document.getElementById("openModalBtn");
+		const closeModalBtn = document.getElementsByClassName("close")[0];
+
+		// Open modal when the button is clicked
+		openModalBtn.onclick = function() {
+			modal.style.display = "block";
+		};
+
+		// Close modal when the 'x' is clicked
+		closeModalBtn.onclick = function() {
+			modal.style.display = "none";
+		};
+
+		// Close modal when clicking outside the modal content
+		window.onclick = function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		};
+
+		//that is for number plate
+		function validateVehicleNumber() {
+			const input = document.getElementById('inputVehicleNPlate').value;
+			const errorMsg = document.getElementById('vehicleNPlateError');
+			const initialCheck = /^[A-Za-z][A-Za-z0-9 ]*$/; // First check for valid starting character
+			const vehicleNumberPattern = /^[A-Z]{2}\d{2}[A-Z]{2}\d{1,4}$/; // Format for registered vehicle plate
+
+			if (!initialCheck.test(input)) {
+				errorMsg.innerHTML = "Number plate cannot start with spaces, digits, or special characters.";
+				errorMsg.style.display = 'inline';
+			} else if (!vehicleNumberPattern.test(input)) {
+				errorMsg.innerHTML = "Invalid vehicle number plate format. Expected format: MH12AB1234.";
+				errorMsg.style.display = 'inline';
+			} else {
+				errorMsg.style.display = 'none';
+			}
+		}
 	</script>
 
 </body>
 </html>
-html>

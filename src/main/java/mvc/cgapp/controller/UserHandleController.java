@@ -36,17 +36,17 @@ public class UserHandleController {
 
 	private List<TechniciansModel> getalltechies;
 	
-	@RequestMapping("/customerProfilePage")
-	public String customerProfilePage() {
-		
-		return "customerProfilePage";
-	}
-	
-	
-	@RequestMapping("/clientpannel")
-	public String clientPannel(@ModelAttribute("userDetails") UserDetailsModel userDetailsModel) {
-		return "clientPannel";
-	}
+//	@RequestMapping("/customerProfilePage")
+//	public String customerProfilePage() {
+//		
+//		return "customerProfilePage";
+//	}
+//	
+//	
+//	@RequestMapping("/clientpannel")
+//	public String clientPannel(@ModelAttribute("userDetails") UserDetailsModel userDetailsModel) {
+//		return "clientPannel";
+//	}
 
 	
 //    @ResponseBody
