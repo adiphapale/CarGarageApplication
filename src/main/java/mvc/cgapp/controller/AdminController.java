@@ -24,7 +24,7 @@ public class AdminController {
 		return "AdminLoginPage";
 	}
 	
-	@PostMapping("/validamin")
+	@PostMapping("/validadmin")
 	public String checkAdmin(AdminModel adminModel,Model model) {
 		String adminName=adminModel.getAdminName();
 		String adminPass=adminModel.getAdminPassword();

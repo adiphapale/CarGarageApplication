@@ -166,12 +166,14 @@
             <li><a href="#"><i class="bx bx-grid-alt"></i> <span class="links_name">Dashboard</span></a></li>
             <li><a href="adminside"><i class='bx bxs-group'></i> <span class="links_name">Customers Section</span></a></li>
             <li><a href="carpage"><i class='bx bxs-car-mechanic'></i> <span class="links_name">Cars Section</span></a></li>
-            <li><a href="servicedetailspage"><i class='bx bxs-cart-add'></i> <span class="links_name">Services</span></a></li>
-            <li><a href="#" class="active"><i class="bx bx-pie-chart-alt-2"></i> <span class="links_name">Spare Parts</span></a></li>
-            <li><a href="#"><i class="bx bx-coin-stack"></i> <span class="links_name">Stock</span></a></li>
-            <li><a href="#"><i class="bx bx-book-alt"></i> <span class="links_name">Total order</span></a></li>
-            <li><a href="#"><i class="bx bx-message"></i> <span class="links_name">Messages</span></a></li>
-            <li><a href="#"><i class="bx bx-heart"></i> <span class="links_name">Favorites</span></a></li>
+            <li><a href="servicedetailspage" ><i class='bx bxs-cart-add'></i> <span class="links_name">Services</span></a></li>
+            
+            <li><a href="#" class="active"> <i class="bx bx-pie-chart-alt-2"></i> <span
+					class="links_name">Spare Parts</span>
+			</a></li>
+         	<li><a href="#"> <i class="bx bx-coin-stack"></i> <span
+					class="links_name">Billing</span>
+			</a></li>
             <li><a href="#"><i class='bx bxs-spreadsheet'></i> <span class="links_name">Reports</span></a></li>
             <li class="log_out"><a href="logoutbtn"><i class="bx bx-log-out"></i> <span class="links_name">Log out</span></a></li>
         </ul>

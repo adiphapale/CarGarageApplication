@@ -139,7 +139,7 @@ a:hover {
 
 		<h1>GoGarage AutoMobs</h1>
 		<h3>Log in into GoGarage AutoMobs</h3>
-		<form:form name="frm" action="validamin" method="Post"
+		<form:form name="frm" action="validadmin" method="Post"
 			modelAttribute="admindetails">
 			<div class="input-group">
 

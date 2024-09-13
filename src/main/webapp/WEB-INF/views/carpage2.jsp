@@ -316,24 +316,15 @@ button[type="submit"]:hover {
 
 
 
+			
 			<li><a href="#"> <i class="bx bx-list-ul"></i> <span
-					class="links_name">Order list</span>
+					class="links_name">Service Section</span>
 			</a></li>
 			<li><a href="#"> <i class="bx bx-pie-chart-alt-2"></i> <span
-					class="links_name">Analytics</span>
+					class="links_name">Spare Parts</span>
 			</a></li>
 			<li><a href="#"> <i class="bx bx-coin-stack"></i> <span
-					class="links_name">Stock</span>
-			</a></li>
-			<li><a href="#"> <i class="bx bx-book-alt"></i> <span
-					class="links_name">Total order</span>
-			</a></li>
-
-			<li><a href="#"> <i class="bx bx-message"></i> <span
-					class="links_name">Messages</span>
-			</a></li>
-			<li><a href="#"> <i class="bx bx-heart"></i> <span
-					class="links_name">Favrorites</span>
+					class="links_name">Billing</span>
 			</a></li>
 			<li><a href="#"> <i class="bx bx-cog"></i> <span
 					class="links_name">Reports</span>

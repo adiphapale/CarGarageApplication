@@ -1,49 +1,215 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet">
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
+	rel="stylesheet" />
 <link type="text/css" rel="stylesheet"
-	href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/mycss.css" />
-<title>Admin Panel</title>
-<link rel="icon" type="image/x-icon"
-	href="/CarGarageApplicationMVC/URLToReachResourceFolder/Images/repair-shop.png" />
+	href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/styleadmin.css" />
+
 
 <style type="text/css">
-.container {
-	background-color: #e0fbfc;
+
+/* Container for the entire form */
+.form-container {
+	width: 100%;
+	padding: 20px;
+	background-color: #fff;
+	border-radius: 12px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+	margin: 20px 0;
+}
+
+/* General styling for form fields */
+.form-group {
+	margin-bottom: 20px;
+}
+
+.form-group label {
+	font-size: 16px;
+	font-weight: 500;
+	color: #333;
+	margin-bottom: 5px;
+	display: block;
+}
+
+.form-group input[type="text"], .form-group input[type="date"],
+	.form-group input[type="date"], .form-group textarea {
+	width: 100%;
+	padding: 10px 15px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 16px;
+	transition: border-color 0.3s ease;
+}
+
+.form-group select {
+	width: 100%;
+	padding: 10px 15px;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	font-size: 16px;
+	transition: border-color 0.3s ease;
+}
+
+.form-group input:focus, .form-group textarea:focus {
+	border-color: #0A2558;
+	outline: none;
+}
+
+/* Button styling */
+.button-container {
 	display: flex;
-	flex-direction: column;
-	min-height: 100vh;
+	justify-content: center;
 }
 
-.nav {
+.button-container button {
+	background-color: #0A2558;
+	color: #fff;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 6px;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.button-container button:hover {
+	background-color: #0d3073;
+}
+
+/* Error messages */
+#validationMessage, #emailValidationMessage {
+	color: blue;
+	text-align: center;
+	display: block;
+	margin-top: 5px;
+}
+
+/* Overall sales-boxes styling */
+.sales-boxes {
+	margin-top: 20px;
+	font-family: 'Arial', sans-serif;
+}
+
+/* Recent sales box styling */
+.sales-boxes .recent-sales.box {
+	background-color: #fff;
+	padding: 20px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
+
+/* Table container for scrollable table */
+.sales-boxes .table-responsive {
+	overflow-x: auto;
+	-webkit-overflow-scrolling: touch;
+	border-radius: 10px;
+}
+
+/* Table styling */
+.sales-boxes .table {
 	width: 100%;
+	border-collapse: collapse;
+	font-size: 16px;
+	text-align: left;
+	background-color: #f9f9f9;
+	margin-bottom: 20px;
 }
 
-.nav .navbar {
-	width: 100%;
-	background-color: #3d5a80;
+/* Table header styling */
+.sales-boxes .table thead {
+	background-color: #4CAF50;
+	color: white;
+	font-weight: bold;
 }
 
-.menubar {
-	display: flex;
-	width: 100%;
-	flex-grow: 1;
+.sales-boxes .table thead th {
+	padding: 12px 15px;
+	font-size: 18px;
 }
 
-.nav-pills {
+/* Table body rows */
+.sales-boxes .table tbody tr {
+	border-bottom: 1px solid #ddd;
+}
+
+.sales-boxes .table tbody tr:hover {
+	background-color: #f1f1f1;
+}
+
+/* Table cell padding */
+.sales-boxes .table tbody td {
+	padding: 12px 15px;
+}
+
+/* Link in table cell */
+.sales-boxes .table tbody td a {
+	text-decoration: none;
+	color: #007bff;
+	font-weight: 500;
+}
+
+.sales-boxes .table tbody td a:hover {
+	color: #0056b3;
+	text-decoration: underline;
+}
+
+/* Button styling */
+.sales-boxes .table .btn-info {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
+}
+
+.sales-boxes .table .btn-info:hover {
+	background-color: #0056b3;
+}
+
+.sales-boxes .table .btn-danger {
+	background-color: #dc3545;
+	color: white;
+	border: none;
+	padding: 6px 12px;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
+}
+
+.sales-boxes .table .btn-danger:hover {
+	background-color: #c82333;
+}
+
+/* Modal styling (optional for consistency) */
+.modal-content {
+	border-radius: 8px;
+	border: 1px solid #dee2e6;
+}
+
+.modal-header {
+	background-color: #f8f9fa;
+	border-bottom: 1px solid #dee2e6;
+	padding: 10px 15px;
+}
+
+.modal-footer .btn-danger {
+	background-color: #dc3545;
+	border: none;
+}
+
+.modal-footer .btn-secondary {
+	background-color: #6c757d;
+	border: none;
+}
 	flex-basis: 20%;
 	background-color: #293241;
 }
@@ -52,67 +218,104 @@
 	flex-basis: 80%;
 	padding-top: 15px;
 }
+
+/* Mobile View Adjustments */
+@media ( max-width : 768px) {
+	/* Add scroll behavior for tables */
+	.sales-boxes .table-responsive {
+		overflow-x: auto;
+	}
+	.sales-boxes .table {
+		font-size: 14px;
+	}
+
+	/* Reduce padding for mobile view */
+	.sales-boxes .table thead th, .sales-boxes .table tbody td {
+		padding: 10px 8px;
+	}
+
+	/* Buttons smaller on mobile */
+	.sales-boxes .table .btn-info, .sales-boxes .table .btn-danger {
+		padding: 4px 8px;
+	}
+}
 </style>
 </head>
 <body>
-	<div class="container">
-		<div class="nav">
-			<nav class="navbar navbar-expand-lg navbar-light">
-				<div class="container-fluid">
-					<a class="navbar-brand" href="#" style="color: white"><i
-						class="fa-solid fa-car-on"></i> GoGarage AutoMobs</a>
-					<button class="navbar-toggler" type="button"
-						data-bs-toggle="collapse" data-bs-target="#navbarNav"
-						aria-controls="navbarNav" aria-expanded="false"
-						aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse justify-content-end"
-						id="navbarNav">
-						<form class="d-flex ms-auto" action="logoutbtn">
-							<button class="btn btn-outline-light" type="submit">Logout</button>
-						</form>
+	<div class="sidebar">
+		<div class="logo-details">
+			<i class='bx bxs-car-garage'></i> <span class="logo_name">GoGarage
+				AutoMobs</span>
+		</div>
+		<ul class="nav-links">
+			<li><a href="#"> <i class="bx bx-grid-alt"></i> <span
+					class="links_name">Dashboard</span>
+			</a></li>
+
+			<li><a href="adminside"> <i class='bx bxs-group'></i> <span
+					class="links_name">Customers Section</span>
+			</a></li>
+
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i> <span
+					class="links_name">Cars Section</span>
+			</a></li>
+
+
+
+
+			<li><a href="servicedetailspage"> <i class='bx bxs-cart-add'></i><span
+					class="links_name">Services</span>
+			</a></li>
+
+			<li><a href="#"> <i class="bx bx-pie-chart-alt-2"></i> <span
+					class="links_name">Spare Parts</span>
+			</a></li>
+			<li><a href="#" class="active"> <i class="bx bx-coin-stack"></i>
+					<span class="links_name">Billings</span>
+			</a></li>
+			<li><a href="#"> <i class="bx bx-book-alt"></i> <span
+					class="links_name">Total order</span>
+			</a></li>
+
+			<li><a href="#"> <i class="bx bx-message"></i> <span
+					class="links_name">Messages</span>
+			</a></li>
+			<li><a href="#"> <i class="bx bx-heart"></i> <span
+					class="links_name">Favrorites</span>
+			</a></li>
+			<li><a href="#"> <i class='bx bxs-spreadsheet'></i> <span
+					class="links_name">Reports</span>
+			</a></li>
+			<li class="log_out"><a href="logoutbtn"> <i
+					class="bx bx-log-out"></i> <span class="links_name">Log out</span>
+			</a></li>
+		</ul>
+	</div>
+	<section class="home-section">
+		<nav>
+			<div class="sidebar-button">
+				<i class="bx bx-menu sidebarBtn"></i> <span class="dashboard">Car
+					Dashboard</span>
+			</div>
+			<!-- <div class="search-box">
+          <input type="text" placeholder="Search..." />
+          <i class="bx bx-search"></i>
+        </div> -->
+			<div class="profile-details">
+				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<!-- <i class="bx bx-chevron-down"></i> -->
+			</div>
+		</nav>
+		<div class="home-content">
+			<div class="overview-boxes">
+				<div class="box">
+					<div class="right-side">
+						<div class="box-topic">Search Panel</div>
+
 					</div>
 				</div>
-			</nav>
-		</div>
-
-		<div class="menubar">
-			<div class="nav flex-column nav-pills me-3" id="v-pills-tab"
-				role="tablist" aria-orientation="vertical">
-				<a href="clientpannel" style="text-decoration: none; margin: 0 auto"><button
-						class="nav-link  m-2" id="v-pills-home-tab" data-bs-toggle="pill"
-						data-bs-target="#v-pills-home" type="button" role="tab"
-						aria-controls="v-pills-home" aria-selected="true">Customer
-						Section</button></a> <a href="cardetails"
-					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-profile-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-profile"
-						type="button" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Car Section</button></a> <a
-					href="servicedetailspage"
-					style="text-decoration: none; margin: 0 auto"><button
-						class="nav-link m-2" id="v-pills-settings-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Servicing Section</button></a> <a
-					href="sparePartspage"
-					style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-settings-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Spare Parts Section</button></a> <a
-					href="techiepage" style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link active m-2" id="v-pills-settings-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Technician Section</button></a> <a
-					href="billingPage" style="margin: 0 auto; text-decoration: none;"><button
-						class="nav-link m-2" id="v-pills-settings-tab"
-						data-bs-toggle="pill" data-bs-target="#v-pills-settings"
-						type="button" role="tab" aria-controls="v-pills-settings"
-						aria-selected="false">Billing Section</button></a>
 			</div>
+
 
 			<div class="tab-content" id="v-pills-tabContent">
 				<div class="tab-pane fade show active" id="v-pills-home"
@@ -240,16 +443,18 @@
 				</div>
 			</div>
 		</div>
-	</div>
-
-	<!-- Optional JavaScript; choose one of the two! -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
-		integrity="sha384-ZcbIMZojZhxot2cA+CnN2z5F3aVG9S6dQLHOB+DQTF+f9v7HWxIO4n8CdyGr68/Ei"
-		crossorigin="anonymous"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-		integrity="sha384-cVKIPhGhrtS3bZg3Skvjy1TdxCx2gY/5cnlg78LVXL2/5gplF8KcQ17W9R+zxD8pP"
-		crossorigin="anonymous"></script>
-</body>
+</section>
+<script>		
+<a href="cardetails" style="margin: 0 auto; text-decoration: none;"><button
+				class="nav-link m-2" id="v-pills-profile-tab" data-bs-toggle="pill"
+				data-bs-target="#v-pills-profile" type="button" role="tab"
+				aria-controls="v-pills-profile" aria-selected="false">Car
+				Section</button></a> <!-- Optional JavaScript; choose one of the two! -->
+			<script
+				src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"
+				integrity="sha384-ZcbIMZojZhxot2cA+CnN2z5F3aVG9S6dQLHOB+DQTF+f9v7HWxIO4n8CdyGr68/Ei"
+				crossorigin="anonymous"> 
+				src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+				integrity="sha384-cVKIPhGhrtS3bZg3Skvjy1TdxCx2gY/5cnlg78LVXL2/5gplF8KcQ17W9R+zxD8pP"
+				crossorigin="anonymous"></script></body>
 </html>

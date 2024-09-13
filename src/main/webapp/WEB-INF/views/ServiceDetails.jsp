@@ -256,24 +256,15 @@
 
 
 
-			<li><a href="#" class="active"> <i class='bx bxs-cart-add'></i> <span
-					class="links_name">Services</span>
+			
+			<li><a href="#" class="active"> <i class="bx bx-list-ul"></i> <span
+					class="links_name">Service Section</span>
 			</a></li>
 			<li><a href="#"> <i class="bx bx-pie-chart-alt-2"></i> <span
-					class="links_name">Analytics</span>
+					class="links_name">Spare Parts</span>
 			</a></li>
 			<li><a href="#"> <i class="bx bx-coin-stack"></i> <span
-					class="links_name">Stock</span>
-			</a></li>
-			<li><a href="#"> <i class="bx bx-book-alt"></i> <span
-					class="links_name">Total order</span>
-			</a></li>
-
-			<li><a href="#"> <i class="bx bx-message"></i> <span
-					class="links_name">Messages</span>
-			</a></li>
-			<li><a href="#"> <i class="bx bx-heart"></i> <span
-					class="links_name">Favrorites</span>
+					class="links_name">Billing</span>
 			</a></li>
 			<li><a href="#"> <i class='bx bxs-spreadsheet'></i> <span
 					class="links_name">Reports</span>
@@ -308,9 +299,6 @@
 				</div>
 			</div>
 
-			<div class="button1">
-				<a href="addnewcustomer">Add Vehicle</a>
-			</div>
 
 			<div class="sales-boxes">
 				<div class="recent-sales box">
