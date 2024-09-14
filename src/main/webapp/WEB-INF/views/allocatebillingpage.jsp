@@ -204,9 +204,10 @@ table tbody tr:hover {
 					</tr>
 				</thead>
 				<tbody>
+				<% int count2=0; %>
 					<c:forEach var="service" items="${billingModel.subService}">
 						<tr>
-							<td>${service.ssid}</td>
+							<td><%=++count2 %></td>
 							<td>${service.ssname}</td>
 							<td>${service.ssprice}</td>
 							<%-- <td>${service.servicePrice}</td> --%>
@@ -227,9 +228,11 @@ table tbody tr:hover {
 					</tr>
 				</thead>
 				<tbody>
+				<% int count=0; %>
 					<c:forEach var="sparePart" items="${billingModel.subSpareParts}">
+						
 						<tr>
-							<td>${sparePart.key.spid}</td>
+							<td><%=++count %></td>
 							<td>${sparePart.key.spname}</td>
 							<td>${sparePart.key.spprice}</td>
 							<td>${sparePart.value}</td>

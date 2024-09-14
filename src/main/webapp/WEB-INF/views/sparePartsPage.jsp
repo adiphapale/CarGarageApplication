@@ -297,14 +297,14 @@
 			<div class="overview-boxes">
 				<div class="box">
 					<div class="right-side">
-						<div class="box-topic">Search Panel</div>
+						<div class="box-topic">Spare Parts Search Panel</div>
 
 					</div>
 				</div>
 			</div>
 
 
-			<div class="sales-boxes">
+			<%-- <div class="sales-boxes">
 				<div class="recent-sales box">
 
 
@@ -343,6 +343,76 @@
 									<th scope="col">Sr no.</th>
 									<th scope="col">Vehicle Model</th>
 									<th scope="col">Registered Number</th>
+									<th scope="col">Vehicle Running in KMs</th>
+									<th scope="col">Entry Date</th>
+									<th scope="col">Technician</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<%
+								int count = 0;
+								%>
+								<c:forEach var="vehicle" items="${vehicles}">
+									<tr>
+										<td><a href="allocatespareparts?VisitID=${vehicle.vehicleid}"
+											type="button" class="btn btn-info btn-sm"
+											style="color: white; text-decoration: none"><%=++count%></a></td>
+
+										<td>${vehicle.vehiclemodel }</td>
+										<td>${vehicle.vehiclenplate }</td>
+										<td>${vehicle.visitVrun }</td>
+										<td>${vehicle.visitVentryDate }</td>
+										<td>${vehicle.tname}</td>
+										<td><button type="button" class="btn btn-danger btn-sm"
+												onclick="confirmDeleteforvehicle(${vehicle.vehicleid})">Delete</button></td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div> --%>
+			
+			
+			<div class="sales-boxes">
+				<div class="recent-sales box">
+
+
+					<form:form action="searchcarbynplate_sparepartpage" method="POST"
+						modelAttribute="carDetails" id="vehicleForm">
+
+
+
+						<!-- Number plate Field -->
+						<div class="form-group">
+							<label for="inputVehicleNPlate">Search Vehicle by
+								Registered Number</label> <input type="text" id="inputVehicleNPlate"
+								name="vehiclenplate"
+								placeholder="Enter Vehicle Registered number"
+								onkeyup="searchVehicle()" /> <span id="vehicleNPlateError"
+								style="color: red; display: none;">No vehicle found with
+								this number plate.</span>
+						</div>
+
+						<!-- Submit Button (Disabled by default) -->
+						<div class="button-container">
+							<button onclick="searchVehicle()">view all</button>
+						</div>
+					</form:form>
+				</div>
+			</div>
+			<div class="sales-boxes" style="margin-top: 20px;">
+				<div class="recent-sales box">
+					<!-- Table responsive wrapper -->
+					<div class="disptable" style="margin-top: 30px;">
+						<table id="resultsTable" class="table"
+							>
+							<thead>
+								<tr class="table-success">
+									<th scope="col">Sr no.</th>
+									<th scope="col">Vehicle Model</th>
+									<th scope="col">Registered Vehicle Number</th>
 									<th scope="col">Vehicle Running in KMs</th>
 									<th scope="col">Entry Date</th>
 									<th scope="col">Technician</th>
@@ -502,6 +572,68 @@
 			} else {
 				errorMsg.style.display = 'none';
 			}
+		}
+	  
+	  
+	  
+		function searchVehicle() {
+		    const vehicleNumber = document.getElementById('inputVehicleNPlate').value;
+		    const errorMsg = document.getElementById('vehicleNPlateError');
+		    const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+
+		    if (vehicleNumber.length > 0) {
+		        const xhr = new XMLHttpRequest();
+		        xhr.open('GET', '/CarGarageApplicationMVC/checkVehicleNumber_bpage?vehiclenplate=' + vehicleNumber, true);
+
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState == 4 && xhr.status == 200) {
+		                const response = JSON.parse(xhr.responseText);
+		                resultsTable.innerHTML = ''; // Clear previous results
+
+		                if (response.length > 0) {
+		                    errorMsg.style.display = 'none'; // Hide error message if there are results
+
+		                    response.forEach((vehicle, index) => {
+		                        const row = resultsTable.insertRow();
+
+		                        // First cell with anchor tag styled as button
+		                        const firstCell = row.insertCell(0);
+		                        const buttonAnchor = document.createElement('a');
+		                        buttonAnchor.href = '/CarGarageApplicationMVC/allocatespareparts?VisitID=' + vehicle.vehicleid;
+		                        buttonAnchor.className = 'btn btn-info btn-sm'; // Bootstrap classes for button look
+		                        buttonAnchor.style.color = 'white';
+		                        buttonAnchor.style.textDecoration = 'none';
+		                        buttonAnchor.innerText = vehicle.vehicleid;  // Display vehicle ID as button text
+		                        firstCell.appendChild(buttonAnchor);
+
+		                        // Other cells
+		                        row.insertCell(1).innerHTML = vehicle.vehiclemodel;
+		                        row.insertCell(2).innerHTML = vehicle.vehiclenplate;
+		                        row.insertCell(3).innerHTML = vehicle.visitVrun;
+		                        row.insertCell(4).innerHTML = vehicle.visitVentryDate;
+		                        row.insertCell(5).innerHTML = vehicle.tname;
+
+		                        // Last cell with delete button
+		                        const actionCell = row.insertCell(6);
+		                        const deleteButton = document.createElement('button');
+		                        deleteButton.type = 'button';
+		                        deleteButton.className = 'btn btn-danger btn-sm'; // Bootstrap classes for delete button
+		                        deleteButton.innerText = 'Delete';
+		                        deleteButton.onclick = function() {
+		                            confirmDeleteforvehicle(vehicle.vehicleid); // Call the delete function with vehicle ID
+		                        };
+		                        actionCell.appendChild(deleteButton);
+		                    });
+		                } else {
+		                    errorMsg.style.display = 'inline'; // Show error message if no results found
+		                }
+		            }
+		        };
+		        xhr.send();
+		    } else {
+		        resultsTable.innerHTML = ''; // Clear table when input is cleared
+		        errorMsg.style.display = 'none'; // Hide error message when input is empty
+		    }
 		}
 	    
 	</script>

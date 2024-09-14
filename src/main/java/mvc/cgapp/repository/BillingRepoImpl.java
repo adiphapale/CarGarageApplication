@@ -26,28 +26,49 @@ public class BillingRepoImpl implements BillingRepo {
 
 	@Override
 	public BillingModel fetchBill(int vvid) {
-		String sql = "select u.uname, u.ucontact, v.vmodel, v.vnplate, vs.vvrun, vs.vventryDate, t.tname from visitvehicledetails_1 vs inner join techniciandetails_1 t on t.tid=vs.tid inner join  vehicledetails_1 v on v.vid=vs.vid inner join userdetails_1 u on u.uid=v.uid where vs.vvid=?";
-
+		
 		BillingModel setBill = new BillingModel();
+		String sql3="select u.uname, u.ucontact from visitvehicledetails_1 vs inner join  vehicledetails_1 v on vs.vid=v.vid inner join userdetails_1 u on u.uid=v.uid where vs.vvid=?";
+		
+		
+		try{
+			UserDetailsModel setUserDetails=jdbcTemplate.queryForObject(sql3, new RowMapper<UserDetailsModel>() {
+		
+
+			@Override
+			public UserDetailsModel mapRow(ResultSet rs, int arg1) throws SQLException {
+				UserDetailsModel collectUser=new UserDetailsModel();
+				collectUser.setUsername(rs.getString(1));
+				collectUser.setUsercontact(rs.getString(2));
+				return collectUser;
+			}
+			
+		},vvid);
+		
+		
+		setBill.setUserDetailsModel(setUserDetails);
+		}catch(Exception ex) {ex.printStackTrace();}
+		
+		
+		String sql = "select v.vmodel, v.vnplate, vs.vvrun, vs.vventryDate, t.tname from visitvehicledetails_1 vs inner join techniciandetails_1 t on t.tid=vs.tid inner join  vehicledetails_1 v on v.vid=vs.vid where vs.vvid=?";
+
+		
 		BillingModel setCustomerBill = jdbcTemplate.queryForObject(sql, new RowMapper<BillingModel>() {
 
 			@Override
 			public BillingModel mapRow(ResultSet rs, int arg1) throws SQLException {
-				UserDetailsModel setUser = new UserDetailsModel();
-				setUser.setUsername(rs.getString(1));
-				setUser.setUsercontact(rs.getString(2));
 				VehicleFormModel setVehicle = new VehicleFormModel();
-				setVehicle.setVehiclemodel(rs.getString(3));
-				setVehicle.setVehiclenplate(rs.getString(4));
-				setVehicle.setVisitVrun(rs.getLong(5));
-				setVehicle.setVisitVentryDate(rs.getString(6));
-				setVehicle.setTname(rs.getString(7));
-				setBill.setUserDetailsModel(setUser);
+				setVehicle.setVehiclemodel(rs.getString(1));
+				setVehicle.setVehiclenplate(rs.getString(2));
+				setVehicle.setVisitVrun(rs.getLong(3));
+				setVehicle.setVisitVentryDate(rs.getString(4));
+				setVehicle.setTname(rs.getString(5));
 				setBill.setVehicleFormModel(setVehicle);
 				return setBill;
 			}
 
 		},vvid);
+		
 
 		String sql1 = "select ss.ssname, ss.ssprice from subservicedetails_1 ss inner join servicesjoin_1 sj on ss.ssid=sj.ssid where sj.vvid=?";
 		List<SubServicesModel> SubServices = jdbcTemplate.query(sql1, new RowMapper<SubServicesModel>() {

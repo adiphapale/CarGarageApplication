@@ -41,7 +41,8 @@
 }
 
 .form-group input[type="text"], .form-group input[type="email"],
-	.form-group input[type="number"], .form-group textarea {
+	.form-group input[type="number"], .form-group textarea, .form-group select
+	{
 	width: 100%;
 	padding: 10px 15px;
 	border: 1px solid #ccc;
@@ -309,9 +310,8 @@ button[type="submit"]:hover {
 						Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i
-					class='bx bxs-car-mechanic'></i> <span class="links_name">Cars
-						Section</span>
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i>
+					<span class="links_name">Cars Section</span>
 			</a></li>
 
 
@@ -323,19 +323,21 @@ button[type="submit"]:hover {
 			<li><a href="sparePartspage"> <i class="bx bx-wrench"></i> <span
 					class="links_name">Spare Parts</span>
 			</a></li>
-			<li><a href="techiepage" > <i class="bx bxs-group"></i> <span
+			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
 					class="links_name">Technician</span>
 			</a></li>
-			
+
 			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
 					class="links_name">Billing</span>
 			</a></li>
 			<li><a href="#"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
-			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
-					<span class="links_name">Log out</span>
+			<li class="log_out"><a href="logoutbtn"> <i
+					class="bx bx-log-out"></i> <span class="links_name">Log out</span>
 			</a></li>
+
+
 		</ul>
 	</div>
 	<section class="home-section">
@@ -383,8 +385,10 @@ button[type="submit"]:hover {
 							<label for="nameField">Full Name</label> <input type="text"
 								id="nameField" name="username" placeholder="Enter full name"
 								value="${userinfo.username}"
-								onkeyup="validateName(); clearValidationMessage('nameField', 'nameValidationMessage')" />
-							<span id="nameValidationMessage"></span>
+								onkeyup="validateName(); clearValidationMessageforCar('nameField', 'error-message-name')" />
+							<span id="error-message-name" style="color: red; display: none;">Invalid
+								User Name. Ensure no leading spaces, special characters, and no
+								more than one space between words.</span>
 						</div>
 
 						<!-- Contact Field -->
@@ -392,6 +396,7 @@ button[type="submit"]:hover {
 							<label for="contactField">Phone Number</label> <input type="text"
 								id="contactField" name="usercontact"
 								placeholder="Enter phone number" value="${userinfo.usercontact}"
+								maxlength="10"
 								onkeyup="validateContact(); clearValidationMessage('contactField', 'contactValidationMessage')" />
 							<span id="contactValidationMessage"></span>
 						</div>
@@ -409,7 +414,12 @@ button[type="submit"]:hover {
 						<div class="form-group">
 							<label for="addressField">Home Address</label> <input type="text"
 								id="addressField" name="useraddress"
-								placeholder="Enter home address" value="${userinfo.useraddress}">
+								placeholder="Enter home address" value="${userinfo.useraddress}"
+								onkeyup="validatAddress(); clearValidationMessageforCar('addressField', 'error-message-address')" />
+							<span id="error-message-address"
+								style="color: red; display: none;">Invalid Address.
+								Ensure no leading spaces, special characters, and no more than
+								one space between words.</span>
 						</div>
 
 					</form:form>
@@ -436,7 +446,12 @@ button[type="submit"]:hover {
 							<label for="inputVehicleModel5" class="form-label">Vehicle
 								Model</label> <input type="text" class="form-control"
 								id="inputVehicleModel5" name="vehiclemodel"
-								placeholder="Enter Model here" value="${vehiclemodel}">
+								placeholder="Enter Model here" value="${vehiclemodel}"
+								required="required"
+								onkeyup="validateVehicleModel(); clearValidationMessageforCar('inputVehicleModel5','error-message')" />
+							<span id="error-message" style="color: red; display: none;">Invalid
+								vehicle model name. Ensure no leading spaces, special
+								characters, and no more than one space between words.</span>
 						</div>
 
 						<!-- numberplate -->
@@ -445,7 +460,9 @@ button[type="submit"]:hover {
 								Number Plate</label> <input type="text" class="form-control"
 								id="inputVehicleNPlate" name="vehiclenplate"
 								placeholder="Enter Number here" value="${vehiclenplate}"
-								required="required" onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')"> <span
+								required="required" maxlength="10"
+								onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')"
+								onchange="checkVehicleNumber()" /> <span
 								id="vehicleNPlateError" style="color: red; display: none;">Invalid
 								vehicle number plate</span>
 						</div>
@@ -454,7 +471,7 @@ button[type="submit"]:hover {
 						<div class="form-group">
 							<label for="inputVehicleKM7" class="form-label">Vehicle
 								Running In KM</label> <input type="number" class="form-control"
-								id="inputVehicleKM7" name="visitVrun"
+								id="inputVehicleKM7" name="visitVrun" required="required"
 								placeholder="Enter Running here" value="${visitVrun}">
 						</div>
 
@@ -463,13 +480,13 @@ button[type="submit"]:hover {
 							<label for="inputVehicleDate8" class="form-label">Vehicle
 								Entry Date</label> <input type="date" class="form-control"
 								id="inputVehicleDate8" name="visitVentryDate"
-								value="${visitVentryDate}">
+								value="${visitVentryDate}" required="required">
 						</div>
 
 						<div class="form-group">
 							<label for="selectTechnician" class="form-label">Select
 								Technician</label> <select class="form-control" id="selectTechnician"
-								name="tid">
+								name="tid" required="required">
 								<option value="" disabled selected>Select a technician</option>
 								<c:forEach var="technician" items="${techies}">
 									<option value="${technician.tid}">${technician.tname}</option>
@@ -543,7 +560,7 @@ button[type="submit"]:hover {
 		};
 
 		// Validate the name field
-		function validateName() {
+		/* function validateName() {
 			const nameField = document.getElementById("nameField");
 			const validationMessage = document
 					.getElementById("nameValidationMessage");
@@ -557,7 +574,26 @@ button[type="submit"]:hover {
 			} else {
 				validationMessage.textContent = ""; // Clear the error if valid
 			}
+		} */
+		
+		function validateName() {
+			const nameField = document.getElementById("nameField");
+			const validationMessage = document
+					.getElementById("error-message-name");
+			
+			// Regular expression: no leading spaces, no special characters, only one space between words
+		    const regex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+
+		    if (!regex.test(nameField.value)) {
+		    	validationMessage.style.display = 'block';
+		        nameField.setCustomValidity('Invalid User name.');
+		    } else {
+		    	validationMessage.style.display = 'none';
+		        nameField.setCustomValidity('');
+		    }
 		}
+		
+		
 
 		// Validate the contact field
 		function validateContact() {
@@ -577,11 +613,11 @@ button[type="submit"]:hover {
 		}
 
 		// Validate the email field
-		function validateEmail() {
+		 function validateEmail() {
 			const emailField = document.getElementById("emailField");
 			const emailValidationMessage = document
 					.getElementById("emailValidationMessage1");
-			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
+			const emailRegex = /^[A-Za-z0-9][^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
 
 			if (emailField.value.trim() === "") {
 				emailValidationMessage.textContent = ""; // Hide message if input is empty
@@ -593,6 +629,51 @@ button[type="submit"]:hover {
 			}
 		}
 
+		 
+		
+		/* document.addEventListener('DOMContentLoaded', function() {
+		    var emailInput = document.getElementById('emailField');
+		    var errorSpan = document.getElementById('emailValidationMessage1');
+
+		    emailInput.addEventListener('input', function() {
+		        var emailValue = emailInput.value;
+
+		        if (emailValue[0].includes(' ')) {
+		            emailInput.disabled = true; // Disable the input field
+		            errorSpan.style.display = 'inline';
+		        } else {
+		            emailInput.disabled = false; // Enable the input field
+		            errorSpan.style.display = 'none';
+		        }
+		    });
+		}); */
+		
+		
+		
+		
+		
+		
+		
+		
+		 function validatAddress() {
+			    const inputField = document.getElementById('addressField');
+			    const errorMessage = document.getElementById('error-message-address');
+			    
+			    
+			    
+			    // Regular expression: no leading spaces, no special characters, only one space between words
+			    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+
+			    if (!regex.test(inputField.value)) {
+			        errorMessage.style.display = 'block';
+			        inputField.setCustomValidity('Invalid Address input.');
+			    } else {
+			        errorMessage.style.display = 'none';
+			        inputField.setCustomValidity('');
+			    }
+			 	
+			}
+		
 		// Clear validation message on empty input
 		function clearValidationMessage(fieldId, messageId) {
 			const field = document.getElementById(fieldId);
@@ -657,6 +738,39 @@ button[type="submit"]:hover {
 			}
 		};
 
+		
+		
+		//for vehicle model 
+		 function validateVehicleModel() {
+   const inputField = document.getElementById('inputVehicleModel5');
+   const errorMessage = document.getElementById('error-message');
+   
+   
+   
+   // Regular expression: no leading spaces, no special characters, only one space between words
+   const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+
+   if (!regex.test(inputField.value)) {
+       errorMessage.style.display = 'block';
+       inputField.setCustomValidity('Invalid vehicle model name.');
+   } else {
+       errorMessage.style.display = 'none';
+       inputField.setCustomValidity('');
+   }
+	
+}
+		
+		 function clearValidationMessageforCar(fieldId, messageId) {
+				const field = document.getElementById(fieldId);
+				const message = document.getElementById(messageId);
+
+				if (field.value.trim() === "") {
+					message.style.display = 'none';
+					field.setCustomValidity('');
+				}
+			}
+		
+		
 		//that is for number plate
 		function validateVehicleNumber() {
 			const input = document.getElementById('inputVehicleNPlate').value;
@@ -674,6 +788,41 @@ button[type="submit"]:hover {
 				errorMsg.style.display = 'none';
 			}
 		}
+		
+		 // Check if the message exists
+	    var messageLabel = document.getElementById("messageLabel");
+	    if (messageLabel && messageLabel.innerHTML.trim() !== "") {
+	        // Set a timeout to hide the message after 5 seconds (5000 ms)
+	        setTimeout(function() {
+	            messageLabel.style.display = "none";
+	        }, 2000); // 5000 milliseconds = 5 seconds
+	    }
+	    
+	    
+	    function checkVehicleNumber() {
+			const vehicleNumber = document.getElementById('inputVehicleNPlate').value;
+	        console.log(vehicleNumber)
+	        if (vehicleNumber.length > 0) {
+	            // Send Ajax request
+	            var xhr = new XMLHttpRequest();
+	            xhr.open("GET", "/CarGarageApplicationMVC/checkVehicleNumber?vehicleNumber=" + vehicleNumber, true);
+	            
+	            xhr.onreadystatechange = function () {
+	                if (xhr.readyState == 4 && xhr.status == 200) {
+	                    const response = xhr.responseText;
+
+	                    // Show error if vehicle number exists
+	                    if (response === 'exists') {
+	                        const errorMsg = document.getElementById('vehicleNPlateError');
+	                        errorMsg.innerHTML = "Vehicle number already exists.";
+	                        errorMsg.style.display = 'inline';
+	                    }
+	                }
+	            };
+	            xhr.send();
+	        }
+	    }
+	    
 	</script>
 
 </body>

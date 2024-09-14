@@ -244,21 +244,19 @@
 					class="links_name">Dashboard</span>
 			</a></li>
 
-			<li><a href="adminside"> <i
-					class='bx bxs-group'></i> <span class="links_name">Customers
-						Section</span>
+			<li><a href="adminside"> <i class='bx bxs-group'></i> <span
+					class="links_name">Customers Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i
-					class='bx bxs-car-mechanic'></i> <span class="links_name">Cars
-						Section</span>
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i> <span
+					class="links_name">Cars Section</span>
 			</a></li>
 
 
 
 
-			<li><a href="servicedetailspage" class="active"> <i class='bx bxs-car'></i><span
-					class="links_name">Services</span>
+			<li><a href="servicedetailspage" class="active"> <i
+					class='bx bxs-car'></i><span class="links_name">Services</span>
 			</a></li>
 			<li><a href="sparePartspage"> <i class="bx bx-wrench"></i> <span
 					class="links_name">Spare Parts</span>
@@ -266,15 +264,15 @@
 			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
 					class="links_name">Technician</span>
 			</a></li>
-			
+
 			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
 					class="links_name">Billing</span>
 			</a></li>
 			<li><a href="#"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
-			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
-					<span class="links_name">Log out</span>
+			<li class="log_out"><a href="logoutbtn"> <i
+					class="bx bx-log-out"></i> <span class="links_name">Log out</span>
 			</a></li>
 		</ul>
 	</div>
@@ -297,7 +295,7 @@
 			<div class="overview-boxes">
 				<div class="box">
 					<div class="right-side">
-						<div class="box-topic">Search Panel</div>
+						<div class="box-topic">Services Search Panel</div>
 
 					</div>
 				</div>
@@ -311,24 +309,20 @@
 					<form:form action="searchcarbynplate_servicepage" method="POST"
 						modelAttribute="carDetails" id="vehicleForm">
 
-				
-
 						<!-- Number plate Field -->
 						<div class="form-group">
-							<label for="contactField">Vehicle Registered Number</label> <input
-								type="text" id="inputVehicleNPlate" name="vehiclenplate"
+							<label for="inputVehicleNPlate">Search Vehicle by
+								Registered Number</label> <input type="text" id="inputVehicleNPlate"
+								name="vehiclenplate"
 								placeholder="Enter Vehicle Registered number"
-								
-								onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')" />
-							<span id="vehicleNPlateError" style="color: red; display: none;">Invalid
-								vehicle number plate</span>
+								onkeyup="searchVehicle()" /> <span id="vehicleNPlateError"
+								style="color: red; display: none;">No vehicle found with
+								this number plate.</span>
 						</div>
-
-					
 
 						<!-- Submit Button (Disabled by default) -->
 						<div class="button-container">
-							<button type="submit">Search</button>
+							<button onclick="searchVehicle()">view all</button>
 						</div>
 					</form:form>
 				</div>
@@ -336,8 +330,8 @@
 			<div class="sales-boxes" style="margin-top: 20px;">
 				<div class="recent-sales box">
 					<!-- Table responsive wrapper -->
-					<div class="table-responsive">
-						<table class="table">
+					<div class="responsive" style="margin-top: 30px;">
+						<table id="resultsTable" class="table">
 							<thead>
 								<tr class=" table-success">
 									<th scope="col">Sr no.</th>
@@ -355,7 +349,8 @@
 								%>
 								<c:forEach var="vehicle" items="${vehicles}">
 									<tr>
-										<td><a href="allocateservice?VisitID=${vehicle.vehicleid}"
+										<td><a
+											href="allocateservice?VisitID=${vehicle.vehicleid}"
 											type="button" class="btn btn-info btn-sm"
 											style="color: white; text-decoration: none"><%=++count%></a></td>
 
@@ -502,6 +497,67 @@
 			} else {
 				errorMsg.style.display = 'none';
 			}
+		}
+	  
+	  
+		function searchVehicle() {
+		    const vehicleNumber = document.getElementById('inputVehicleNPlate').value;
+		    const errorMsg = document.getElementById('vehicleNPlateError');
+		    const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
+
+		    if (vehicleNumber.length > 0) {
+		        const xhr = new XMLHttpRequest();
+		        xhr.open('GET', '/CarGarageApplicationMVC/checkVehicleNumber_bpage?vehiclenplate=' + vehicleNumber, true);
+
+		        xhr.onreadystatechange = function () {
+		            if (xhr.readyState == 4 && xhr.status == 200) {
+		                const response = JSON.parse(xhr.responseText);
+		                resultsTable.innerHTML = ''; // Clear previous results
+
+		                if (response.length > 0) {
+		                    errorMsg.style.display = 'none'; // Hide error message if there are results
+
+		                    response.forEach((vehicle, index) => {
+		                        const row = resultsTable.insertRow();
+
+		                        // First cell with anchor tag styled as button
+		                        const firstCell = row.insertCell(0);
+		                        const buttonAnchor = document.createElement('a');
+		                        buttonAnchor.href = '/CarGarageApplicationMVC/allocateservice?VisitID=' + vehicle.vehicleid;
+		                        buttonAnchor.className = 'btn btn-info btn-sm'; // Bootstrap classes for button look
+		                        buttonAnchor.style.color = 'white';
+		                        buttonAnchor.style.textDecoration = 'none';
+		                        buttonAnchor.innerText = vehicle.vehicleid;  // Display vehicle ID as button text
+		                        firstCell.appendChild(buttonAnchor);
+
+		                        // Other cells
+		                        row.insertCell(1).innerHTML = vehicle.vehiclemodel;
+		                        row.insertCell(2).innerHTML = vehicle.vehiclenplate;
+		                        row.insertCell(3).innerHTML = vehicle.visitVrun;
+		                        row.insertCell(4).innerHTML = vehicle.visitVentryDate;
+		                        row.insertCell(5).innerHTML = vehicle.tname;
+
+		                        // Last cell with delete button
+		                        const actionCell = row.insertCell(6);
+		                        const deleteButton = document.createElement('button');
+		                        deleteButton.type = 'button';
+		                        deleteButton.className = 'btn btn-danger btn-sm'; // Bootstrap classes for delete button
+		                        deleteButton.innerText = 'Delete';
+		                        deleteButton.onclick = function() {
+		                            confirmDeleteforvehicle(vehicle.vehicleid); // Call the delete function with vehicle ID
+		                        };
+		                        actionCell.appendChild(deleteButton);
+		                    });
+		                } else {
+		                    errorMsg.style.display = 'inline'; // Show error message if no results found
+		                }
+		            }
+		        };
+		        xhr.send();
+		    } else {
+		        resultsTable.innerHTML = ''; // Clear table when input is cleared
+		        errorMsg.style.display = 'none'; // Hide error message when input is empty
+		    }
 		}
 	    
 	</script>

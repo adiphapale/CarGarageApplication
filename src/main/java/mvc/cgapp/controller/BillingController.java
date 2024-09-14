@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import mvc.cgapp.model.BillingModel;
 import mvc.cgapp.model.VehicleFormModel;
@@ -31,6 +32,23 @@ public class BillingController {
 		return "billingpage";
 	}
 	
+	
+	
+	@RequestMapping("/checkVehicleNumber_bpage")
+	@ResponseBody
+	public List<VehicleFormModel> searchByNPlate(@RequestParam("vehiclenplate") String nplate,Model model) {
+		System.out.println(nplate);
+		
+		
+		List<VehicleFormModel> getSelectedCars=userVehicleService.getSelectedCarsByVNPlate(nplate);
+		
+		return getSelectedCars;
+		
+	}
+	
+	
+	
+	
 	@PostMapping("/searchcarbynplate_billpage")
 	public String searchCarByNPlate(VehicleFormModel vehicleFormModel,Model model) {
 		if(vehicleFormModel.getVehiclenplate().isEmpty()) {
@@ -48,15 +66,16 @@ public class BillingController {
 	@RequestMapping("/allocatebilling")
 	public String allocateBilling(@RequestParam("VisitID") int vvid,Model model) {
 		
-		BillingModel customerBill=billingService.fetchBill(vvid);
-		/* System.out.println(customerBill); */
-		model.addAttribute("billingModel",customerBill);
-		if(customerBill.equals(null))
-		{
-			return "billingpage";
-		}else {
+		
+		try{
+			BillingModel customerBill=billingService.fetchBill(vvid);
+			model.addAttribute("billingModel",customerBill);
 			return "allocatebillingpage";
 		}
+		catch(Exception ex) {ex.printStackTrace();
+			return "redirect:/searchcarbynplate_billpage";
+		}
+		
 		
 	}
 

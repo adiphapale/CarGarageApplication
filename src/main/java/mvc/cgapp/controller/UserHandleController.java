@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -127,6 +126,8 @@ public class UserHandleController {
 	@RequestMapping("/goingtoupdate")
 	public String updatedUser(UserDetailsModel userDetailsModel,Model model) {
 		
+		
+		if(userDetailsModel==null) {
 		UserDetailsModel olddetails=userService.getSelectedUsersByID(userDetailsModel.getUserid());
 		
 		UserDetailsModel gettingUpdatedUser=userService.getUpdatedUser(userDetailsModel);
@@ -152,6 +153,10 @@ public class UserHandleController {
 		model.addAttribute("vehicles",getAllSelectedVehicles);
 		/* return "userAddUpdate"; */
 		return "admin2";
+		}else {
+			model.addAttribute("msg","Please Fill the Data");
+			return "admin2";
+		}
 
 	}
 	

@@ -3,7 +3,6 @@ package mvc.cgapp.service;
 import java.util.List;
 
 import mvc.cgapp.model.UserDetailsModel;
-import mvc.cgapp.model.UserVehicleModel;
 import mvc.cgapp.model.VehicleFormModel;
 
 public interface UserVehicleService {
@@ -22,4 +21,6 @@ public interface UserVehicleService {
 	
 	List<VehicleFormModel> getSelectedCarsByVNPlate(String vnplate);
 	
+	
+	boolean checkIfVehicleExists(String vehicleNumber);
 }
