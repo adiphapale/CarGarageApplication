@@ -155,26 +155,42 @@
 		</div>
 		<ul class="nav-links">
 			<!-- Sidebar Navigation -->
-			<li><a href="#"><i class="bx bx-grid-alt"></i> <span
-					class="links_name">Dashboard</span></a></li>
-			<li><a href="adminside"><i class='bx bxs-group'></i> <span
-					class="links_name">Customers Section</span></a></li>
-			<li><a href="carpage"><i class='bx bxs-car-mechanic'></i> <span
-					class="links_name">Cars Section</span></a></li>
-			
-			<li><a href="#" class="active"> <i class="bx bx-list-ul"></i> <span
-					class="links_name">Service Section</span>
+			<li><a href="#"> <i class="bx bx-grid-alt"></i> <span
+					class="links_name">Dashboard</span>
 			</a></li>
-			<li><a href="#"> <i class="bx bx-pie-chart-alt-2"></i> <span
+
+			<li><a href="adminside" > <i
+					class='bx bxs-group'></i> <span class="links_name">Customers
+						Section</span>
+			</a></li>
+
+			<li><a href="carpage"> <i
+					class='bx bxs-car-mechanic'></i> <span class="links_name">Cars
+						Section</span>
+			</a></li>
+
+
+
+
+			<li><a href="servicedetailspage" class="active"> <i class='bx bxs-car'></i><span
+					class="links_name">Services</span>
+			</a></li>
+			<li><a href="sparePartspage"> <i class="bx bx-wrench"></i> <span
 					class="links_name">Spare Parts</span>
 			</a></li>
-			<li><a href="#"> <i class="bx bx-coin-stack"></i> <span
+			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
+					class="links_name">Technician</span>
+			</a></li>
+			
+			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
 					class="links_name">Billing</span>
 			</a></li>
-			<li><a href="#"><i class='bx bxs-spreadsheet'></i> <span
-					class="links_name">Reports</span></a></li>
-			<li class="log_out"><a href="logoutbtn"><i
-					class="bx bx-log-out"></i> <span class="links_name">Log out</span></a></li>
+			<li><a href="#"> <i class='bx bxs-report'></i> <span
+					class="links_name">Reports</span>
+			</a></li>
+			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
+					<span class="links_name">Log out</span>
+			</a></li>
 		</ul>
 	</div>
 	<section class="home-section">

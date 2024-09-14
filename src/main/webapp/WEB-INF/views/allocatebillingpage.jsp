@@ -1,18 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page import="java.util.Date"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
+<% 
+    // Set current date in "dd/MM/yyyy" format
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+    String currentDate = sdf.format(new Date());
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Billing Section</title>
 
-<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css"
-	rel="stylesheet" />
-<link type="text/css" rel="stylesheet"
-	href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/styleadmin.css" />
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+<link type="text/css" rel="stylesheet" href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/styleadmin.css" />
 
 <style type="text/css">
 /* General styles */
@@ -151,10 +157,9 @@ table tbody tr:hover {
 </head>
 <body>
 	<div class="billing-container">
-		<h2>Billing Section</h2>
 		<div class="invoice-container">
 			<div class="logo-section">
-				<h1><i class="fa-solid fa-car-on"></i>GoGarage Automobs</h1>
+				<h1><i class="fa-solid fa-car-on"></i> GoGarage Automobs</h1>
 			</div>
 
 			<div class="row">
@@ -166,8 +171,8 @@ table tbody tr:hover {
 				</div>
 				<div class="column">
 					<div class="bill-info">
-						<p><strong>Bill No:</strong> 00123</p>
-						<p><strong>Date:</strong> 01/09/2024</p>
+						<p><strong>Bill No:</strong> ${billingModel.billID}</p>
+						<p><strong>Date:</strong> <%= currentDate %></p>
 					</div>
 				</div>
 			</div>
@@ -175,44 +180,42 @@ table tbody tr:hover {
 			<div class="row">
 				<div class="column">
 					<div class="customer-info">
-						<p><strong>Customer Name:</strong> John Doe</p>
-						<p><strong>Customer Contact:</strong> 9876543210</p>
+						<p><strong>Customer Name:</strong> ${billingModel.userDetailsModel.username}</p>
+						<p><strong>Customer Contact:</strong> ${billingModel.userDetailsModel.usercontact}</p>
 					</div>
 				</div>
 				<div class="column">
 					<div class="vehicle-info">
-						<p><strong>Vehicle No:</strong> XYZ 1234</p>
-						<p><strong>Vehicle Model:</strong> Honda City</p>
-						<p><strong>Vehicle Technician:</strong> Mark</p>
+						<p><strong>Vehicle No:</strong> ${billingModel.vehicleFormModel.vehiclenplate}</p>
+						<p><strong>Vehicle Model:</strong> ${billingModel.vehicleFormModel.vehiclemodel}</p>
+						<p><strong>Vehicle Technician:</strong> ${billingModel.vehicleFormModel.tname}</p>
 					</div>
 				</div>
 			</div>
 
+			<!-- Services Table -->
 			<table>
 				<thead>
 					<tr>
 						<th>Sr.No</th>
 						<th>Services</th>
 						<th>Price</th>
-						<th>Total</th>
+						
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Oil Change</td>
-						<td>$50</td>
-						<td>$50</td>
-					</tr>
-					<tr>
-						<td>2</td>
-						<td>Brake Replacement</td>
-						<td>$200</td>
-						<td>$200</td>
-					</tr>
+					<c:forEach var="service" items="${billingModel.subService}">
+						<tr>
+							<td>${service.ssid}</td>
+							<td>${service.ssname}</td>
+							<td>${service.ssprice}</td>
+							<%-- <td>${service.servicePrice}</td> --%>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
+			<!-- Spare Parts Table -->
 			<table>
 				<thead>
 					<tr>
@@ -224,22 +227,24 @@ table tbody tr:hover {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>1</td>
-						<td>Brake Pads</td>
-						<td>$100</td>
-						<td>2</td>
-						<td>$200</td>
-					</tr>
+					<c:forEach var="sparePart" items="${billingModel.subSpareParts}">
+						<tr>
+							<td>${sparePart.key.spid}</td>
+							<td>${sparePart.key.spname}</td>
+							<td>${sparePart.key.spprice}</td>
+							<td>${sparePart.value}</td>
+							 <td>${sparePart.key.spprice * sparePart.value}</td>
+						</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 
 			<div class="totals">
-				<p><strong>Subtotal (Services):</strong> $250</p>
-				<p><strong>Subtotal (Spare Parts):</strong> $200</p>
-				<p><strong>GST (9%):</strong> $40.5</p>
-				<p><strong>CGST (9%):</strong> $40.5</p>
-				<p><strong>Final Bill:</strong> $531</p>
+				<p><strong>Subtotal (Services):</strong> ${billingModel.subTotalServices}</p>
+				<p><strong>Subtotal (Spare Parts):</strong> ${billingModel.subTotalSpareParts}</p>
+				<p><strong>GST (9%):</strong> ${(billingModel.subTotalServices + billingModel.subTotalSpareParts) * 0.09}</p>
+				<p><strong>CGST (9%):</strong> ${(billingModel.subTotalServices + billingModel.subTotalSpareParts) * 0.09}</p>
+				<p><strong>Final Bill:</strong> ${billingModel.subTotalServices + billingModel.subTotalSpareParts + (billingModel.subTotalServices + billingModel.subTotalSpareParts) * 0.18}</p>
 			</div>
 			
 			<div class="payment-btn">
@@ -250,7 +255,6 @@ table tbody tr:hover {
 				<button onclick="window.print()">Print Bill</button>
 			</div>
 
-			
 		</div>
 	</div>
 </body>

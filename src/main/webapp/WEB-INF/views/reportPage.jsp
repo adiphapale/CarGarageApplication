@@ -257,7 +257,7 @@
 
 
 
-			<li><a href="servicedetailspage" class="active"> <i class='bx bxs-car'></i><span
+			<li><a href="servicedetailspage"> <i class='bx bxs-car'></i><span
 					class="links_name">Services</span>
 			</a></li>
 			<li><a href="sparePartspage"> <i class="bx bx-wrench"></i> <span
@@ -270,7 +270,7 @@
 			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
 					class="links_name">Billing</span>
 			</a></li>
-			<li><a href="#"> <i class='bx bxs-report'></i> <span
+			<li><a href="#" class="active"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
 			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
@@ -303,13 +303,13 @@
 				</div>
 			</div>
 
-
+			
 			<div class="sales-boxes">
 				<div class="recent-sales box">
 
 
-					<form:form action="searchcarbynplate_servicepage" method="POST"
-						modelAttribute="carDetails" id="vehicleForm">
+					<form:form action="searchcarbynplate_reportpage" method="POST"
+						modelAttribute="carDetailss" id="vehicleForm">
 
 				
 
@@ -336,41 +336,38 @@
 			<div class="sales-boxes" style="margin-top: 20px;">
 				<div class="recent-sales box">
 					<!-- Table responsive wrapper -->
-					<div class="table-responsive">
-						<table class="table">
+					<div class="disptable" style="margin-top: 30px;">
+						<table class="table" style="border: 1px solid black;">
 							<thead>
 								<tr class=" table-success">
 									<th scope="col">Sr no.</th>
 									<th scope="col">Vehicle Model</th>
-									<th scope="col">Registered Number</th>
+									<th scope="col">Registered Vehicle Number</th>
 									<th scope="col">Vehicle Running in KMs</th>
 									<th scope="col">Entry Date</th>
 									<th scope="col">Technician</th>
-									<th></th>
 								</tr>
 							</thead>
 							<tbody>
 								<%
 								int count = 0;
 								%>
-								<c:forEach var="vehicle" items="${vehicles}">
+								<c:forEach var="vehicle" items="${vehicles }">
 									<tr>
-										<td><a href="allocateservice?VisitID=${vehicle.vehicleid}"
-											type="button" class="btn btn-info btn-sm"
-											style="color: white; text-decoration: none"><%=++count%></a></td>
-
+										<td><a
+											href="allocatebilling?VisitID=${vehicle.vehicleid}"
+											type="button" class="btn btn-info btn-sm"> <%=++count%></a></td>
 										<td>${vehicle.vehiclemodel }</td>
 										<td>${vehicle.vehiclenplate }</td>
 										<td>${vehicle.visitVrun }</td>
 										<td>${vehicle.visitVentryDate }</td>
 										<td>${vehicle.tname}</td>
-										<td><button type="button" class="btn btn-danger btn-sm"
-												onclick="confirmDeleteforvehicle(${vehicle.vehicleid})">Delete</button></td>
 									</tr>
 								</c:forEach>
 							</tbody>
 						</table>
 					</div>
+
 				</div>
 			</div>
 

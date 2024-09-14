@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Sign Up for GoGarage AutoMobs</title>
-<!-- fot website fevicon image -->
 <link rel="icon" type="image/x-icon"
-	href="/Movie_Recommendation/URLToReachResourceFolder/images/website-feviicon.png" />
+    href="/Movie_Recommendation/URLToReachResourceFolder/images/website-feviicon.png" />
 
 <style type="text/css">
+/* Your existing CSS remains the same */
 body {
 	font-family: Arial, sans-serif;
 	background-color: #f5f5f5;
@@ -224,177 +224,160 @@ input[type="checkbox"] {
 
 </head>
 <body>
-	<div class="register_form_user">
+    <div class="register_form_user">
+        <h1>GoGarage AutoMobs</h1>
+        <h3>Create a New Account</h3>
 
+        <form:form name="RegForm" action="submitCustDetails" method="Post"
+            modelAttribute="reguser" onsubmit="return validateForm()">
+            <p>
+                <input type="text" id="name" name="username"
+                    placeholder="Enter your name" /> 
+                <span id="name-error" class="error-message"></span>
+            </p>
+            <p>
+                <input type="text" id="contactnumber" placeholder="Enter your Contact Number"
+                    name="usercontact" /> 
+                <span id="validationcontactMessage" class="error-message"></span>
+            </p>
+            <p>
+                <input type="text" id="email" name="useremail"
+                    placeholder="Enter your email" maxlength="60" /> 
+                <span id="emailValidationMessage" class="error-message"></span>
+            </p>
 
-		<h1>GoGarage AutoMobs</h1>
-		<h3>Create a New Account</h3>
+            <p>
+                <input type="text" id="address" name="useraddress"
+                    placeholder="Enter your Address" required /> 
+                <span id="address-error" class="error-message"></span>
+            </p>
 
-		<form:form name="RegForm" action="submitCustDetails" method="Post"
-			modelAttribute="reguser">
-			<p>
-				<input type="text" id="name" name="username"
-					placeholder="Enter your name" /> <span id="name-error"
-					class="error-message"></span>
-			</p>
-			<p>
-				<input type="password" placeholder="Enter your Contact Number"
-					id="password" name="usercontact" /> <span id="password-error"
-					class="error-message"></span>
-			</p>
-			<p>
-				<input type="text" id="email" name="useremail"
-					placeholder="Enter your email" maxlength="60" /> <span
-					id="emailValidationMessage" class="error-message"></span>
-			</p>
+            <p>
+                <input type="checkbox" id="agree" name="Agree" /> 
+                <label for="agree">I agree to the Terms & Conditions of GoGarage AutoMobs</label> 
+                <span id="agree-error" class="error-message"></span>
+            </p>
 
-			<p>
-				<input type="text" id="address" name="useraddress"
-					placeholder="Enter your Address" required /> <span
-					id="validationcontactMessage" class="error-message"></span>
-			</p>
+            <p>
+                <input type="submit" value="Send" name="Submit" /> 
+                <input type="reset" value="Reset" name="Reset" />
+            </p>
 
-			<p>
-				<input type="checkbox" id="agree" name="Agree" /> <label
-					for="agree">I agree the Terms& Conditions of GoGarage
-					AutoMobs</label> <span id="agree-error" class="error-message"></span>
-			</p>
-			<p>
-				<input type="submit" value="Send" name="Submit" /> <input
-					type="reset" value="Reset" name="Reset" />
-			</p>
-			<div style="text-align: center;">
-				<span style="color: blue;">${msg}</span>
-			</div>
+            <div style="text-align: center;">
+                <span style="color: blue;">${msg}</span>
+            </div>
 
-			<a href="custlogin"><h3>Already have an account?</h3></a>
-		</form:form>
-		<div class="more-info-section-2">
-			<h3>
-				All material<span>&copy; 2024 GoGarage AutoMobs company
-					Pvt.Ltd.All Rights Reserved 2024</span>
-			</h3>
-		</div>
+            <a href="custlogin"><h3>Already have an account?</h3></a>
+        </form:form>
+        <div class="more-info-section-2">
+            <h3>
+                All material<span>&copy; 2024 GoGarage AutoMobs company Pvt.Ltd. All Rights Reserved 2024</span>
+            </h3>
+        </div>
+    </div>
 
-	</div>
+    <script>
+    // Real-time validation functions
+    document.getElementById('name').addEventListener('input', validateName);
+    document.getElementById('contactnumber').addEventListener('input', validateContact);
+    document.getElementById('email').addEventListener('input', validateEmail);
+    document.getElementById('address').addEventListener('input', validateAddress);
 
-	<script>
-        function validateForm() {
-    const name = document.getElementById("name").value;
-    const address = document.getElementById("address").value;
-    const email = document.getElementById("Email").value;
-    const password = document.getElementById("password").value;
-    const agree = document.getElementById("agree").checked;
-    const nameError = document.getElementById("name-error");
-    // const Contact = document.getElementById("contactnumber").value;
-
-
-    const addressError = document.getElementById(
-        "address-error"
-    );
-    const emailError = document.getElementById(
-        "emailValidationMessage"
-    );
-    // const contactError = document.getElementById(
-    //     "contact-error"
-    // );
-    const passwordError = document.getElementById(
-        "password-error"
-    );
-    const agreeError = document.getElementById(
-        "agree-error"
-    );
-
-    nameError.textContent = "";
-    addressError.textContent = "";
-    emailError.textContent = "";
-    passwordError.textContent = "";
-    agreeError.textContent = "";
-    // contactError.textContent="";
-
-    let isValid = true;
-  
-
-    if (name === "" || /\d/.test(name)) {
-        nameError.textContent =
-            "Please enter your Username properly.";
-        isValid = false;
+    // Helper function to remove leading spaces
+    function removeLeadingSpaces(value) {
+        return value.replace(/^\s+/, '');
     }
 
-    if (name.length<6 || name.length>50) {
-        nameError.textContent =
-           "Please enter a Username with at least 6 characters.";
-        isValid = false;
+    // Username validation
+    function validateName() {
+        const nameField = document.getElementById("name");
+        const name = removeLeadingSpaces(nameField.value);
+        const nameError = document.getElementById("name-error");
+        nameError.textContent = "";
+
+        if (name === "" || /\d/.test(name)) {
+            nameError.textContent = "Please enter a valid username without numbers.";
+        } else if (name.length < 6 || name.length > 50) {
+            nameError.textContent = "Username must be between 6 and 50 characters.";
+        } else if (/^\s/.test(name)) {
+            nameError.textContent = "Username cannot start with a space.";
+        }
+        
+        // Update the input value to sanitized value
+        nameField.value = name;
     }
 
-    if (address === "" || address.length>50) {
-        addressError.textContent =
-            "City name is too lengthy.";
-        isValid = false;
+    // Contact number validation
+    function validateContact() {
+        const contact = document.getElementById("contactnumber").value;
+        const contactError = document.getElementById("validationcontactMessage");
+        contactError.textContent = "";
+
+        if (contact.length !== 10 || !/^[0-9]+$/.test(contact)) {
+            contactError.textContent = "Contact number must be 10 digits and numeric.";
+        }
     }
 
-    if (email === "") {
-        emailError.textContent =
-            "Please enter a valid email address.";
-        isValid = false;
+    // Email validation
+    function validateEmail() {
+        const emailField = document.getElementById("email");
+        const email = removeLeadingSpaces(emailField.value);
+        const emailError = document.getElementById("emailValidationMessage");
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        emailError.textContent = "";
+
+        if (!emailPattern.test(email)) {
+            emailError.textContent = "Invalid email format.";
+        }
+        
+        // Update the input value to sanitized value
+        emailField.value = email;
     }
 
-    if (password === "" || password.length < 6 || password.length > 50) {
-        passwordError.textContent =
-            "Please enter a password with at least 6 characters.";
-        isValid = false;
+    // Address validation
+    function validateAddress() {
+        const addressField = document.getElementById("address");
+        const address = removeLeadingSpaces(addressField.value);
+        const addressError = document.getElementById("address-error");
+        addressError.textContent = "";
+
+        if (address === "" || address.length > 50) {
+            addressError.textContent = "Address is too long (max 50 characters).";
+        } else if (/^\s/.test(address)) {
+            addressError.textContent = "Address cannot start with a space.";
+        }
+        
+        // Update the input value to sanitized value
+        addressField.value = address;
     }
-  
 
-    if (!agree) {
-        agreeError.textContent =
-            "Please agree to the above information.";
-        isValid = false;
+    // Final form submission validation
+    function validateForm() {
+        validateName();
+        validateContact();
+        validateEmail();
+        validateAddress();
+
+        const nameError = document.getElementById("name-error").textContent;
+        const contactError = document.getElementById("validationcontactMessage").textContent;
+        const emailError = document.getElementById("emailValidationMessage").textContent;
+        const addressError = document.getElementById("address-error").textContent;
+        const agreeError = document.getElementById("agree-error");
+        const agreeChecked = document.getElementById("agree").checked;
+
+        if (!agreeChecked) {
+            agreeError.textContent = "You must agree to the Terms & Conditions.";
+            return false;
+        } else {
+            agreeError.textContent = "";
+        }
+
+        if (nameError || contactError || emailError || addressError) {
+            return false; // Prevent form submission if there are validation errors
+        }
+
+        return true; // Submit form if no errors
     }
-
-    return isValid;
-}
-   
-document
-        .getElementById("contactnumber")
-        .addEventListener("input", function () {
-          const contact = this.value;
-          const validationMessage =
-            document.getElementById("validationcontactMessage");
-
-          if (contact.length > 10) {
-            validationMessage.textContent = "Invalid Contact Number";
-          } 
-          if (contact.length < 10) {
-            validationMessage.textContent = "Contact Number less than (10 digits)";
-          }
-          
-          else if (!/^[1-9]\d{0,9}$/.test(contact)) {
-            validationMessage.textContent = "Invalid Contact Number";
-          } else {
-            validationMessage.textContent = "";
-          }
-        });
-
-      document
-        .getElementById("Email")
-        .addEventListener("input", function () {
-          const email = this.value;
-          const validationMessage = document.getElementById(
-            "emailValidationMessage"
-          );
-
-          // Basic email pattern to check the format
-          const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-          if (!emailPattern.test(email)) {
-            validationMessage.textContent = "Invalid email address.";
-          } else {
-            validationMessage.textContent = "";
-          }
-        });
-    
     </script>
-
 </body>
 </html>

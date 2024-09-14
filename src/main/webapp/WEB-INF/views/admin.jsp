@@ -248,14 +248,20 @@
 
 
 
-			<li><a href="#"> <i class='bx bxs-cart-add'></i><span
+			<li><a href="servicedetailspage"> <i class='bx bxs-car'></i><span
 					class="links_name">Services</span>
 			</a></li>
-			<li><a href="#"> <i class="bx bx-pie-chart-alt-2"></i> <span
+			<li><a href="sparePartspage"> <i class="bx bx-wrench"></i> <span
 					class="links_name">Spare Parts</span>
 			</a></li>
+			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
+					class="links_name">Technician</span>
+			</a></li>
 			
-			<li><a href="#"> <i class='bx bxs-spreadsheet'></i> <span
+			<li><a href="billingPage"> <i class="bx bx-wrench"></i> <span
+					class="links_name">Billing</span>
+			</a></li>
+			<li><a href="reportPage"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
 			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>

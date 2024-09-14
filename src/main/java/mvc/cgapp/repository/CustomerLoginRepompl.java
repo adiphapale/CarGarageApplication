@@ -16,7 +16,7 @@ public class CustomerLoginRepompl implements CustomerLoginRepo{
 	JdbcTemplate jdbcTemplate;
 	
 	@Override
-	public boolean isCustomerLogoin(CustomerLoginModel customerLoginModel) {
+	public UserDetailsModel isCustomerLogoin(CustomerLoginModel customerLoginModel) {
 		
 		String query="select *From userdetails_1 where uname=? and ucontact=?";
 		UserDetailsModel rs=new UserDetailsModel();
@@ -25,7 +25,9 @@ public class CustomerLoginRepompl implements CustomerLoginRepo{
 		}catch(Exception ex) {
 			rs=null;
 		}
-		return rs==null?false:true;
+		
+		return rs;
+		
 	}
 
 }

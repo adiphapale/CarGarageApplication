@@ -1,5 +1,8 @@
 package mvc.cgapp.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -7,12 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
 import mvc.cgapp.model.CustomerLoginModel;
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.service.CustomerLoginService;
 import mvc.cgapp.service.UserService;
 
 @Controller
+//@SessionAttributes("userdata")
 public class CustomerLoginController {
 
 	@Autowired
@@ -29,11 +35,14 @@ public class CustomerLoginController {
 	}
 	
 	@PostMapping("/saveloginuser")
-	public String Custometlogin(CustomerLoginModel customerLoginModel,Model model) {
+	public String Custometlogin(HttpServletRequest request, CustomerLoginModel customerLoginModel,Model model) {
 		
 		System.out.println(customerLoginModel);
-		boolean b=customerLoginService.isCustomerLogoin(customerLoginModel);
-		if(b) {
+		UserDetailsModel umodel=customerLoginService.isCustomerLogoin(customerLoginModel);
+		if(umodel!=null) {
+			
+			HttpSession session=request.getSession();
+			session.setAttribute("customerLogin", umodel);
 			return "redirect:/customerprofile";
 		}
 		else {

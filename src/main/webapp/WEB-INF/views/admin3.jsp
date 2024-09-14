@@ -240,33 +240,27 @@
 						Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i>
-					<span class="links_name">Cars Section</span>
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i> <span
+					class="links_name">Cars Section</span>
 			</a></li>
 
 
 
 
-			<li><a href="#"> <i class="bx bx-list-ul"></i> <span
-					class="links_name">Order list</span>
+			<li><a href="servicedetailspage"> <i class='bx bxs-car'></i><span
+					class="links_name">Services</span>
 			</a></li>
-			<li><a href="#"> <i class="bx bx-pie-chart-alt-2"></i> <span
-					class="links_name">Analytics</span>
-			</a></li>
-			<li><a href="#"> <i class="bx bx-coin-stack"></i> <span
-					class="links_name">Stock</span>
-			</a></li>
-			<li><a href="#"> <i class="bx bx-book-alt"></i> <span
-					class="links_name">Total order</span>
+			<li><a href="sparePartspage"> <i class="bx bx-wrench"></i> <span
+					class="links_name">Spare Parts</span>
 			</a></li>
 
-			<li><a href="#"> <i class="bx bx-message"></i> <span
-					class="links_name">Messages</span>
+			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
+					class="links_name">Billing</span>
 			</a></li>
-			<li><a href="#"> <i class="bx bx-heart"></i> <span
-					class="links_name">Favrorites</span>
+			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
+					class="links_name">Technician</span>
 			</a></li>
-			<li><a href="#"> <i class='bx bxs-spreadsheet'></i> <span
+			<li><a href="#"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
 			<li class="log_out"><a href="logoutbtn"> <i
