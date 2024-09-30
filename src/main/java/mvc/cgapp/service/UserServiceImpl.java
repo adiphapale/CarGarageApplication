@@ -92,4 +92,10 @@ public class UserServiceImpl implements UserService {
 		return userRepo.getSelectedUsersByVisitID(vvid);
 	}
 
+	@Override
+	public UserDetailsModel addFirstVehiclendUser(UserDetailsModel userDetailsModel) {
+		
+		return userRepo.addFirstVehiclendUser(userDetailsModel);
+	}
+
 }

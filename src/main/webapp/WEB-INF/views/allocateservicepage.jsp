@@ -51,7 +51,8 @@
 
 .button-container {
 	padding: 30px;
-	border-radius: 25px; display : flex;
+	border-radius: 25px;
+	display: flex;
 	justify-content: center;
 	display: flex;
 }
@@ -159,21 +160,19 @@
 					class="links_name">Dashboard</span>
 			</a></li>
 
-			<li><a href="adminside" > <i
-					class='bx bxs-group'></i> <span class="links_name">Customers
-						Section</span>
+			<li><a href="adminside"> <i class='bx bxs-group'></i> <span
+					class="links_name">Customers Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i
-					class='bx bxs-car-mechanic'></i> <span class="links_name">Cars
-						Section</span>
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i> <span
+					class="links_name">Cars Section</span>
 			</a></li>
 
 
 
 
-			<li><a href="servicedetailspage" class="active"> <i class='bx bxs-car'></i><span
-					class="links_name">Services</span>
+			<li><a href="servicedetailspage" class="active"> <i
+					class='bx bxs-car'></i><span class="links_name">Services</span>
 			</a></li>
 			<li><a href="sparePartspage"> <i class="bx bx-wrench"></i> <span
 					class="links_name">Spare Parts</span>
@@ -181,15 +180,15 @@
 			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
 					class="links_name">Technician</span>
 			</a></li>
-			
+
 			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
 					class="links_name">Billing</span>
 			</a></li>
 			<li><a href="#"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
-			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
-					<span class="links_name">Log out</span>
+			<li class="log_out"><a href="logoutbtn"> <i
+					class="bx bx-log-out"></i> <span class="links_name">Log out</span>
 			</a></li>
 		</ul>
 	</div>
@@ -200,7 +199,7 @@
 					Dashboard</span>
 			</div>
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 			</div>
 		</nav>
 		<div class="home-content">
@@ -211,16 +210,16 @@
 					</div>
 				</div>
 			</div>
-						
-			
+
+
 
 			<div class="sales-boxes" style="margin-top: 20px;">
 				<div class="recent-sales box">
-
 					<div class="tab-content" id="v-pills-tabContent">
 						<div class="tab-pane fade show active" id="v-pills-profile"
 							role="tabpanel" aria-labelledby="v-pills-profile-tab">
-							<form action="submitServices?vvid=${visitID}" method="post">
+							<form id="serviceForm" action="submitServices?vvid=${visitID}"
+								method="post">
 								<div class="row">
 									<div class="col-md-12">
 										<c:forEach var="ServiceEntry" items="${servicesMap}">
@@ -252,25 +251,50 @@
 													</div>
 												</div>
 											</div>
-											
 										</c:forEach>
 									</div>
 								</div>
+
+								<c:if test="${not empty message}">
+									<div id="validationMessage" class="alert alert-warning">
+										${message}</div>
+								</c:if>
+
 								<div class="text-center mt-4">
 									<button type="submit" class="btn btn-success btn-lg">Submit</button>
 								</div>
-								
 							</form>
 						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 	</section>
 	<script>
 		function toggleSubServices(mainServiceCheckbox, subServiceClass) {
 			var checkboxes = document.getElementsByClassName(subServiceClass);
 			for (var i = 0; i < checkboxes.length; i++) {
 				checkboxes[i].checked = mainServiceCheckbox.checked;
+			}
+		}
+
+		document.getElementById('serviceForm').onsubmit = function(event) {
+			var selectedSubServices = document
+					.querySelectorAll('input[name="selectedSubServices"]:checked');
+			if (selectedSubServices.length === 0) {
+				event.preventDefault(); // Prevent form submission
+				alert('Please select at least one service before submitting.');
+				window.location.href = 'sparePartspage'; // Redirect to Spare Parts page
+			}
+		}
+		document.getElementById('serviceForm').onsubmit = function(event) {
+			var selectedSubServices = document
+					.querySelectorAll('input[name="selectedSubServices"]:checked');
+			if (selectedSubServices.length === 0) {
+				event.preventDefault(); // Prevent form submission
+				alert('Please select at least one service before submitting.');
+				// Redirect to the spare parts page
+				window.location.href = 'sparePartspage';
 			}
 		}
 	</script>

@@ -24,7 +24,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 	@Override
 	public List<VehicleFormModel> getVehiclesByUserID(int userid) {
 
-		String sql = "select vs.vvid,v.vmodel,v.vnplate,vs.vvrun,vs.vventrydate, t.tname from visitvehicleDetails_1 vs inner join vehicleDetails_1 v on v.vid=vs.vid inner join techniciandetails_1 t on t.tid=vs.tid left join userdetails_1 u on u.uid=v.uid where u.uid=?";
+		String sql = "select vs.vvid,v.vmodel,v.vnplate,vs.vvrun,vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid=vs.vid inner join techniciandetails_1 t on t.tid=vs.tid left join userdetails_1 u on u.uid=v.uid where u.uid=?";
 		List<VehicleFormModel> allUserVehicles = null;
 		try {
 			allUserVehicles = jdbcTemplate.query(sql, new RowMapper<VehicleFormModel>() {
@@ -52,7 +52,8 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getAllCars() {
-		String sql = "select vs.vvid,v.vmodel,v.vnplate,vs.vvrun,vs.vventrydate, t.tname from visitvehicleDetails_1 vs inner join vehicleDetails_1 v on v.vid=vs.vid inner join techniciandetails_1 t on t.tid=vs.tid left join userdetails_1 u on u.uid=v.uid ";
+		System.out.println("all details");
+		String sql = "select vs.vvid,v.vmodel,v.vnplate,vs.vvrun,vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid=vs.vid inner join techniciandetails_1 t on t.tid=vs.tid left join userdetails_1 u on u.uid=v.uid ";
 		List<VehicleFormModel> allUserVehicles = jdbcTemplate.query(sql, new UserVehicleRowMapper());
 		return allUserVehicles;
 	}
@@ -69,7 +70,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByModel(String vmodel) {
 		System.out.println("i am in model name car");
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE v.vmodel LIKE ?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where v.vmodel like ?";
 		String pattern = "%" + vmodel + "%";
 		List<VehicleFormModel> getSelectedCars = null;
 		try {
@@ -100,7 +101,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByModelEntryDate(String vmodel, String vdate) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE vs.vventrydate= ?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicleDetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where vs.vventrydate= ?";
 		String pattern = "%" + vmodel + "%";
 		List<VehicleFormModel> getSelectedCars = null;
 		try {
@@ -115,7 +116,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByModelTname(String vmodel, String tname) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE v.vmodel LIKE ? and t.tname= ?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where v.vmodel like ? and t.tname= ?";
 		String pattern = "%" + vmodel + "%";
 //		String pattern1="%"+tname+"%";
 
@@ -132,7 +133,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByNumberPlate(String vnplate) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE v.vnplate LIKE ?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where v.vnplate like ?";
 		String pattern = "%" + vnplate + "%";
 		List<VehicleFormModel> getSelectedCars = null;
 		try {
@@ -147,7 +148,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByNumberPlateEntryDate(String vnplate, String vdate) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE v.vnplate LIKE ? and vs.vventrydate=?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicleDetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where v.vnplate LIKE ? and vs.vventrydate=?";
 		String pattern = "%" + vnplate + "%";
 		List<VehicleFormModel> getSelectedCars = null;
 		try {
@@ -162,7 +163,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByNumberPlateTname(String vnplate, String tname) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE v.vnplate LIKE ? and t.tname=?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where v.vnplate like ? and t.tname=?";
 		String pattern = "%" + vnplate + "%";
 //		String pattern1="%"+tname+"%";
 		List<VehicleFormModel> getSelectedCars = null;
@@ -178,7 +179,8 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByEntryDate(String vdate) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE vs.vventrydate= ?";
+		System.out.println("entery datea repooooo");
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicleDetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where vs.vventrydate= ?";
 		List<VehicleFormModel> getSelectedCars = null;
 		try {
 
@@ -192,7 +194,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public List<VehicleFormModel> getSelectedCarsByEntryDateTname(String vdate, String tname) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE vs.vventrydate=? and t.tname=?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicleDetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where vs.vventrydate=? and t.tname=?";
 //		String pattern="%"+tname+"%";
 		List<VehicleFormModel> getSelectedCars = null;
 		try {
@@ -209,7 +211,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 	public List<VehicleFormModel> getSelectedCarsByTname(String tname) {
 		System.out.println("techie nameis   :---" + tname);
 
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE t.tname=?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicleDetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where t.tname=?";
 //		String pattern="%"+tname+"%";
 		List<VehicleFormModel> getSelectedCars = null;
 		try {
@@ -225,7 +227,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public VehicleFormModel getSelectedCarByID(int vvid) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid left JOIN userdetails_1 u ON u.uid = v.uid WHERE vs.vvid=?";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid left join userdetails_1 u on u.uid = v.uid where vs.vvid=?";
 //		String pattern="%"+tname+"%";
 		VehicleFormModel getSelectedCar = null;
 		try {
@@ -241,7 +243,7 @@ public class UserVehicleRepoImpl implements UserVehicleRepo {
 
 	@Override
 	public VehicleFormModel getSelectedCarByEntryDate(String vnDate) {
-		String sql = "SELECT vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname FROM visitvehicleDetails_1 vs INNER JOIN vehicleDetails_1 v ON v.vid = vs.vid INNER JOIN techniciandetails_1 t ON t.tid = vs.tid WHERE vs.vventrydate=? order by vs.vventrydate desc limit 1";
+		String sql = "select vs.vvid, v.vmodel, v.vnplate, vs.vvrun, vs.vventrydate, t.tname from visitvehicledetails_1 vs inner join vehicledetails_1 v on v.vid = vs.vid inner join techniciandetails_1 t on t.tid = vs.tid where vs.vventrydate=? order by vs.vventrydate desc limit 1";
 		VehicleFormModel getSelectedCar = new VehicleFormModel();
 		try {
 			getSelectedCar = jdbcTemplate.queryForObject(sql, new UserVehicleRowMapper(), vnDate);

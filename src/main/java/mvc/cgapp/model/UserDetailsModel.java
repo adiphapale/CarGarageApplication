@@ -37,7 +37,10 @@ public class UserDetailsModel {
 	public void setUseraddress(String useraddress) {
 		this.useraddress = useraddress;
 	}
-
-
+	@Override
+	public String toString() {
+		return "UserDetailsModel [userid=" + userid + ", username=" + username + ", usercontact=" + usercontact
+				+ ", useremail=" + useremail + ", useraddress=" + useraddress + "]";
+	}
 	
 }

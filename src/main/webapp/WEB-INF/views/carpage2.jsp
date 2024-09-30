@@ -282,15 +282,16 @@
 /* Submit Button */
 button[type="submit"] {
 	padding: 10px 20px;
-	background-color: #28a745;
 	color: white;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	background-color: #0A2558;
+	font-size: 15px;
 }
 
 button[type="submit"]:hover {
-	background-color: #218838;
+	background-color: #0f3886;
 }
 </style>
 </head>
@@ -351,7 +352,7 @@ button[type="submit"]:hover {
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Prem Shahi</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -371,11 +372,13 @@ button[type="submit"]:hover {
 				<div class="recent-sales box">
 
 
-					<form:form action="goingtoupdatecar" method="POST" id="userForm">
+					<form:form action="goingtoupdatecar" method="POST" id="userForm"
+						onsubmit="return validateForm()">
+
 
 						<!-- Submit Button (Disabled by default) -->
 						<div class="button-container">
-							<button type="submit" style="background-color: #0A2558">Submit</button>
+							<button id="btnsubmit" type="submit" style="background-color: #0A2558" disabled>Submit</button>
 						</div>
 						<div style="text-align: center;">
 							<label style="color: blue;">${msg}</label>
@@ -399,8 +402,9 @@ button[type="submit"]:hover {
 								type="text" id="inputVehicleNPlate" name="vehiclenplate"
 								placeholder="Enter Vehicle Registered number"
 								value="${carinfo.vehiclenplate}" maxlength="10"
-								onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')" />
-							<span id="vehicleNPlateError" style="color: red; display: none;">Invalid
+								onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')"
+								onchange="checkVehicleNumber()" /> <span
+								id="vehicleNPlateError" style="color: red; display: none;">Invalid
 								vehicle number plate</span>
 						</div>
 
@@ -428,7 +432,7 @@ button[type="submit"]:hover {
 
 			<!-- modal button -->
 			<div class="button1" style="margin-top: 20px;">
-				<a id="openModalBtn">Add Customer</a>
+				<button type="submit" id="openModalBtn">Add Customer</button>
 			</div>
 			<!-- Modal Structure -->
 			<div id="myModal" class="modal">
@@ -436,10 +440,12 @@ button[type="submit"]:hover {
 					<span class="close">&times;</span>
 
 					<h2>Fillup Customer Details</h2>
-					<form:form action="submitformforvehicle" method="POST"
-						modelAttribute="modalform">
+					<form:form action="submitformforvehiclenduser" method="POST"
+						modelAttribute="modalform" id="userFormModal"
+						onsubmit="return validateUserForm()">
 
-						<input type="hidden" name="userid" value="${carinfo.vehicleid }">
+
+						<input type="hidden" name="userid" value="${VisitID }">
 						<!-- name field -->
 						<div class="form-group">
 							<label for="inputVehicleModel5" class="form-label">Name</label> <input
@@ -542,107 +548,58 @@ button[type="submit"]:hover {
 				sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
 		};
 
-		// Validate the name field
-	/* 	function validateName() {
-			const nameField = document.getElementById("nameField");
-			const validationMessage = document
-					.getElementById("nameValidationMessage");
-			const nameRegex = /^[A-Za-z]+(?:[A-Za-z\s]*)$/; // Name can only start with letters
-
-			if (nameField.value.trim() === "") {
-				validationMessage.textContent = ""; // Hide message if input is empty
-			} else if (!nameRegex.test(nameField.value.trim())) {
-				validationMessage.textContent = "Name cannot start with spaces, numbers, or special characters.";
-				validationMessage.style.color = "red";
-			} else {
-				validationMessage.textContent = ""; // Clear the error if valid
-			}
-		} */
 		
-		function validateName() {
-			const nameField = document.getElementById("nameField");
-			const validationMessage = document
-					.getElementById("error-message-name");
-			
-			// Regular expression: no leading spaces, no special characters, only one space between words
-		    const regex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+		
+		function validateForm() {
+		    let isValid = true;
 
-		    if (!regex.test(nameField.value)) {
-		    	validationMessage.style.display = 'block';
-		        nameField.setCustomValidity('Invalid User name.');
-		    } else {
-		    	validationMessage.style.display = 'none';
-		        nameField.setCustomValidity('');
+		    // Validate vehicle model
+		    const vehicleModelField = document.getElementById("inputName4");
+		    const vehicleModelError = document.getElementById("error-message");
+		    if (!validateVehicleModel()) {
+		        isValid = false;
 		    }
+
+		    // Validate vehicle number plate
+		    const vehicleNumberField = document.getElementById("inputVehicleNPlate");
+		    const vehicleNumberError = document.getElementById("vehicleNPlateError");
+		    if (!validateVehicleNumber()) {
+		        isValid = false;
+		    }
+
+		    // Validate other fields (if necessary)
+		    // Add more validation checks if needed
+
+		    // Return false to prevent form submission if any validation fails
+		    return isValid;
 		}
+
 		
 		
-		function validatAddress() {
-		    const inputField = document.getElementById('addressField');
-		    const errorMessage = document.getElementById('error-message-address');
-		    
-		    
-		    
-		    // Regular expression: no leading spaces, no special characters, only one space between words
+		
+		/* document.getElementById("userForm").addEventListener("submit", function(event) {
+	        if (validateForm()) {
+	            alert("Vehicle details updated successfully!");
+	        }
+	    }); */
+		
+		function validateVehicleModel() {
+		    const inputField = document.getElementById('inputName4');
+		    const errorMessage = document.getElementById('error-message');
 		    const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
 
 		    if (!regex.test(inputField.value)) {
 		        errorMessage.style.display = 'block';
-		        inputField.setCustomValidity('Invalid Address input.');
+		        inputField.setCustomValidity('Invalid vehicle model name.');
+		        return false;
 		    } else {
 		        errorMessage.style.display = 'none';
 		        inputField.setCustomValidity('');
+		        return true;
 		    }
-		 	
-		}
-		
-		
-		
-		
-
-		// Validate the contact field
-		function validateContact() {
-			const contactField = document.getElementById("contactField");
-			const contactValidationMessage = document
-					.getElementById("contactValidationMessage");
-			const contactRegex = /^[0-9]{10}$/; // Phone number should be 10 digits and start with a number
-
-			if (contactField.value.trim() === "") {
-				contactValidationMessage.textContent = ""; // Hide message if input is empty
-			} else if (!contactRegex.test(contactField.value.trim())) {
-				contactValidationMessage.textContent = "Invalid phone number. Only 10 digits allowed.";
-				contactValidationMessage.style.color = "red";
-			} else {
-				contactValidationMessage.textContent = ""; // Clear the error if valid
-			}
 		}
 
-		// Validate the email field
-		function validateEmail() {
-			const emailField = document.getElementById("emailField");
-			const emailValidationMessage = document
-					.getElementById("emailValidationMessage1");
-			const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Basic email pattern
-
-			if (emailField.value.trim() === "") {
-				emailValidationMessage.textContent = ""; // Hide message if input is empty
-			} else if (!emailRegex.test(emailField.value.trim())) {
-				emailValidationMessage.textContent = "Invalid email format.";
-				emailValidationMessage.style.color = "red";
-			} else {
-				emailValidationMessage.textContent = ""; // Clear the error if valid
-			}
-		}
-
-		// Clear validation message on empty input
-		function clearValidationMessage(fieldId, messageId) {
-			const field = document.getElementById(fieldId);
-			const message = document.getElementById(messageId);
-
-			if (field.value.trim() === "") {
-				message.textContent = ""; // Hide message if input is empty
-			}
-		}
+		
 
 		function confirmDelete(userId) {
 	        // Show confirmation dialog
@@ -676,27 +633,48 @@ button[type="submit"]:hover {
 
 		//for modal form
 
-		// Get modal element and button
-		const modal = document.getElementById("myModal");
-		const openModalBtn = document.getElementById("openModalBtn");
-		const closeModalBtn = document.getElementsByClassName("close")[0];
+		 // Get modal element and button
+    const modal = document.getElementById("myModal");
+    const openModalBtn = document.getElementById("openModalBtn");
+    const closeModalBtn = document.getElementsByClassName("close")[0];
+    const submitBtn = document.querySelector("#userFormModal button[type='submit']");
+    
+    // Function to check if form fields are populated
+    function checkFormFields() {
+        const nameField = document.getElementById("nameField").value.trim();
+        const contactField = document.getElementById("contactField").value.trim();
+        const emailField = document.getElementById("emailField").value.trim();
+        const addressField = document.getElementById("addressField").value.trim();
+        
+        if (nameField || contactField || emailField || addressField) {
+            return true; // Form fields have data
+        } else {
+            return false; // No data in form fields
+        }
+    }
 
-		// Open modal when the button is clicked
-		openModalBtn.onclick = function() {
-			modal.style.display = "block";
-		};
+    // Open modal when the button is clicked
+    openModalBtn.onclick = function() {
+        modal.style.display = "block";
+        if (checkFormFields()) {
+            alert("Form already contains data.");
+            submitBtn.disabled = true; // Disable the submit button
+        } else {
+            submitBtn.disabled = false; // Enable the submit button
+        }
+    };
 
-		// Close modal when the 'x' is clicked
-		closeModalBtn.onclick = function() {
-			modal.style.display = "none";
-		};
+    // Close modal when the 'x' is clicked
+    closeModalBtn.onclick = function() {
+        modal.style.display = "none";
+    };
 
-		// Close modal when clicking outside the modal content
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		};
+    // Close modal when clicking outside the modal content
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    };
 
 		
 		
@@ -704,65 +682,184 @@ button[type="submit"]:hover {
 		
 		
 		
-		
-		//for vehicle model 
-		 function validateVehicleModel() {
- const inputField = document.getElementById('inputName4');
- const errorMessage = document.getElementById('error-message');
- 
- 
- 
- // Regular expression: no leading spaces, no special characters, only one space between words
- const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+	    
+	    
+	    
+	    function validateUserForm() {
+	        let isValid = true;
 
- if (!regex.test(inputField.value)) {
-     errorMessage.style.display = 'block';
-     inputField.setCustomValidity('Invalid vehicle model name.');
- } else {
-     errorMessage.style.display = 'none';
-     inputField.setCustomValidity('');
- }
-	
-}
-		
-		 function clearValidationMessageforCar(fieldId, messageId) {
-				const field = document.getElementById(fieldId);
-				const message = document.getElementById(messageId);
+	        // Validate name
+	        const nameField = document.getElementById("nameField");
+	        const nameError = document.getElementById("error-message-name");
+	        if (!validateName()) {
+	            isValid = false;
+	        }
 
-				if (field.value.trim() === "") {
-					message.style.display = 'none';
-					field.setCustomValidity('');
-				}
-			}
-		
-		
-		
-		//that is for number plate
-		function validateVehicleNumber() {
-			const input = document.getElementById('inputVehicleNPlate').value;
-			const errorMsg = document.getElementById('vehicleNPlateError');
-			const initialCheck = /^[A-Za-z][A-Za-z0-9 ]*$/; // First check for valid starting character
-			const vehicleNumberPattern = /^[A-Z]{2}\d{2}[A-Z]{2}\d{1,4}$/; // Format for registered vehicle plate
+	        // Validate contact
+	        const contactField = document.getElementById("contactField");
+	        const contactError = document.getElementById("contactValidationMessage");
+	        if (!validateContact()) {
+	            isValid = false;
+	        }
 
-			if (!initialCheck.test(input)) {
-				errorMsg.innerHTML = "Number plate cannot start with spaces, digits, or special characters.";
-				errorMsg.style.display = 'inline';
-			} else if (!vehicleNumberPattern.test(input)) {
-				errorMsg.innerHTML = "Invalid vehicle number plate format. Expected format: MH12AB1234.";
-				errorMsg.style.display = 'inline';
-			} else {
-				errorMsg.style.display = 'none';
-			}
-		}
-		
-		 // Check if the message exists
-	    var messageLabel = document.getElementById("messageLabel");
-	    if (messageLabel && messageLabel.innerHTML.trim() !== "") {
-	        // Set a timeout to hide the message after 5 seconds (5000 ms)
-	        setTimeout(function() {
-	            messageLabel.style.display = "none";
-	        }, 2000); // 5000 milliseconds = 5 seconds
+	        // Validate email
+	        const emailField = document.getElementById("emailField");
+	        const emailError = document.getElementById("emailValidationMessage1");
+	        if (!validateEmail()) {
+	            isValid = false;
+	        }
+
+	        // Validate address
+	        const addressField = document.getElementById("addressField");
+	        const addressError = document.getElementById("error-message-address");
+	        if (!validatAddress()) {
+	            isValid = false;
+	        }
+
+	        // Return false to prevent form submission if any validation fails
+	        return isValid;
 	    }
+
+	    
+	    document.getElementById("userFormModal").addEventListener("submit", function(event) {
+	        if (validateUserForm()) {
+	            alert("User details added successfully!");
+	            document.getElementById("myModal").style.display = "none";
+	        }
+	    });
+	    
+	    
+	    
+	    function validateName() {
+	        const nameField = document.getElementById("nameField");
+	        const validationMessage = document.getElementById("error-message-name");
+	        const regex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
+
+	        if (!regex.test(nameField.value)) {
+	            validationMessage.style.display = 'block';
+	            nameField.setCustomValidity('Invalid User name.');
+	            return false;
+	        } else {
+	            validationMessage.style.display = 'none';
+	            nameField.setCustomValidity('');
+	            return true;
+	        }
+	    }
+
+	    function validateContact() {
+	        const contactField = document.getElementById("contactField");
+	        const contactValidationMessage = document.getElementById("contactValidationMessage");
+	        const contactRegex = /^[0-9]{10}$/;
+
+	        if (!contactRegex.test(contactField.value.trim())) {
+	            contactValidationMessage.textContent = "Invalid phone number. Only 10 digits allowed.";
+	            contactValidationMessage.style.color = "red";
+	            return false;
+	        } else {
+	            contactValidationMessage.textContent = "";
+	            return true;
+	        }
+	    }
+
+	    function validateEmail() {
+	        const emailField = document.getElementById("emailField");
+	        const emailValidationMessage = document.getElementById("emailValidationMessage1");
+	        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+	        if (!emailRegex.test(emailField.value.trim())) {
+	            emailValidationMessage.textContent = "Invalid email format.";
+	            emailValidationMessage.style.color = "red";
+	            return false;
+	        } else {
+	            emailValidationMessage.textContent = "";
+	            return true;
+	        }
+	    }
+
+	    function validatAddress() {
+	        const addressField = document.getElementById('addressField');
+	        const errorMessage = document.getElementById('error-message-address');
+	        const regex = /^[a-zA-Z0-9]+(?: [a-zA-Z0-9]+)*$/;
+
+	        if (!regex.test(addressField.value)) {
+	            errorMessage.style.display = 'block';
+	            addressField.setCustomValidity('Invalid Address input.');
+	            return false;
+	        } else {
+	            errorMessage.style.display = 'none';
+	            addressField.setCustomValidity('');
+	            return true;
+	        }
+	    }
+	    
+	    
+	    function validateVehicleNumber() {
+	        const input = document.getElementById('inputVehicleNPlate').value;
+	        const errorMsg = document.getElementById('vehicleNPlateError');
+	        const submitButton =document.getElementById('btnsubmit'); // Adjust selector if necessary
+	        const initialCheck = /^[A-Za-z][A-Za-z0-9 ]*$/;
+	        const vehicleNumberPattern = /^[A-Z]{2}\d{2}[A-Z]{2}\d{1,4}$/;
+
+	        // Reset submit button initially
+	        submitButton.disabled = false;
+
+	        if (input.length !== 10) {
+	            errorMsg.innerHTML = "Vehicle number must be exactly 10 characters.";
+	            errorMsg.style.display = 'inline';
+	            submitButton.disabled = true; // Disable submit button
+	            return false;
+	        } else if (!initialCheck.test(input)) {
+	            errorMsg.innerHTML = "Number plate cannot start with spaces, digits, or special characters.";
+	            errorMsg.style.display = 'inline';
+	            submitButton.disabled = true;
+	            return false;
+	        } else if (!vehicleNumberPattern.test(input)) {
+	            errorMsg.innerHTML = "Invalid vehicle number plate format. Expected format: MH12AB1234.";
+	            errorMsg.style.display = 'inline';
+	            submitButton.disabled = true;
+	            return false;
+	        } else {
+	            errorMsg.style.display = 'none';
+	            return true;
+	        }
+	    }
+
+	    function checkVehicleNumber() {
+	        const vehicleNumber = document.getElementById('inputVehicleNPlate').value;
+	        const submitButton = document.getElementById('btnsubmit'); // Adjust selector if necessary
+	        if (vehicleNumber.length > 0) {
+	            var xhr = new XMLHttpRequest();
+	            xhr.open("GET", "/CarGarageApplicationMVC/checkVehicleNumber?vehicleNumber=" + vehicleNumber, true);
+	            
+	            xhr.onreadystatechange = function () {
+	                if (xhr.readyState == 4 && xhr.status == 200) {
+	                    const response = xhr.responseText;
+
+	                    if (response === 'exists') {
+	                        const errorMsg = document.getElementById('vehicleNPlateError');
+	                        errorMsg.innerHTML = "Vehicle number already exists.";
+	                        errorMsg.style.display = 'inline';
+	                        submitButton.disabled = true; // Disable submit button
+	                    }
+	                }
+	            };
+	            xhr.send();
+	        }
+	    }
+
+	    function clearValidationMessage(fieldId, messageId) {
+	        const field = document.getElementById(fieldId);
+	        const message = document.getElementById(messageId);
+	        const submitButton = document.querySelector('input[type="submit"]'); // Adjust selector if necessary
+
+	        if (field.value.trim() === "") {
+	            message.style.display = 'none';
+	            submitButton.disabled = false; // Enable submit button if no error
+	        }
+	    }
+
+	    
+
 	</script>
 
 </body>

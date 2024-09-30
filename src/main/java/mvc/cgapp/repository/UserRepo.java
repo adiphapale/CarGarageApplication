@@ -38,4 +38,8 @@ public interface UserRepo {
 	UserDetailsModel getSelectedUsersByVisitID(int vvid);
 	
 	int getUIDByEmail(String email);
+	
+//this is for later inserted user	
+	UserDetailsModel addFirstVehiclendUser(UserDetailsModel userDetailsModel);
+
 }

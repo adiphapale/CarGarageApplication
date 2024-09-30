@@ -289,7 +289,7 @@
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -379,10 +379,6 @@
 				<div class="recent-sales box">
 
 
-					<form:form action="searchcarbynplate_sparepartpage" method="POST"
-						modelAttribute="carDetails" id="vehicleForm">
-
-
 
 						<!-- Number plate Field -->
 						<div class="form-group">
@@ -395,11 +391,7 @@
 								this number plate.</span>
 						</div>
 
-						<!-- Submit Button (Disabled by default) -->
-						<div class="button-container">
-							<button onclick="searchVehicle()">view all</button>
-						</div>
-					</form:form>
+						
 				</div>
 			</div>
 			<div class="sales-boxes" style="margin-top: 20px;">

@@ -35,50 +35,66 @@ public class UserVehicleServiceImpl implements UserVehicleService {
 	@Override
 	public List<VehicleFormModel> getSelectedCars(VehicleFormModel vehicleFormModel) {
 
-		if (!vehicleFormModel.getVehiclemodel().isEmpty()) {
-			
-			System.out.println("i am in midelll");
-			if (!vehicleFormModel.getVehiclenplate().isEmpty()) {
-				return userVehicleRepo.getSelectedCarsByModelNumberPlate(vehicleFormModel.getVehiclemodel(),
-						vehicleFormModel.getVehiclenplate());
+		String vmodel = vehicleFormModel.getVehiclemodel();
+		String vnplate = vehicleFormModel.getVehiclenplate();
+		String vventryDate = vehicleFormModel.getVisitVentryDate();
+		String tname = vehicleFormModel.getTname();
+		System.out.println(vehicleFormModel);
+		
+		
+		if (!(vmodel.isEmpty())) {
+			System.out.println("model is +"+ vmodel );
+			if (!vnplate.isEmpty()) {
+				System.out.println(" vmodel and vnplate ");
+				return userVehicleRepo.getSelectedCarsByModelNumberPlate(vmodel,
+						vnplate);
 			}
-			if (!vehicleFormModel.getVisitVentryDate().isEmpty()) {
-				return userVehicleRepo.getSelectedCarsByModelEntryDate(vehicleFormModel.getVehiclemodel(),
-						vehicleFormModel.getVisitVentryDate());
+			if (!vventryDate.isEmpty()) {
+				System.out.println(" vmodel and vventrydate ");
+				return userVehicleRepo.getSelectedCarsByModelEntryDate(vmodel,
+						vventryDate);
 			}
-			if(!(vehicleFormModel.getTname()==null))
+			if(!(tname.isEmpty()))
 			{
-				return userVehicleRepo.getSelectedCarsByModelTname(vehicleFormModel.getVehiclemodel(), vehicleFormModel.getTname());
+				System.out.println(" vmodel and tname ");
+				return userVehicleRepo.getSelectedCarsByModelTname(vmodel, tname);
 			}
-			return userVehicleRepo.getSelectedCarsByModel(vehicleFormModel.getVehiclemodel());
+			
+			return userVehicleRepo.getSelectedCarsByModel(vmodel);
 
 		}
 		
 		
-		if (!vehicleFormModel.getVehiclenplate().isEmpty()) {
-			
-			if(!vehicleFormModel.getVisitVentryDate().isEmpty()) {
-				return userVehicleRepo.getSelectedCarsByNumberPlateEntryDate(vehicleFormModel.getVehiclenplate(), vehicleFormModel.getVisitVentryDate());
+		if (!(vnplate.isEmpty())) {
+			System.out.println("vnplate is "+vnplate);
+			if(!vventryDate.isEmpty()) {
+				System.out.println("vnplate and date");
+				return userVehicleRepo.getSelectedCarsByNumberPlateEntryDate(vnplate, vventryDate);
 			}
-			if(!(vehicleFormModel.getTname()==null)) {
-				return userVehicleRepo.getSelectedCarsByNumberPlateTname(vehicleFormModel.getVehiclenplate(), vehicleFormModel.getTname());
+			if(!(tname.isEmpty())) {
+				System.out.println("vnplate and tname");
+				return userVehicleRepo.getSelectedCarsByNumberPlateTname(vnplate, tname);
 			}
-			return userVehicleRepo.getSelectedCarsByNumberPlate(vehicleFormModel.getVehiclenplate());
+			return userVehicleRepo.getSelectedCarsByNumberPlate(vnplate);
 		}
 		
-		if (!vehicleFormModel.getVisitVentryDate().isEmpty()) {
-			
-			if(!(vehicleFormModel.getTname()==null)) {
-				return userVehicleRepo.getSelectedCarsByEntryDateTname(vehicleFormModel.getVisitVentryDate(), vehicleFormModel.getTname());
+		
+		if(!(vventryDate.isEmpty())) {
+			System.out.println("entry data getted");
+			if(!(tname.isEmpty())) {
+				System.out.println("edata and tname");
+				return userVehicleRepo.getSelectedCarsByEntryDateTname(vventryDate,tname);
 			}
-			return userVehicleRepo.getSelectedCarsByEntryDate(vehicleFormModel.getVisitVentryDate());
+			return userVehicleRepo.getSelectedCarsByEntryDate(vventryDate);
+			
 		}
 		
-		if(!(vehicleFormModel.getTname()==null)) {
-			return userVehicleRepo.getSelectedCarsByTname(vehicleFormModel.getTname());
+		if(!(tname.isEmpty())) {
+			System.out.println("tech availb");
+			return userVehicleRepo.getSelectedCarsByTname(tname);
 		}
 
-		return userVehicleRepo.getAllCars();
+		return getAllCars();
 	}
 
 	@Override

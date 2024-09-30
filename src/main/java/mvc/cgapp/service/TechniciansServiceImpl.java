@@ -26,4 +26,5 @@ public class TechniciansServiceImpl implements TechniciansService{
 		return techniciansRepo.getTechniciansByName(tname);
 	}
 
+
 }

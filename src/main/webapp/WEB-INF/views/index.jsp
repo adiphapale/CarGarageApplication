@@ -401,7 +401,7 @@
 									<i><img
 										src="/CarGarageApplicationMVC/URLToReachResourceFolder/images/tes.jpg"
 										alt="#" /></i>
-									<h4>Kartik Watkar</h4>
+									<h4>Vikram Shelge</h4>
 									<p>It is a long established fact...</p>
 
 								</div>

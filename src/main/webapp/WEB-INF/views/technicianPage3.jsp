@@ -287,66 +287,67 @@
 			<div class="overview-boxes">
 				<div class="box">
 					<div class="right-side">
-						<div class="box-topic">Technician Search Panel</div>
+						<div class="box-topic">Technician Add Panel</div>
 
 					</div>
 				</div>
 			</div>
 
-			<div class="button1">
-				<a href="addnewTechie">Add Technician</a>
-			</div>
 
 			<div class="sales-boxes">
 				<div class="recent-sales box">
 
 
-					<form:form action="processform" method="POST"
-						modelAttribute="userDetails" id="userForm">
+					<form:form action="addingnewtechiedetails" method="POST"
+						modelAttribute="techieDetails" id="userForm">
 
 						<!-- Name Field -->
 						<div class="form-group">
-							<label for="inputVehicleNPlate">Search Techie by Name</label> <input type="text" id="techiefield"
-								name="vehiclenplate"
-								placeholder="Enter Vehicle Registered number"
-								onkeyup="searchTechie()" /> <span id="techieError"
-								style="color: red; display: none;">No Technician found</span>
+							<label for="nameField">Technician Name</label> <input type="text"
+								id="techieField" name="tname" placeholder="Enter Technician name"
+								value="" required="required"
+								onkeyup="validateTechieName(); clearValidationMessageforCar('techieField', 'error-message-name')" />
+							<span id="error-message-name" style="color: red; display: none;">Invalid
+								Technician Name. Ensure no leading spaces, special characters, and no
+								more than one space between words.</span>
 						</div>
 
 						
 
 						<!-- Submit Button (Disabled by default) -->
 						<div class="button-container">
-							<button type="submit">Search</button>
+							<button type="submit">Submit</button>
 						</div>
+						<div style="text-align: center;">
+							<label style="color: blue;">${msg}</label>
+						</div>
+
 					</form:form>
 				</div>
 			</div>
 			<div class="sales-boxes" style="margin-top: 20px;">
 				<div class="recent-sales box">
 					<!-- Table responsive wrapper -->
-					<div class="disptable" style="margin-top: 30px;">
-						<table id="resultsTable" class="table"
-							><thead>
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
 								<tr class=" table-success">
 									<th scope="col">Sr no.</th>
-									<th scope="col">Technician Name</th>
-									<th></th>
+									<th scope="col">Name</th>
+									
 								</tr>
 							</thead>
 							<tbody>
-								<%
-								int count = 0;
-								%>
-								<c:forEach var="techie" items="${techies}">
-									<tr>
-										<td><a href="updateSavefortechie?techieID=${techie.tid}"
-											type="button" class="btn btn-info btn-sm"
-											style="color: white; text-decoration: none"><%=++count%></a></td>
-										<td>${techie.tname}</td>
 
-										</tr>
-								</c:forEach>
+								<c:if test="${not empty techie}">
+									<tr>
+										<td><a href="updateSaveforTechie?userID=${techie.tid}"
+											type="button" class="btn btn-info btn-sm"
+											style="color: white; text-decoration: none">${user.userid}</a></td>
+										<td>${techie.tname}</td>
+										
+									</tr>
+								</c:if>
 							</tbody>
 						</table>
 					</div>
@@ -369,97 +370,47 @@
 
 
 		
-		
-		function clearValidationMessageforCar(fieldId, messageId) {
-			const field = document.getElementById(fieldId);
-			const message = document.getElementById(messageId);
+		function validateTechieName() {
+			const nameField = document.getElementById("techieField");
+			const validationMessage = document
+					.getElementById("error-message-name");
+			
+			// Regular expression: no leading spaces, no special characters, only one space between words
+		    const regex = /^[a-zA-Z]+(?: [a-zA-Z]+)*$/;
 
-			if (field.value.trim() === "") {
-				message.style.display = 'none';
-				field.setCustomValidity('');
-			}
-		}
-		
-		
-	
-	    function confirmDeleteforTechie(techieId) {
-	        // Show confirmation dialog
-	        
-	        if (confirm("Do you really want to delete this Technician?")) {
-	            // If the user confirms, proceed with AJAX call
-	            let xhr = new XMLHttpRequest();
-	             // Adjust the URL based on your controller's mapping
-	            // Define what happens on successful data submission
-	            xhr.onreadystatechange = function () {
-	                if (xhr.readyState == 4 && xhr.status == 200) {
-	                    // Response from the server (success)
-	                    let response=xhr.responseText;
-	                    console.log(response)
-	                    if(response==='success'){
-	                    	alert("Technician deleted successfully.");
-		                    // Optionally, you can remove the row from the table
-		                    window.location.reload(); // Refresh the page to see the changes
-		                
-	                    }else{
-	                    	alert("something went wrong")
-	                    }
-	                 }
-	            };
-
-	            xhr.open("GET", "deleteTechie?techieId="+techieId, true);
-	            // Send the userId as the data
-	            xhr.send();
-	        } 
-	    }
-	    
-	    
-	    
-		function searchTechie() {
-		    const tname = document.getElementById('techiefield').value;
-		    const errorMsg = document.getElementById('techieError');
-		    const resultsTable = document.getElementById('resultsTable').getElementsByTagName('tbody')[0];
-
-		    if (vehicleNumber.length > 0) {
-		        const xhr = new XMLHttpRequest();
-		        xhr.open('GET', '/CarGarageApplicationMVC/checktechie?techieName=' + tname, true);
-
-		        xhr.onreadystatechange = function () {
-		            if (xhr.readyState == 4 && xhr.status == 200) {
-		                const response = JSON.parse(xhr.responseText);
-		                resultsTable.innerHTML = ''; // Clear previous results
-
-		                if (response.length > 0) {
-		                    errorMsg.style.display = 'none'; // Hide error message if there are results
-
-		                    response.forEach((vehicle, index) => {
-		                        const row = resultsTable.insertRow();
-
-		                        // First cell with anchor tag styled as button
-		                        const firstCell = row.insertCell(0);
-		                        const buttonAnchor = document.createElement('a');
-		                        buttonAnchor.href = '/CarGarageApplicationMVC/updateSavefortechie?techieID=' + vehicle.tid;
-		                        buttonAnchor.className = 'btn btn-info btn-sm'; // Bootstrap classes for button look
-		                        buttonAnchor.style.color = 'white';
-		                        buttonAnchor.style.textDecoration = 'none';
-		                        buttonAnchor.innerText = vehicle.vehicleid;  // Display vehicle ID as button text
-		                        firstCell.appendChild(buttonAnchor);
-
-		                        // Other cells
-		                        row.insertCell(1).innerHTML = vehicle.tname;
-		                       
-		                    });
-		                } else {
-		                    errorMsg.style.display = 'inline'; // Show error message if no results found
-		                }
-		            }
-		        };
-		        xhr.send();
+		    if (!regex.test(nameField.value)) {
+		    	validationMessage.style.display = 'block';
+		        nameField.setCustomValidity('Invalid Techie name.');
 		    } else {
-		        resultsTable.innerHTML = ''; // Clear table when input is cleared
-		        errorMsg.style.display = 'none'; // Hide error message when input is empty
+		    	validationMessage.style.display = 'none';
+		        nameField.setCustomValidity('');
 		    }
 		}
+		
+		 
+		 
+		 function clearValidationMessageforCar(fieldId, messageId) {
+				const field = document.getElementById(fieldId);
+				const message = document.getElementById(messageId);
+
+				if (field.value.trim() === "") {
+					message.style.display = 'none';
+					field.setCustomValidity('');
+				}
+			}
+		
+	
 	    
+	    
+	    // Check if the message exists
+	    var messageLabel = document.getElementById("messageLabel");
+	    if (messageLabel && messageLabel.innerHTML.trim() !== "") {
+	        // Set a timeout to hide the message after 5 seconds (5000 ms)
+	        setTimeout(function() {
+	            messageLabel.style.display = "none";
+	        }, 2000); // 5000 milliseconds = 5 seconds
+	    }
 	</script>
 
 </body>
+</html>

@@ -279,7 +279,7 @@
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -305,7 +305,7 @@
 						<div class="form-group">
 							<label for="nameField">Full Name</label> <input type="text"
 								id="nameField" name="username" placeholder="Enter full name"
-								value="" required="required"
+								value="${userinfo.username }" required="required"
 								onkeyup="validateName(); clearValidationMessageforCar('nameField', 'error-message-name')" />
 							<span id="error-message-name" style="color: red; display: none;">Invalid
 								User Name. Ensure no leading spaces, special characters, and no
@@ -314,9 +314,9 @@
 
 						<!-- Contact Field -->
 						<div class="form-group">
-							<label for="contactField">Phone Number</label> <input type="text"
+							<label for="contactField">Contact Number</label> <input type="text"
 								id="contactField" name="usercontact"
-								placeholder="Enter phone number" value="" required="required" maxlength="10"
+								placeholder="Enter contact number" value="${userinfo.usercontact }" required="required" maxlength="10"
 								onkeyup="validateContact(); clearValidationMessage('contactField', 'contactValidationMessage')" />
 							<span id="contactValidationMessage"></span>
 						</div>
@@ -325,7 +325,7 @@
 						<div class="form-group">
 							<label for="emailField">Email Address</label> <input type="email"
 								id="emailField" name="useremail" placeholder="Enter email"
-								value="" required="required"
+								value="${userinfo.useremail }" required="required"
 								onkeyup="validateEmail(); clearValidationMessage('emailField', 'emailValidationMessage')" />
 							<span id="emailValidationMessage1"></span>
 						</div>
@@ -336,7 +336,7 @@
 						<div class="form-group">
 							<label for="addressField">Home Address</label> <input type="text"
 								id="addressField" name="useraddress"
-								placeholder="Enter home address" value="" required="required"
+								placeholder="Enter home address" value="${userinfo.useraddress}" required="required"
 								onkeyup="validatAddress(); clearValidationMessageforCar('addressField', 'error-message-address')" />
 							<span id="error-message-address"
 								style="color: red; display: none;">Invalid Address.

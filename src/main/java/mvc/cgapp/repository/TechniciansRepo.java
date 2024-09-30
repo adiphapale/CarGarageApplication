@@ -8,4 +8,5 @@ public interface TechniciansRepo {
 
 	List<TechniciansModel> getAllTechnicians();
 	List<TechniciansModel> getTechniciansByName(String tname);
+	
 }

@@ -19,7 +19,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch all data
 	@Override
 	public List<UserDetailsModel> getAllUser() {
-		String sql = "select *from userDetails_1";
+		String sql = "select *from userdetails_1";
 
 		List<UserDetailsModel> allUsers = jdbcTemplate.query(sql, new UserRowMapper());
 		return allUsers;
@@ -29,7 +29,7 @@ public class UserRepoImpl implements UserRepo {
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByName(String uname) {
 
-		String sql = "select *from userDetails_1 where uname like ?";
+		String sql = "select *from userdetails_1 where uname like ?";
 
 		String likePattern = uname + "%";
 		List<UserDetailsModel> allUsers = null;
@@ -44,7 +44,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by name and contact
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByNameContact(String uname, String contact) {
-		String sql = "select *from userDetails_1 where uname like ? and ucontact like ?";
+		String sql = "select *from userdetails_1 where uname like ? and ucontact like ?";
 		String likePattern = "%" + uname + "%";
 		String likePattern1 = "%" + contact + "%";
 		List<UserDetailsModel> allUsers=null;
@@ -61,7 +61,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by name and email
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByNameEmail(String uname, String email) {
-		String sql = "select *from userDetails_1 where uname like ? and umail=?";
+		String sql = "select *from userdetails_1 where uname like ? and umail=?";
 		String likePattern = "%" + uname + "%";
 		List<UserDetailsModel> allUsers=null;
 		try {
@@ -77,7 +77,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by name and address
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByNameAddress(String uname, String address) {
-		String sql = "select *from userDetails_1 where uname like ? and uaddress like ?";
+		String sql = "select *from userdetails_1 where uname like ? and uaddress like ?";
 		String likePattern = "%" + uname + "%";
 		String likePattern1 = "%" + address + "%";
 		List<UserDetailsModel> allUsers=null;
@@ -94,7 +94,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by contact
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByContact(String contact) {
-		String sql = "select *from userDetails_1 where ucontact like ?";
+		String sql = "select *from userdetails_1 where ucontact like ?";
 		String likePattern = "%" + contact + "%";
 		List<UserDetailsModel> allUsers=null;
 		try {
@@ -110,7 +110,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by contact and email
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByContactEmail(String contact, String email) {
-		String sql = "select *from userDetails_1 where ucontact like ? and umail=?";
+		String sql = "select *from userdetails_1 where ucontact like ? and umail=?";
 		String likePattern = "%" + contact + "%";
 		List<UserDetailsModel> allUsers=null;
 		try {
@@ -126,7 +126,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by contact and address
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByContactAddress(String contact, String address) {
-		String sql = "select *from userDetails_1 where ucontact like ? and uaddress like ?";
+		String sql = "select *from userdetails_1 where ucontact like ? and uaddress like ?";
 		String likePattern = "%" + contact + "%";
 		String likePattern1 = "%" + address + "%";
 		List<UserDetailsModel> allUsers=null;
@@ -143,7 +143,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by email
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByEmail(String email) {
-		String sql = "select *from userDetails_1 where umail like ?";
+		String sql = "select *from userdetails_1 where umail like ?";
 		List<UserDetailsModel> allUsers=null;
 		try {
 			allUsers = jdbcTemplate.query(sql, new UserRowMapper(), email);
@@ -158,7 +158,7 @@ public class UserRepoImpl implements UserRepo {
 	// fetch data by email and address
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByEmailAddress(String email, String address) {
-		String sql = "select *from userDetails_1 where umail=? and uaddress like ?";
+		String sql = "select *from userdetails_1 where umail=? and uaddress like ?";
 		String likePattern1 = "%" + address + "%";
 		List<UserDetailsModel> allUsers=null;
 		try {
@@ -175,7 +175,7 @@ public class UserRepoImpl implements UserRepo {
 	@Override
 	public List<UserDetailsModel> getSelectedUsersByAddress(String address) {
 
-		String sql = "select *from userDetails_1 where uaddress like ?";
+		String sql = "select *from userdetails_1 where uaddress like ?";
 		String likePattern = "%" + address + "%";
 		List<UserDetailsModel> allUsers=null;
 		try {
@@ -190,7 +190,7 @@ public class UserRepoImpl implements UserRepo {
 
 	@Override
 	public UserDetailsModel getSelectedUsersByID(int userid) {
-		String sql = "select *from userDetails_1 where uid=?";
+		String sql = "select *from userdetails_1 where uid=?";
 		UserDetailsModel selectedUser=null;
 		try {
 			selectedUser= jdbcTemplate.queryForObject(sql, new UserRowMapper(), userid);
@@ -205,7 +205,7 @@ public class UserRepoImpl implements UserRepo {
 	@Override
 	public boolean deleteUsersByID(int userid) {
 
-		String sql = "CALL delete_user_and_related(?)";
+		String sql = "call delete_user_and_related(?)";
 		int res = 0;
 		try {
 			res = jdbcTemplate.update(sql, userid);
@@ -220,7 +220,7 @@ public class UserRepoImpl implements UserRepo {
 
 	@Override
 	public UserDetailsModel getUpdatedUser(UserDetailsModel userDetailsModel) {
-		String sql = "update userDetails_1 set uname=?,ucontact=?,umail=?,uaddress=? where uid=?";
+		String sql = "update userdetails_1 set uname=?,ucontact=?,umail=?,uaddress=? where uid=?";
 		String name = userDetailsModel.getUsername();
 		String contact = userDetailsModel.getUsercontact();
 		String email = userDetailsModel.getUseremail();
@@ -247,7 +247,7 @@ public class UserRepoImpl implements UserRepo {
 	@Override
 	public boolean addNewCustomer(UserDetailsModel userDetailsModel) {
 
-		String sql = "insert into userDetails_1(uname,ucontact,umail,uaddress) values(?,?,?,?)";
+		String sql = "insert into userdetails_1(uname,ucontact,umail,uaddress) values(?,?,?,?)";
 
 		String name = userDetailsModel.getUsername();
 		String contact = userDetailsModel.getUsercontact();
@@ -259,13 +259,14 @@ public class UserRepoImpl implements UserRepo {
 			
 		} catch (Exception ex) {
 			ex.printStackTrace();
+			res=0;
 		}
-		return res >= 0 ? true : false;
+		return res > 0 ? true : false;
 	}
 
 	@Override
 	public UserDetailsModel getSelectedUserByEmail(String email) {
-		String sql = "select *from userDetails_1 where umail=?";
+		String sql = "select *from userdetails_1 where umail=?";
 		UserDetailsModel user=null;
 		try {
 			user = jdbcTemplate.queryForObject(sql, new UserRowMapper(), email);
@@ -309,6 +310,40 @@ public class UserRepoImpl implements UserRepo {
 		}
 		
 		return uid;
+	}
+
+	@Override
+	public UserDetailsModel addFirstVehiclendUser(UserDetailsModel userDetailsModel) {
+		String sql="call insert_user_and_update_vehicle(?,?,?,?,?)";
+		String name = userDetailsModel.getUsername();
+		String contact = userDetailsModel.getUsercontact();
+		String email = userDetailsModel.getUseremail();
+		String address = userDetailsModel.getUseraddress();
+		int vvid = userDetailsModel.getUserid();
+		int res=0;
+		try {
+			res=jdbcTemplate.queryForObject(sql,new RowMapper<Integer>() {
+
+				@Override
+				public Integer mapRow(ResultSet rs, int arg1) throws SQLException {
+					
+					return rs.getInt(1);
+				}
+				
+			},name,contact,email,address,vvid);
+		}catch(Exception ex) {ex.printStackTrace();
+		res=0;
+		}
+		System.out.println("outputed userid is"+res);
+		UserDetailsModel settedUser=new UserDetailsModel();
+		settedUser.setUserid(res);
+		settedUser.setUsername(name);
+		settedUser.setUsercontact(contact);
+		settedUser.setUseremail(email);
+		settedUser.setUseraddress(address);
+		
+		
+		return settedUser;
 	}
 
 }

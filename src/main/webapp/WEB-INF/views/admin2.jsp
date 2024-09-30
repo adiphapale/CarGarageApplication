@@ -282,7 +282,7 @@
 /* Submit Button */
 button[type="submit"] {
 	padding: 10px 20px;
-	background-color: #28a745;
+	background-color: #0A2558;
 	color: white;
 	border: none;
 	border-radius: 5px;
@@ -290,7 +290,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-	background-color: #218838;
+	background-color: #0f3886;
 }
 </style>
 </head>
@@ -310,8 +310,8 @@ button[type="submit"]:hover {
 						Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i>
-					<span class="links_name">Cars Section</span>
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i> <span
+					class="links_name">Cars Section</span>
 			</a></li>
 
 
@@ -350,7 +350,7 @@ button[type="submit"]:hover {
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Prem Shahi</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -393,10 +393,10 @@ button[type="submit"]:hover {
 
 						<!-- Contact Field -->
 						<div class="form-group">
-							<label for="contactField">Phone Number</label> <input type="text"
-								id="contactField" name="usercontact"
-								placeholder="Enter phone number" value="${userinfo.usercontact}"
-								maxlength="10"
+							<label for="contactField">Contact Number</label> <input
+								type="text" id="contactField" name="usercontact"
+								placeholder="Enter contact number"
+								value="${userinfo.usercontact}" maxlength="10"
 								onkeyup="validateContact(); clearValidationMessage('contactField', 'contactValidationMessage')" />
 							<span id="contactValidationMessage"></span>
 						</div>
@@ -428,7 +428,7 @@ button[type="submit"]:hover {
 
 			<!-- modal button -->
 			<div class="button1" style="margin-top: 20px;">
-				<a id="openModalBtn">Add Vehicle</a>
+				<button type="submit" id="openModalBtn">Add Vehicle</button>
 			</div>
 			<!-- Modal Structure -->
 			<div id="myModal" class="modal">
@@ -716,27 +716,27 @@ button[type="submit"]:hover {
 
 		//for modal form
 
-		// Get modal element and button
 		const modal = document.getElementById("myModal");
-		const openModalBtn = document.getElementById("openModalBtn");
-		const closeModalBtn = document.getElementsByClassName("close")[0];
+const openModalBtn = document.getElementById("openModalBtn");
+const closeModalBtn = document.getElementsByClassName("close")[0];
 
-		// Open modal when the button is clicked
-		openModalBtn.onclick = function() {
-			modal.style.display = "block";
-		};
+openModalBtn.onclick = function() {
+    if (document.querySelector('#inputVehicleModel5').value || document.querySelector('#inputVehicleNPlate').value) {
+        alert("Form data already present.");
+        return; // Do not open the modal if data is already present
+    }
+    modal.style.display = "block";
+};
 
-		// Close modal when the 'x' is clicked
-		closeModalBtn.onclick = function() {
-			modal.style.display = "none";
-		};
+closeModalBtn.onclick = function() {
+    modal.style.display = "none";
+};
 
-		// Close modal when clicking outside the modal content
-		window.onclick = function(event) {
-			if (event.target == modal) {
-				modal.style.display = "none";
-			}
-		};
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+};
 
 		
 		

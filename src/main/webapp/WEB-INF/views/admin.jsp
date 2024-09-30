@@ -13,6 +13,9 @@
 	rel="stylesheet" />
 <link type="text/css" rel="stylesheet"
 	href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/styleadmin.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 
 
 <style type="text/css">
@@ -240,9 +243,8 @@
 						Section</span>
 			</a></li>
 
-			<li><a href="carpage"> <i
-					class='bx bxs-car-mechanic'></i> <span class="links_name">Cars
-						Section</span>
+			<li><a href="carpage"> <i class='bx bxs-car-mechanic'></i> <span
+					class="links_name">Cars Section</span>
 			</a></li>
 
 
@@ -257,15 +259,15 @@
 			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
 					class="links_name">Technician</span>
 			</a></li>
-			
+
 			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
 					class="links_name">Billing</span>
 			</a></li>
 			<li><a href="#"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
-			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
-					<span class="links_name">Log out</span>
+			<li class="log_out"><a href="logoutbtn"> <i
+					class="bx bx-log-out"></i> <span class="links_name">Log out</span>
 			</a></li>
 		</ul>
 	</div>
@@ -279,7 +281,7 @@
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -300,59 +302,49 @@
 			<div class="sales-boxes">
 				<div class="recent-sales box">
 
+					<!-- Name Field -->
+					<div class="form-group">
+						<label for="nameField">Search by Full Name</label> <input
+							type="text" id="nameField" name="username"
+							placeholder="Enter full name" value="${userinfo.username}"
+							onkeyup="fetchUserData()" /> <span id="error-message-name"
+							style="color: red; display: none;">Invalid User Name.
+							Ensure no leading spaces, special characters, and no more than
+							one space between words.</span>
+					</div>
 
-					<form:form action="processform" method="POST"
-						modelAttribute="userDetails" id="userForm">
+					<!-- Contact Field -->
+					<div class="form-group">
+						<label for="contactField">Search by Contact Number</label> <input
+							type="text" id="contactField" name="usercontact"
+							placeholder="Enter contact number"
+							value="${userinfo.usercontact}" maxlength="10"
+							onkeyup="fetchUserData()" /> <span id="contactValidationMessage"></span>
+					</div>
 
-						<!-- Name Field -->
-						<div class="form-group">
-							<label for="nameField">Search by Full Name</label> <input
-								type="text" id="nameField" name="username"
-								placeholder="Enter full name" value="${userinfo.username}"
-								onkeyup="validateName(); clearValidationMessageforCar('nameField', 'error-message-name')" />
-							<span id="error-message-name"
-									style="color: red; display: none;">Invalid User Name. Ensure no leading spaces, special characters, and no more
-									than one space between words.</span>
-						</div>
-
-						<!-- Contact Field -->
-						<div class="form-group">
-							<label for="contactField">Search by Phone Number</label> <input
-								type="text" id="contactField" name="usercontact"
-								placeholder="Enter phone number" value="${userinfo.usercontact}"
-								maxlength="10"
-								onkeyup="validateContact(); clearValidationMessage('contactField', 'contactValidationMessage')" />
-							<span id="contactValidationMessage"></span>
-						</div>
-
-						<!-- Email Field -->
-						<div class="form-group">
-							<label for="emailField">Search by Email Address</label> <input
-								type="email" id="emailField" name="useremail"
-								placeholder="Enter email" value="${userinfo.useremail}"
-								onkeyup="validateEmail(); clearValidationMessage('emailField', 'emailValidationMessage')" />
-							<span id="emailValidationMessage1"></span>
-						</div>
+					<!-- Email Field -->
+					<div class="form-group">
+						<label for="emailField">Search by Email Address</label> <input
+							type="email" id="emailField" name="useremail"
+							placeholder="Enter email" value="${userinfo.useremail}"
+							onkeyup="fetchUserData()" /> <span id="emailValidationMessage1"></span>
+					</div>
 
 
 
-						<!-- Address Field -->
-						<div class="form-group">
-							<label for="addressField">Search by Home Address</label> <input
-								type="text" id="addressField" name="useraddress"
-								placeholder="Enter home address" value="${userinfo.useraddress}" onkeyup="validatAddress(); clearValidationMessage('addressField', 'addressValidationMessage1')"  />
-								 <!-- <span
+					<!-- Address Field -->
+					<div class="form-group">
+						<label for="addressField">Search by Home Address</label> <input
+							type="text" id="addressField" name="useraddress"
+							placeholder="Enter home address" value="${userinfo.useraddress}"
+							onkeyup=" fetchUserData()" />
+						<!-- <span
 								id="error-message" style="color: red; display: none;">Invalid
 								vehicle model name. Ensure no leading spaces, special
 								characters, and no more than one space between words.</span> -->
-							<span id="addressValidationMessage1"></span>
-						</div>
+						<span id="addressValidationMessage1"></span>
+					</div>
 
-						<!-- Submit Button (Disabled by default) -->
-						<div class="button-container">
-							<button type="submit">Search</button>
-						</div>
-					</form:form>
 				</div>
 			</div>
 			<div class="sales-boxes" style="margin-top: 20px;">
@@ -374,7 +366,7 @@
 								<%
 								int count = 0;
 								%>
-								<c:forEach var="user" items="${users}">
+								<c:forEach var="user" items="${Users}">
 									<tr>
 										<td><a href="updateSave?userID=${user.userid}"
 											type="button" class="btn btn-info btn-sm"
@@ -552,6 +544,58 @@
 	        } 
 	    }
 	    
+	    
+	    
+	    $(document).ready(function() {
+	        // Fetch all data when the page loads
+	        fetchUserData();
+
+	        // Attach event handlers for form input fields
+	        $('#nameField, #contactField, #emailField, #addressField').on('keyup', fetchUserData);
+	    });
+
+	    function fetchUserData() {
+	        var username = $('#nameField').val().trim();
+	        var usercontact = $('#contactField').val().trim();
+	        var useremail = $('#emailField').val().trim();
+	        var useraddress = $('#addressField').val().trim();
+
+	        // Prepare an AJAX request
+	        $.ajax({
+	            url: 'processform', // Controller endpoint to process the form
+	            type: 'POST',
+	            dataType: 'json', // Expect JSON from the server
+	            data: {
+	                username: username || null,   // Send null for empty fields
+	                usercontact: usercontact || null,
+	                useremail: useremail || null,
+	                useraddress: useraddress || null
+	            },
+	            success: function(response) {
+	                // Clear the existing table rows
+	                $("tbody").empty();
+
+	                // Append new rows to the table from the response
+	                response.forEach(function(user, index) {
+	                    var row = '<tr>' +
+	                    '<td><a href="updateSave?userID=' + user.userid + '" type="button" class="btn btn-info btn-sm" style="color: white; text-decoration: none">' + (index + 1) + '</a></td>' +
+	                     '<td>' + (user.username || '') + '</td>' +
+	                        '<td>' + (user.usercontact || '') + '</td>' +
+	                        '<td>' + (user.useremail || '') + '</td>' +
+	                        '<td>' + (user.useraddress || '') + '</td>' +
+	                        '<td><button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(' + user.userid + ')">Delete</button></td>' +
+	                        '</tr>';
+	                    $("tbody").append(row);
+	                });
+	            },
+	            error: function() {
+	                console.log('Error retrieving data.');
+	            }
+	        });
+	    }
+
+
+
 	</script>
 
 </body>

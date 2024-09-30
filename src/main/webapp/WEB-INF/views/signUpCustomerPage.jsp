@@ -92,6 +92,10 @@ input[type="checkbox"] {
 	font-size: 8px;
 	margin-left: 5%;
 }
+	label{
+		font-size: 15px;
+		width: 100%
+	}
 
 .error-message {
 	color: red;

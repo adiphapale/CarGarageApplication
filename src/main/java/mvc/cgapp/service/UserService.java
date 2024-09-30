@@ -21,4 +21,8 @@ public interface UserService {
 	UserDetailsModel getSelectedUserByEmail(String email);
 	
 	UserDetailsModel getSelectedUsersByVisitID(int vvid);
+	
+	
+	//this is for adding later user 
+	UserDetailsModel addFirstVehiclendUser(UserDetailsModel userDetailsModel);
 }

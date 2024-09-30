@@ -276,36 +276,14 @@
 				AutoMobs</span>
 		</div>
 		<ul class="nav-links">
-			<li><a href="#"> <i class="bx bx-grid-alt"></i> <span
-					class="links_name">Dashboard</span>
-			</a></li>
+			
 
 			<li><a href="adminside" class="active"> <i
-					class='bx bxs-group'></i> <span class="links_name">Customers
-						Section</span>
+					class='bx bxs-car-mechanic'></i> <span class="links_name">All
+						Vehicles</span>
 			</a></li>
 
-			<li><a href="carpage"> <i
-					class='bx bxs-car-mechanic'></i> <span class="links_name">Cars
-						Section</span>
-			</a></li>
-
-
-
-
-			<li><a href="#"> <i class='bx bxs-cart-add'></i><span
-					class="links_name">Services</span>
-			</a></li>
-			<li><a href="#"> <i class="bx bx-pie-chart-alt-2"></i> <span
-					class="links_name">Spare Parts</span>
-			</a></li>
 			
-			<li><a href="#"> <i class='bx bxs-spreadsheet'></i> <span
-					class="links_name">Reports</span>
-			</a></li>
-			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
-					<span class="links_name">Log out</span>
-			</a></li>
 		</ul>
 	</div>
 	<section class="home-section">
@@ -313,93 +291,82 @@
 			<div class="sidebar-button">
 				<i class="bx bx-menu sidebarBtn"></i> <span class="dashboard">Dashboard</span>
 			</div>
-			<!-- <div class="search-box">
-          <input type="text" placeholder="Search..." />
-          <i class="bx bx-search"></i>
-        </div> -->
+			
 			<div class="profile-details">
-				 <span class="admin_name">Hello,${customerLogin.getUsername()}</span>
-				<!-- <i class="bx bx-chevron-down"></i> -->
+				 <button class="profile-btn" onclick="location.href='/CarGarageApplicationMVC/profilePage';">
+                    Profile
+                </button>
 			</div>
 		</nav>
 		<div class="home-content">
 			
-			
-
 			<div class="sales-boxes">
 				<div class="recent-sales box">
-
+					<!-- Profile Details -->
+					<h3>Customer Profile</h3>
 					<div class="Wrapper_User_profile_2">
-		<div class="w2">
-				<h3>
-					Id: <span style="color: red; font-size: 13px;">${customerLogin.getUserid()}</span>
-				</h3>
-			</div>
-			
-			<div class="w1">
-				<h3>
-					Name: <span style="color: red; font-size: 13px;">${customerLogin.getUsername()}</span>
-				</h3>
-			</div>
-			<div class="w2">
-				<h3>
-					Email: <span style="color: red; font-size: 13px;">${customerLogin.getUseremail()}</span>
-				</h3>
-			</div>
-			<div class="w2">
-				<h3>
-					Contact number: <span style="color: red; font-size: 13px;">${customerLogin.getUsercontact()}</span>
-				</h3>
-			</div>
-			<div class="w2">
-				<h3>
-					City: <span style="color: red; font-size: 13px;">${customerLogin.getUseraddress()}</span>
-				</h3>
-			</div>
-
-		</div>
-		<div class="Wrapper_User_profile_3"></div>
-					
+						<div class="w2">
+							<h3>
+								Id: <span style="color: red; font-size: 13px;">${customerLogin.getUserid()}</span>
+							</h3>
+						</div>
+						<div class="w1">
+							<h3>
+								Name: <span style="color: red; font-size: 13px;">${customerLogin.getUsername()}</span>
+							</h3>
+						</div>
+						<div class="w2">
+							<h3>
+								Email: <span style="color: red; font-size: 13px;">${customerLogin.getUseremail()}</span>
+							</h3>
+						</div>
+						<div class="w2">
+							<h3>
+								Contact number: <span style="color: red; font-size: 13px;">${customerLogin.getUsercontact()}</span>
+							</h3>
+						</div>
+						<div class="w2">
+							<h3>
+								City: <span style="color: red; font-size: 13px;">${customerLogin.getUseraddress()}</span>
+							</h3>
+						</div>
+					</div>
 				</div>
-				
-				
 			</div>
-			<div class="table-responsive">
-                        <table class="vehicle-table">
-                            <thead>
-                                <tr>
-                                    <th>Vehicle ID</th>
-                                    <th>Make</th>
-                                    <th>Model</th>
-                                    <th>Year</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="vehicle" items="${vehicles}">
-                                    <tr>
-                                        <td>${vehicle.id}</td>
-                                        <td>${vehicle.make}</td>
-                                        <td>${vehicle.model}</td>
-                                        <td>${vehicle.year}</td>
-                                        <td>
-                                            <!-- Pay Bill Button -->
-                                            <button onclick="payBill(${vehicle.id})">Pay Bill</button>
-                                            <!-- View Bill Button -->
-                                            <button onclick="viewBill(${vehicle.id})">View Bill</button>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-		
-			
-		</div>
-		
-		
-	</section>
 
+			<!-- Vehicles Table -->
+			<div class="table-responsive">
+				<h3>Your Vehicles</h3>
+				<table class="vehicle-table">
+					<thead>
+						<tr>
+							<th>Sr.No.</th>
+							<th>Number Plate</th>
+							<th>Model</th>
+							<th>Service Date</th>
+							<th>Running in Km</th>
+							<th>Bills</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="vehicle" items="${vehicles}">
+							<tr>
+								<td>${vehicle.id}</td>
+								<td>${vehicle.make}</td>
+								<td>${vehicle.model}</td>
+								<td>${vehicle.year}</td>
+								<td>
+									<!-- Show Bill Button -->
+									<button onclick="location.href='/CarGarageApplicationMVC/billPage?vehicleId=${vehicle.id}';">Show Bill</button>
+								</td>
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+	</section>
 
 
 </body>

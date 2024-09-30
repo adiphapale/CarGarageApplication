@@ -20,7 +20,7 @@ public class TechniciansRepoImpl implements TechniciansRepo {
 	@Override
 	public List<TechniciansModel> getAllTechnicians() {
 
-		String sql = "select *from TechnicianDetails_1";
+		String sql = "select *from techniciandetails_1";
 
 		List<TechniciansModel> getAllTechie = jdbcTemplate.query(sql, new RowMapper<TechniciansModel>() {
 
@@ -37,7 +37,7 @@ public class TechniciansRepoImpl implements TechniciansRepo {
 
 	@Override
 	public List<TechniciansModel> getTechniciansByName(String tname) {
-		String sql = "select *from TechnicianDetails_1 where tname like ?";
+		String sql = "select *from techniciandetails_1 where tname like ?";
 		String pattern = tname + "%";
 		List<TechniciansModel> getSelectedTechie = null;
 		try {
@@ -58,4 +58,6 @@ public class TechniciansRepoImpl implements TechniciansRepo {
 		}
 		return getSelectedTechie;
 	}
+
+	
 }

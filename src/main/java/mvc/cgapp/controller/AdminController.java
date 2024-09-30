@@ -1,5 +1,7 @@
 package mvc.cgapp.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -7,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.mysql.cj.Session;
 
 import mvc.cgapp.model.AdminModel;
 import mvc.cgapp.service.AdminService;
@@ -25,14 +29,18 @@ public class AdminController {
 	}
 	
 	@PostMapping("/validadmin")
-	public String checkAdmin(AdminModel adminModel,Model model) {
+	public String checkAdmin(AdminModel adminModel,Model model,HttpSession session) {
 		String adminName=adminModel.getAdminName();
 		String adminPass=adminModel.getAdminPassword();
 		System.out.println(adminName+adminPass);
+		
+		
 		boolean res=adminService.checkValidAdmin(adminName, adminPass);
 		if(res==true) {
+			session.setAttribute("adminName", adminName);
+			session.setAttribute("adminPass", adminPass);
 			System.out.println("hii");
-			return "redirect:/clientpannel";
+			return "redirect:/adminside";
 		}else {
 		model.addAttribute("msg","Invalid Credentials ☹️");
 		return "AdminLoginPage";
@@ -45,7 +53,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping("/logoutbtn")
-	public String logoutbtn() {
+	public String logoutbtn(HttpSession session) {
+		session.invalidate();
 		return "index";
 	}
 

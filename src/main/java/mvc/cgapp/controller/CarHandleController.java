@@ -2,6 +2,7 @@ package mvc.cgapp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,45 +37,83 @@ public class CarHandleController {
 	@Autowired
 	TechniciansService techniciansService;
 
+	List<TechniciansModel> getalltechies;
 	
 	@RequestMapping("/carpage")
 	public String carPage(@ModelAttribute("carDetails") VehicleFormModel vehicleFormModel, Model model) {
-		List<TechniciansModel> getalltechies = techniciansService.getAllTechnicians();
+		List<VehicleFormModel> gettingAllCars = userVehicleService.getAllCars();
+		model.addAttribute("vehicles", gettingAllCars);
+		getalltechies = techniciansService.getAllTechnicians();
 		model.addAttribute("techies", getalltechies);
 		return "carpage";
 	}
 	
 	
 	
-	@RequestMapping("/cardetails")
-	public String carDetails(@ModelAttribute("carDetails") VehicleFormModel vehicleFormModel, Model model) {
-		List<TechniciansModel> getalltechies = techniciansService.getAllTechnicians();
-		model.addAttribute("techies", getalltechies);
-		return "CarDetails";
+//	@RequestMapping("/cardetails")
+//	public String carDetails(@ModelAttribute("carDetails") VehicleFormModel vehicleFormModel, Model model) {
+//		List<TechniciansModel> getalltechies = techniciansService.getAllTechnicians();
+//		model.addAttribute("techies", getalltechies);
+//		return "CarDetails";
+//	}
+
+	
+	
+	
+	
+//	@PostMapping("searchcar")
+//	public String searchCar(VehicleFormModel vehicleFormModel, Model model) {
+//
+//		List<TechniciansModel> getalltechies = techniciansService.getAllTechnicians();
+//
+//		model.addAttribute("techies", getalltechies);
+//		
+//		if (vehicleFormModel.getVehiclemodel().isEmpty() && vehicleFormModel.getVehiclenplate().isEmpty()
+//				&& vehicleFormModel.getVisitVentryDate().isEmpty() && vehicleFormModel.getTname() == null) {
+//			List<VehicleFormModel> gettingAllCars = userVehicleService.getAllCars();
+//			model.addAttribute("vehicles", gettingAllCars);
+//		} else {
+//			List<VehicleFormModel> gettingSelectedCars = userVehicleService.getSelectedCars(vehicleFormModel);
+//			
+//			model.addAttribute("carinfo", vehicleFormModel);
+//			model.addAttribute("vehicles", gettingSelectedCars);
+//		}
+//
+//		return "carpage";
+//		/* return "CarDetails"; */
+//	}
+
+	
+	
+	@PostMapping("/searchcar")
+	@ResponseBody
+	public List<VehicleFormModel> searchCar(
+	        @RequestParam(required = false) String vehiclemodel,
+	        @RequestParam(required = false) String vehiclenplate,
+	        @RequestParam(required = false) String visitVentryDate,
+	        @RequestParam(required = false) String tname) {
+
+	    VehicleFormModel searchCriteria = new VehicleFormModel();
+	    searchCriteria.setVehiclemodel(vehiclemodel);
+	    searchCriteria.setVehiclenplate(vehiclenplate);
+	    searchCriteria.setVisitVentryDate(visitVentryDate);
+	    searchCriteria.setTname(tname);
+
+	    System.out.println(searchCriteria);
+	    List<VehicleFormModel> filteredVehicles = userVehicleService.getSelectedCars(searchCriteria);
+
+	    System.out.println("output is:- "+filteredVehicles);
+	    return filteredVehicles;
 	}
 
-	@PostMapping("searchcar")
-	public String searchCar(VehicleFormModel vehicleFormModel, Model model) {
-
-		List<TechniciansModel> getalltechies = techniciansService.getAllTechnicians();
-
-		model.addAttribute("techies", getalltechies);
-		
-		if (vehicleFormModel.getVehiclemodel().isEmpty() && vehicleFormModel.getVehiclenplate().isEmpty()
-				&& vehicleFormModel.getVisitVentryDate().isEmpty() && vehicleFormModel.getTname() == null) {
-			List<VehicleFormModel> gettingAllCars = userVehicleService.getAllCars();
-			model.addAttribute("vehicles", gettingAllCars);
-		} else {
-			List<VehicleFormModel> gettingSelectedCars = userVehicleService.getSelectedCars(vehicleFormModel);
-			
-			model.addAttribute("carinfo", vehicleFormModel);
-			model.addAttribute("vehicles", gettingSelectedCars);
-		}
-
-		return "carpage";
-		/* return "CarDetails"; */
-	}
-
+	
+	
+	
+	
+	
+	
+	
+	
 	@PostMapping("/submitformforvehicle")
 	public String processFormForCar(VehicleFormModel vehicleFormModel, @RequestParam("UserIDCustomer") String userid,
 			Model model) {
@@ -138,6 +177,7 @@ public class CarHandleController {
 	public String addingNewCardetails(VehicleFormModel vehicleFormModel,Model model) {
 		
 		boolean res=carHandleService.addVehicleAndVisitVehicleDetails(vehicleFormModel, null);
+		getalltechies = techniciansService.getAllTechnicians();
 		
 		if(res==true) {
 			VehicleFormModel vehicle=userVehicleService.getSelectedCarByEntryDate(vehicleFormModel.getVisitVentryDate());
@@ -145,6 +185,7 @@ public class CarHandleController {
 			model.addAttribute("msg","data added");
 		}
 		else {
+			model.addAttribute("techies", getalltechies);
 			model.addAttribute("msg","data not added");
 		}
 		return "carpage3";
@@ -156,8 +197,8 @@ public class CarHandleController {
 	
 	
 	@RequestMapping("/updateforcar")
-	public String updateForCar(@RequestParam("VisitID") int vvid,Model model,@ModelAttribute("userinfo") UserDetailsModel userDetailsModel) {
-		
+	public String updateForCar(@RequestParam("VisitID") int vvid,Model model,@ModelAttribute("userinfo") UserDetailsModel userDetailsModel,HttpSession session) {
+		session.setAttribute("VisitID", vvid);
 		System.out.println("visit id for the updation "+vvid);
 		VehicleFormModel vehicleFormModel=userVehicleService.getSelectedCarByID(vvid);
 		System.out.println(vehicleFormModel.getVisitVrun());
@@ -166,6 +207,7 @@ public class CarHandleController {
 		
 		try{
 			selectedUser=userService.getSelectedUsersByVisitID(vvid);
+			model.addAttribute("userinfo",selectedUser);
 			model.addAttribute("customer",selectedUser);
 			model.addAttribute("carinfo",vehicleFormModel);
 			return "carpage2";
@@ -210,6 +252,7 @@ public class CarHandleController {
 		try{
 			selectedUser=userService.getSelectedUsersByVisitID(vehicleFormModel.getVehicleid());
 		}catch(Exception ex) {}
+		model.addAttribute("userinfo",selectedUser);
 		model.addAttribute("customer",selectedUser);
 		
 		return "carpage2";
@@ -231,6 +274,31 @@ public class CarHandleController {
 		return "carpage2";
 		/* return "carupdatepage"; */
 	}
+	
+	
+	
+	
+	@PostMapping("/submitformforvehiclenduser")
+	public String submitFormForVehicleNdUser(UserDetailsModel userDetailsModel,Model model) {
+		System.out.println("user details +"+userDetailsModel.getUserid());
+		UserDetailsModel res=userService.addFirstVehiclendUser(userDetailsModel);
+		
+		if(userDetailsModel.getUserid()!=res.getUserid()) {
+			model.addAttribute("userinfo",res);
+			model.addAttribute("customer",res);
+		}
+		VehicleFormModel oldVehicleDetail=userVehicleService.getSelectedCarByID(userDetailsModel.getUserid());
+		model.addAttribute("carinfo",oldVehicleDetail);
+		model.addAttribute(oldVehicleDetail);
+		return "carpage2";
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	

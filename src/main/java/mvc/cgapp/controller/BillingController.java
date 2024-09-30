@@ -27,8 +27,9 @@ public class BillingController {
 	BillingService billingService;
 	
 	@RequestMapping("/billingPage")
-	public String billingPage(@ModelAttribute("carDetails") VehicleFormModel vehicleFormModel) {
-
+	public String billingPage(@ModelAttribute("carDetails") VehicleFormModel vehicleFormModel,Model model) {
+		List<VehicleFormModel> getAllCars=userVehicleService.getAllCars();
+		model.addAttribute("vehicles",getAllCars);
 		return "billingpage";
 	}
 	

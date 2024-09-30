@@ -165,6 +165,7 @@ public class CarHandleRepoImpl implements CarHandleRepo {
 
 			}, vmodel, vnplate, vvrun, vventryDate, userID, tid);
 		} catch (Exception ex) {
+			ex.printStackTrace();
 		}
 
 		System.out.println("procedure call vvid is:- " + vvid);

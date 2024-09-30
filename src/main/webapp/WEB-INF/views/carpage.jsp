@@ -14,7 +14,8 @@
 <link type="text/css" rel="stylesheet"
 	href="/CarGarageApplicationMVC/URLToReachResourceFolder/css/styleadmin.css" />
 
-
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style type="text/css">
 
 /* Container for the entire form */
@@ -240,14 +241,13 @@
 				AutoMobs</span>
 		</div>
 		<ul class="nav-links">
-			
+
 			<li><a href="#"> <i class="bx bx-grid-alt"></i> <span
 					class="links_name">Dashboard</span>
 			</a></li>
 
-			<li><a href="adminside"> <i
-					class='bx bxs-group'></i> <span class="links_name">Customers
-						Section</span>
+			<li><a href="adminside"> <i class='bx bxs-group'></i> <span
+					class="links_name">Customers Section</span>
 			</a></li>
 
 			<li><a href="carpage" class="active"> <i
@@ -267,18 +267,18 @@
 			<li><a href="techiepage"> <i class="bx bxs-group"></i> <span
 					class="links_name">Technician</span>
 			</a></li>
-			
+
 			<li><a href="billingPage"> <i class="bx bxs-receipt"></i> <span
 					class="links_name">Billing</span>
 			</a></li>
 			<li><a href="#"> <i class='bx bxs-report'></i> <span
 					class="links_name">Reports</span>
 			</a></li>
-			<li class="log_out"><a href="logoutbtn"> <i class="bx bx-log-out"></i>
-					<span class="links_name">Log out</span>
+			<li class="log_out"><a href="logoutbtn"> <i
+					class="bx bx-log-out"></i> <span class="links_name">Log out</span>
 			</a></li>
 
-			
+
 		</ul>
 	</div>
 	<section class="home-section">
@@ -292,7 +292,7 @@
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -314,60 +314,46 @@
 				<div class="recent-sales box">
 
 
-					<form:form action="searchcar" method="POST"
-						modelAttribute="carDetails" id="vehicleForm">
+					<!-- Vehicle Model Field -->
+					<div class="form-group">
+						<label for="inputName4">Search By Vehicle Model</label> <input
+							type="text" class="form-control" id="inputName4"
+							placeholder="Enter Vehicle Model" onkeyup="fetchVehicleData()" />
+						<span id="error-message" style="color: red; display: none;">Invalid
+							vehicle model name.</span>
+					</div>
 
-						<!-- Model number -->
-						<div class="form-group">
-							<label for="nameField">Search By Vehicle Model</label><input
-								type="text" class="form-control" id="inputName4"
-								name="vehiclemodel" placeholder="Enter Vehicle Model"
-								value="${carinfo.vehiclemodel}"
-								onkeyup="validateVehicleModel(); clearValidationMessageforCar('inputName4','error-message')" />
-							<span id="error-message" style="color: red; display: none;">Invalid
-								vehicle model name. Ensure no leading spaces, special
-								characters, and no more than one space between words.</span>
-						</div>
+					<!-- Vehicle Registered Number Field -->
+					<div class="form-group">
+						<label for="inputVehicleNPlate">Search By Vehicle
+							Registered Number</label> <input type="text" id="inputVehicleNPlate"
+							placeholder="Enter Vehicle Registered number" maxlength="10"
+							onkeyup="fetchVehicleData()" /> <span id="vehicleNPlateError"
+							style="color: red; display: none;">Invalid vehicle number
+							plate</span>
+					</div>
 
-						<!-- Number plate Field -->
-						<div class="form-group">
-							<label for="contactField">Search By Vehicle Registered
-								Number</label> <input type="text" id="inputVehicleNPlate"
-								name="vehiclenplate"
-								placeholder="Enter Vehicle Registered number"
-								value="${carinfo.vehiclenplate}" maxlength="10"
-								onkeyup="validateVehicleNumber(); clearValidationMessage('inputVehicleNPlate','vehicleNPlateError')" />
-							<span id="vehicleNPlateError" style="color: red; display: none;">Invalid
-								vehicle number plate</span>
-						</div>
+					<!-- Vehicle Entry Date Field -->
+					<div class="form-group">
+						<label for="inputVehicleDate8">Search By Vehicle Entry
+							Date</label> <input type="date" id="inputVehicleDate8"
+							placeholder="Enter Vehicle Entry Date"
+							onchange="fetchVehicleData()" />
+					</div>
 
-						<!-- Vehicle Entry Date -->
-						<div class="form-group">
-							<label for="emailField">Search By Vehicle Entry Date</label> <input
-								type="date" id="inputVehicleDate8" name="visitVentryDate"
-								placeholder="Enter Vehicle Entry Date"
-								value="${carinfo.visitVentryDate}" />
+					<!-- Technician Field -->
+					<div class="form-group">
+						<label for="selectTechnician">Search By Select Technician</label>
+						<select class="form-control" id="selectTechnician"
+							onchange="fetchVehicleData()">
+							<option value="" disabled selected>Select a technician</option>
+							<option value="">none</option>
+							<c:forEach var="technician" items="${techies}">
+								<option value="${technician.tname}">${technician.tname}</option>
+							</c:forEach>
+						</select>
+					</div>
 
-						</div>
-
-
-
-						<!-- Technician Field -->
-						<div class="form-group">
-							<label for="addressField">Search By Select Technician</label> <select
-								class="form-control" id="selectTechnician" name="tname">
-								<option value="" disabled selected>Select a technician</option>
-								<c:forEach var="technician" items="${techies}">
-									<option value="${technician.tname}">${technician.tname}</option>
-								</c:forEach>
-							</select>
-						</div>
-
-						<!-- Submit Button (Disabled by default) -->
-						<div class="button-container">
-							<button type="submit">Search</button>
-						</div>
-					</form:form>
 				</div>
 			</div>
 			<div class="sales-boxes" style="margin-top: 20px;">
@@ -577,6 +563,52 @@
 				errorMsg.style.display = 'none';
 			}
 		}
+	  
+	  
+	  
+	  
+		function fetchVehicleData() {
+		    var vehicleModel = document.getElementById("inputName4").value.trim();
+		    var vehicleNumber = document.getElementById("inputVehicleNPlate").value.trim();
+		    var vehicleDate = document.getElementById("inputVehicleDate8").value.trim();
+		    var technician = document.getElementById("selectTechnician").value.trim();
+
+		    $.ajax({
+		        url: 'searchcar', // Controller endpoint to process the form
+		        type: 'POST',
+		        dataType: 'json', // Expect JSON from the server
+		        data: {
+		            vehiclemodel: vehicleModel || null,
+		            vehiclenplate: vehicleNumber || null,
+		            visitVentryDate: vehicleDate || null,
+		            tname: technician || null
+		        },
+		        success: function(response) {
+		            // Clear the existing table rows
+		            $("tbody").empty();
+
+		            // Append new rows to the table from the response
+		            response.forEach(function(vehicle, index) {
+		                var row = '<tr>' +
+		                    '<td><a href="updateforcar?VisitID=' + vehicle.vehicleid + '" type="button" class="btn btn-info btn-sm" style="color: white; text-decoration: none">' + (index + 1) + '</a></td>' +
+		                    '<td>' + (vehicle.vehiclemodel || '') + '</td>' +
+		                    '<td>' + (vehicle.vehiclenplate || '') + '</td>' +
+		                    '<td>' + (vehicle.visitVrun || '') + '</td>' +  // Assuming 'visitVrun' should also be shown.
+		                    '<td>' + (vehicle.visitVentryDate || '') + '</td>' +
+		                    '<td>' + (vehicle.tname || '') + '</td>' +
+		                    '<td><button type="button" class="btn btn-danger btn-sm" onclick="confirmDeleteforvehicle(' + vehicle.vehicleid + ')">Delete</button></td>' +
+		                    '</tr>';
+		                    
+		                $("tbody").append(row);  // Append the constructed row to the table body
+		            });
+
+		        },
+		        error: function() {
+		            console.log('Error retrieving data.');
+		        }
+		    });
+		}
+
 	    
 	</script>
 

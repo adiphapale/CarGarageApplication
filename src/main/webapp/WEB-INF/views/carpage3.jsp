@@ -280,7 +280,7 @@
           <i class="bx bx-search"></i>
         </div> -->
 			<div class="profile-details">
-				<img src="" alt="" /> <span class="admin_name">Kartik&Vikram</span>
+				<img src="" alt="" /> <span class="admin_name">${adminName}</span>
 				<!-- <i class="bx bx-chevron-down"></i> -->
 			</div>
 		</nav>
@@ -388,7 +388,7 @@
 
 								<c:if test="${not empty vehicle}">
 									<tr>
-										<td><a href="updateforcar?vvID=${vehicle.vehicleid}"
+										<td><a href="updateforcar?VisitID=${vehicle.vehicleid}"
 											type="button" class="btn btn-info btn-sm"
 											style="color: white; text-decoration: none">${vehicle.vehicleid}</a></td>
 										<td>${vehicle.vehiclemodel }</td>
