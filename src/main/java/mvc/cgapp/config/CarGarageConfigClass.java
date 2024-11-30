@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "mvc.cgapp.controller","mvc.cgapp.service","mvc.cgapp.repository" })
+@ComponentScan(basePackages = { "mvc.cgapp" })
 public class CarGarageConfigClass implements WebMvcConfigurer {
 
 	@Bean
@@ -24,7 +24,7 @@ public class CarGarageConfigClass implements WebMvcConfigurer {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
-	
+
 	@Bean
 	public JdbcTemplate jdbcTemplate() {
 		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
@@ -32,22 +32,34 @@ public class CarGarageConfigClass implements WebMvcConfigurer {
 		return jdbcTemplate;
 	}
 
-	@Bean
-	public DataSource dataSource() {
+	
+	  @Bean 
+	  public DataSource dataSource() {
+	  
+	  DriverManagerDataSource dataSource = new DriverManagerDataSource();
+	  dataSource.setUsername("root"); dataSource.setPassword("root");
+	  dataSource.setUrl("jdbc:mysql://localhost:3306/cg_app_2");
+	  dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+	  
+	  return dataSource; 
+	  }
+	 
 
-		DriverManagerDataSource dataSource = new DriverManagerDataSource();
-		dataSource.setUsername("root");
-		dataSource.setPassword("Reddy9090@");
-		dataSource.setUrl("jdbc:mysql://localhost:3306/cg_app_2?useSSL=false&allowPublicKeyRetrieval=true");
-		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//	@Bean
+//	public DataSource dataSource() {
+//
+//		DriverManagerDataSource dataSource = new DriverManagerDataSource();
+//		dataSource.setUsername("smprowor_kartik");
+//		dataSource.setPassword("{+&VZP*p]R!@");
+//		dataSource.setUrl("jdbc:mysql://localhost:3306/smprowor_cg_app");
+//		dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//
+//		return dataSource;
+//	}
 
-		return dataSource;
-	}
-					
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/URLToReachResourceFolder/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
 	}
-
 
 }

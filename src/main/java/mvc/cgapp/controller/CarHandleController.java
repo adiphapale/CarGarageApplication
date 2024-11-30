@@ -2,7 +2,6 @@ package mvc.cgapp.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import jakarta.servlet.http.HttpSession;
 import mvc.cgapp.model.TechniciansModel;
 import mvc.cgapp.model.UserDetailsModel;
 import mvc.cgapp.model.VehicleFormModel;
